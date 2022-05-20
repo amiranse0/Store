@@ -11,6 +11,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Store">
         <activity
+            android:theme="@style/Theme.Store"
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
+            android:theme="@style/Theme.splash"
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
