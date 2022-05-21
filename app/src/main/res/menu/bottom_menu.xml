@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/classification_menu"
+        android:icon="@drawable/ic_select_product_svgrepo_com"
+        android:title="@string/title_category_bottom_navigation" />
+
+    <item
+        android:id="@+id/newest_producta_menu"
+        android:icon="@drawable/ic_new_svgrepo_com"
+        android:title="@string/title_newest_items_bottom_navigation"/>
+
+    <item
+        android:id="@+id/best_product_menu"
+        android:icon="@drawable/ic_star_svgrepo_com"
+        android:title="@string/title_best_items_bottom_navigation"
+        />
+
+    <item
+        android:id="@+id/favourite_product_menu"
+        android:icon="@drawable/ic_heart_svgrepo_com"
+        android:title="@string/title_favourite_items_bottom_navigation"/>
+
+</menu>

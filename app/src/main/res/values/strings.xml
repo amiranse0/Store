@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Store</string>
+
+    <string name="title_category_bottom_navigation">Category</string>
+    <string name="title_newest_items_bottom_navigation">Newest Itmes</string>
+    <string name="title_best_items_bottom_navigation">best</string>
+    <string name="title_favourite_items_bottom_navigation">favourite</string>
 </resources>
