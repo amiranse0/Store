@@ -1,6 +1,9 @@
 package com.example.store.di
 
+import com.example.store.data.Repository
+import com.example.store.data.source.DataSource
 import com.example.store.data.source.IStoreService
+import com.example.store.data.source.RemoteDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -9,11 +12,16 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
+
+    @Qualifier
+    @Retention(AnnotationRetention.RUNTIME)
+    annotation class RemoteProductDataSource
 
     @Singleton
     @Provides
@@ -38,8 +46,20 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideIStoreService(): IStoreService = provideRetrofit().create(IStoreService::class.java)
+
+    @Singleton
+    @RemoteProductDataSource
+    @Provides
+    fun provideRemoteDataSource(): DataSource = RemoteDataSource(provideIStoreService())
 }
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RepositoryModule{}
+object RepositoryModule{
+
+    @Provides
+    @Singleton
+    fun provideRepository(
+        @NetworkModule.RemoteProductDataSource remoteDataSource: RemoteDataSource
+    ) = Repository(remoteDataSource)
+}
