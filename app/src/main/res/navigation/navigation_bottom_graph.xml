@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_bottom_graph"
+    app:startDestination="@id/category_menu">
+
+    <fragment
+        android:id="@+id/category_menu"
+        android:name="com.example.store.CategoryFragment"
+        android:label="CategoryFragment" />
+    <fragment
+        android:id="@+id/best_product_menu"
+        android:name="com.example.store.BestProductFragment"
+        android:label="BestProductFragment" />
+    <fragment
+        android:id="@+id/favourite_product_menu"
+        android:name="com.example.store.FavouriteProductFragment"
+        android:label="FavouriteProductFragment" />
+    <fragment
+        android:id="@+id/newest_product_menu"
+        android:name="com.example.store.NewProductFragment"
+        android:label="NewProductFragment" />
+</navigation>

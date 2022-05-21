@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/classification_menu"
+        android:id="@+id/category_menu"
         android:icon="@drawable/ic_select_product_svgrepo_com"
         android:title="@string/title_category_bottom_navigation" />
 
     <item
-        android:id="@+id/newest_producta_menu"
+        android:id="@+id/newest_product_menu"
         android:icon="@drawable/ic_new_svgrepo_com"
         android:title="@string/title_newest_items_bottom_navigation"/>
 
