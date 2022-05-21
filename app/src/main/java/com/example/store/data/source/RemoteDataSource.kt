@@ -36,6 +36,4 @@ class RemoteDataSource(
         bestQuery["page"] = "$page"
         return service.getProduct(bestQuery)
     }
-
-
 }
