@@ -8,7 +8,6 @@ import androidx.lifecycle.lifecycleScope
 import com.example.store.databinding.FragmentFavouriteProductBinding
 import com.example.store.viewmodels.FavouriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
