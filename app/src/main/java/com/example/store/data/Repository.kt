@@ -1,12 +1,14 @@
 package com.example.store.data
 
 import com.example.store.data.model.ProductItem
+import com.example.store.data.source.DataSource
 import com.example.store.data.source.RemoteDataSource
+import com.example.store.di.AppModule
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class Repository @Inject constructor(private val remoteDataSource: RemoteDataSource) {
+class Repository @Inject constructor(@AppModule.RemoteProductDataSource private val remoteDataSource: DataSource) {
 
     suspend fun getLatestProducts(page: Int):Flow<Result<List<ProductItem>>> = flow {
         emit(Result.Loading)

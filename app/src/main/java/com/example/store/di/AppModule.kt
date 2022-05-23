@@ -15,12 +15,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
+
 @Module
 @InstallIn(SingletonComponent::class)
-object NetworkModule {
+object AppModule {
 
     @Qualifier
-    @Retention(AnnotationRetention.RUNTIME)
+    @Retention(AnnotationRetention.BINARY)
     annotation class RemoteProductDataSource
 
     @Singleton
@@ -51,15 +52,10 @@ object NetworkModule {
     @RemoteProductDataSource
     @Provides
     fun provideRemoteDataSource(): DataSource = RemoteDataSource(provideIStoreService())
-}
 
-@Module
-@InstallIn(SingletonComponent::class)
-object RepositoryModule{
-
-    @Provides
-    @Singleton
-    fun provideRepository(
-        @NetworkModule.RemoteProductDataSource remoteDataSource: RemoteDataSource
-    ) = Repository(remoteDataSource)
+//    @Provides
+//    @Singleton
+//    fun provideRepository(
+//        @RemoteProductDataSource remoteDataSource: RemoteDataSource
+//    ) = Repository(remoteDataSource)
 }
