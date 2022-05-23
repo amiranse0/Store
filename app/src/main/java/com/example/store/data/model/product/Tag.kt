@@ -1,4 +1,4 @@
-package com.example.store.data.model
+package com.example.store.data.model.product
 
 data class Tag(
     val id: Int,

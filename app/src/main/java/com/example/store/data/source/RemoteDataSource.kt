@@ -1,7 +1,8 @@
 package com.example.store.data.source
 
 import com.example.store.data.Keys
-import com.example.store.data.model.ProductItem
+import com.example.store.data.model.category.CategoryItem
+import com.example.store.data.model.product.ProductItem
 
 class RemoteDataSource(
     private val service: IStoreService
@@ -9,8 +10,7 @@ class RemoteDataSource(
     private val query =
         hashMapOf(
             "consumer_key" to Keys.consumerKey,
-            "consumer_secret" to Keys.consumerSecret,
-            "per_page" to "20"
+            "consumer_secret" to Keys.consumerSecret
         )
 
     override suspend fun getLatestProducts(page: Int): List<ProductItem> {
@@ -18,7 +18,8 @@ class RemoteDataSource(
         latestQuery["orderby"] = "date"
         latestQuery["order"] = "desc"
         latestQuery["page"] = "$page"
-        return service.getProduct(latestQuery)
+        latestQuery["per_page"] = "20"
+        return service.getProducts(latestQuery)
     }
 
     override suspend fun getFavouriteProducts(page: Int): List<ProductItem> {
@@ -26,7 +27,8 @@ class RemoteDataSource(
         favouriteQuery["orderby"] = "popularity"
         favouriteQuery["order"] = "desc"
         favouriteQuery["page"] = "$page"
-        return service.getProduct(favouriteQuery)
+        favouriteQuery["per_page"] = "20"
+        return service.getProducts(favouriteQuery)
     }
 
     override suspend fun getBestProducts(page: Int): List<ProductItem> {
@@ -34,6 +36,11 @@ class RemoteDataSource(
         bestQuery["orderby"] = "rating"
         bestQuery["order"] = "desc"
         bestQuery["page"] = "$page"
-        return service.getProduct(bestQuery)
+        bestQuery["per_page"] = "20"
+        return service.getProducts(bestQuery)
+    }
+
+    override suspend fun getCategories(): List<CategoryItem> {
+        return service.getCategories(query)
     }
 }

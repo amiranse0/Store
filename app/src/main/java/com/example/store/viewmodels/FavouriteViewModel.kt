@@ -6,7 +6,7 @@ import com.example.store.data.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import com.example.store.data.Result
-import com.example.store.data.model.ProductItem
+import com.example.store.data.model.product.ProductItem
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

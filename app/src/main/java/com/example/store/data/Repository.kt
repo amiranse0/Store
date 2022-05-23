@@ -1,6 +1,7 @@
 package com.example.store.data
 
-import com.example.store.data.model.ProductItem
+import com.example.store.data.model.category.CategoryItem
+import com.example.store.data.model.product.ProductItem
 import com.example.store.data.source.DataSource
 import com.example.store.di.AppModule
 import kotlinx.coroutines.flow.flow
@@ -35,6 +36,16 @@ class Repository @Inject constructor(@AppModule.RemoteProductDataSource private 
             val bestProducts = remoteDataSource.getBestProducts(page)
             emit(Result.Success(bestProducts))
         }catch (e:Exception){
+            emit(Result.Error(e))
+        }
+    }
+
+    suspend fun getCategories(): Flow<Result<List<CategoryItem>>> = flow {
+        emit(Result.Loading)
+        try {
+            val categories = remoteDataSource.getCategories()
+            emit(Result.Success(categories))
+        } catch (e:Exception){
             emit(Result.Error(e))
         }
     }
