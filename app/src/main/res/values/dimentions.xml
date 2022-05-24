@@ -2,4 +2,6 @@
 <resources>
     <dimen name="height_navigation_bar">48dp</dimen>
     <dimen name="elevation_size">5dp</dimen>
+    <dimen name="height_card_view">150dp</dimen>
+    <dimen name="width_card_view">150dp</dimen>
 </resources>

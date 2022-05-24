@@ -53,9 +53,4 @@ object AppModule {
     @Provides
     fun provideRemoteDataSource(): DataSource = RemoteDataSource(provideIStoreService())
 
-//    @Provides
-//    @Singleton
-//    fun provideRepository(
-//        @RemoteProductDataSource remoteDataSource: RemoteDataSource
-//    ) = Repository(remoteDataSource)
 }
