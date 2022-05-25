@@ -1,4 +1,4 @@
-package com.example.store.viewmodels
+package com.example.store.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,21 +11,21 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class BestProductViewModel @Inject constructor(
+class NewestProductViewModel @Inject constructor(
     private val repository: Repository
 ):ViewModel() {
     init {
-        getBestProducts(1)
+        getNewestProducts(1)
     }
 
-    private val _bestProductsStateFlow =
+    private val _newestProductsStateFlow =
         MutableStateFlow<Result<List<ProductItem>>>(Result.Loading)
-    val bestProductsStateFlow = _bestProductsStateFlow
+    val newestProductsStateFlow = _newestProductsStateFlow
 
-    fun getBestProducts(page: Int) {
+    fun getNewestProducts(page: Int) {
         viewModelScope.launch {
-            repository.getBestProducts(page).collect {
-                bestProductsStateFlow.value = it
+            repository.getLatestProducts(page).collect {
+                newestProductsStateFlow.value = it
             }
         }
     }

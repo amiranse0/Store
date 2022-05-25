@@ -1,31 +1,31 @@
-package com.example.store
+package com.example.store.ui
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.store.databinding.FragmentBestProductBinding
-import com.example.store.viewmodels.BestProductViewModel
+import com.example.store.R
+import com.example.store.databinding.FragmentNewProductBinding
+import com.example.store.ui.viewmodels.NewestProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class BestProductFragment:Fragment(R.layout.fragment_best_product) {
+class NewProductFragment:Fragment(R.layout.fragment_new_product) {
 
-    private lateinit var binding:FragmentBestProductBinding
+    private lateinit var binding: FragmentNewProductBinding
+    private val viewModel by viewModels<NewestProductViewModel>()
 
-    private val viewModel by viewModels<BestProductViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = FragmentBestProductBinding.bind(view)
+        binding = FragmentNewProductBinding.bind(view)
 
         lifecycleScope.launch {
-            viewModel.bestProductsStateFlow.collect{
+            viewModel.newestProductsStateFlow.collect{
                 binding.tv.text = it.toString()
             }
         }
-
     }
 }
