@@ -7,9 +7,9 @@ import retrofit2.http.QueryMap
 
 interface IStoreService {
 
-    @GET("product")
+    @GET("products")
     suspend fun getProducts(@QueryMap hashMap: HashMap<String, String>): List<ProductItem>
 
-    @GET("categories")
+    @GET("products/categories")
     suspend fun getCategories(@QueryMap hashMap: HashMap<String, String>): List<CategoryItem>
 }

@@ -29,6 +29,7 @@ object AppModule {
     fun provideRetrofit(): Retrofit = Retrofit.Builder()
         .baseUrl("https://woocommerce.maktabsharif.ir/wp-json/wc/v3/")
         .addConverterFactory(GsonConverterFactory.create())
+        .client(provideClient())
         .build()
 
 

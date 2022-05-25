@@ -16,7 +16,6 @@ class RemoteDataSource(
     override suspend fun getLatestProducts(page: Int): List<ProductItem> {
         val latestQuery = query
         latestQuery["orderby"] = "date"
-        latestQuery["order"] = "desc"
         latestQuery["page"] = "$page"
         latestQuery["per_page"] = "20"
         return service.getProducts(latestQuery)
@@ -25,7 +24,6 @@ class RemoteDataSource(
     override suspend fun getFavouriteProducts(page: Int): List<ProductItem> {
         val favouriteQuery = query
         favouriteQuery["orderby"] = "popularity"
-        favouriteQuery["order"] = "desc"
         favouriteQuery["page"] = "$page"
         favouriteQuery["per_page"] = "20"
         return service.getProducts(favouriteQuery)
@@ -34,7 +32,6 @@ class RemoteDataSource(
     override suspend fun getBestProducts(page: Int): List<ProductItem> {
         val bestQuery = query
         bestQuery["orderby"] = "rating"
-        bestQuery["order"] = "desc"
         bestQuery["page"] = "$page"
         bestQuery["per_page"] = "20"
         return service.getProducts(bestQuery)
