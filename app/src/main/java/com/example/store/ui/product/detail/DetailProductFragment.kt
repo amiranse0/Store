@@ -24,6 +24,18 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
         binding = FragmentDetailProductBinding.bind(view)
 
         createGallery()
+        detailProduct()
+    }
+
+    private fun detailProduct() {
+        val title = arguments?.getString("title")
+        binding.titleProduct.text = title
+
+        val description = arguments?.getString("description")
+        binding.descriptionProduct.text = getString(R.string.description_format, description)
+
+        val price = arguments?.getString("price")
+        binding.priceProduct.text = getString(R.string.price_format, price)
     }
 
     private fun createGallery() {
@@ -31,21 +43,13 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
 
         recyclerView = binding.galleryRc
 
-        val list1 = arrayListOf(
-            "https://i.picsum.photos/id/419/200/300.jpg?hmac=jvSs1zyCZ3ATdTlvdfcTKBBGcrgnCk3EAvZt352Fbco",
-            "https://i.picsum.photos/id/237/200/300.jpg?hmac=TmmQSbShHz9CdQm0NkEjx1Dyh_Y984R9LpNrpvH2D_U"
-        )
-
-        if(images != null){
+        if (images != null) {
             recyclerAdaptor = GalleryAdapter(images)
-        }
-        else recyclerAdaptor = GalleryAdapter(emptyList())
+        } else recyclerAdaptor = GalleryAdapter(emptyList())
 
         recyclerView.layoutManager = LinearLayoutManager(
             requireContext(), LinearLayoutManager.HORIZONTAL, false
         )
         recyclerView.adapter = recyclerAdaptor
-
-        Log.d("TAG", "${images?.size}")
     }
 }

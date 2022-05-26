@@ -12,4 +12,7 @@
     <dimen name="height_text_view_category">50dp</dimen>
     <dimen name="size_name_category">20sp</dimen>
     <dimen name="size_height_rc_gallery">200dp</dimen>
+    <dimen name="size_title_product">25sp</dimen>
+    <dimen name="size_description_product">16sp</dimen>
+    <dimen name="top_margin_in_product_detail">10dp</dimen>
 </resources>

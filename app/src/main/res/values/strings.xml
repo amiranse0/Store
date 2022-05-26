@@ -5,4 +5,6 @@
     <string name="title_newest_items_bottom_navigation">Newest Items</string>
     <string name="title_best_items_bottom_navigation">best</string>
     <string name="title_favourite_items_bottom_navigation">favourite</string>
+    <string name="price_format">قیمت: %s تومان</string>
+    <string name="description_format">توضیحات: %s</string>
 </resources>

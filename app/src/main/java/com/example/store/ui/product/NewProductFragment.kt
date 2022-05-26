@@ -2,9 +2,11 @@ package com.example.store.ui.product
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.store.R
@@ -29,6 +31,29 @@ class NewProductFragment:Fragment(R.layout.fragment_new_product) {
         binding = FragmentNewProductBinding.bind(view)
 
         getListNewestProduct()
+
+        goToDetail()
+    }
+
+    private fun goToDetail() {
+        recyclerAdaptor.setToClickOnItem(object : ProductAdapter.ClickOnItem {
+            override fun clickOnItem(position: Int, view: View?) {
+                val item = recyclerAdaptor.oldList[position]
+                val bundle = bundleOf(
+                    "title" to item.name,
+                    "images" to item.images.map { it.src },
+                    "price" to item.price,
+                    "description" to item.description,
+                    "category" to item.categories.map { it.name },
+                    "purchasable" to item.purchasable
+                )
+                findNavController().navigate(
+                    R.id.action_newest_product_menu_to_detailProductFragment,
+                    bundle
+                )
+            }
+
+        })
     }
 
     private fun getListNewestProduct() {
