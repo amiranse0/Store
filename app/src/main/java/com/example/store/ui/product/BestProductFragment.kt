@@ -2,13 +2,16 @@ package com.example.store.ui.product
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.store.R
 import com.example.store.data.Result
+import com.example.store.data.model.product.ProductItem
 import com.example.store.databinding.FragmentBestProductBinding
 import com.example.store.ui.viewmodels.BestProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +34,29 @@ class BestProductFragment : Fragment(R.layout.fragment_best_product) {
         binding = FragmentBestProductBinding.bind(view)
 
         getListBestProduct()
+        goToDetail()
 
+    }
+
+    private fun goToDetail() {
+        recyclerAdaptor.setToClickOnItem(object : ProductAdapter.ClickOnItem {
+            override fun clickOnItem(position: Int, view: View?) {
+                val item = recyclerAdaptor.oldList[position]
+                val bundle = bundleOf(
+                    "title" to item.name,
+                    "images" to item.images.map { it.src },
+                    "price" to item.price,
+                    "description" to item.description,
+                    "category" to item.categories.map { it.name },
+                    "purchasable" to item.purchasable
+                )
+                findNavController().navigate(
+                    R.id.action_best_product_menu_to_detailProductFragment,
+                    bundle
+                )
+            }
+
+        })
     }
 
     private fun getListBestProduct() {

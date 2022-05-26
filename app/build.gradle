@@ -11,6 +11,8 @@ plugins {
 
     //Navigation
     id 'androidx.navigation.safeargs.kotlin'
+
+
 }
 
 android {

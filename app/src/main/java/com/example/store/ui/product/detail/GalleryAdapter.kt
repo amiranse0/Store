@@ -1,25 +1,19 @@
-package com.example.store.ui.category
+package com.example.store.ui.product.detail
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.bumptech.glide.Glide
 import com.example.store.R
-import com.example.store.data.model.category.CategoryItem
-import com.example.store.data.model.product.ProductItem
-import com.example.store.databinding.CategoryCardViewBinding
-import com.example.store.databinding.ProductCardViewBinding
-import com.example.store.ui.product.ProductDiffUtil
+import com.example.store.databinding.GalleryCardViewBinding
+import java.util.ArrayList
 
-class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
+class GalleryAdapter(private val items: List<String>) :RecyclerView.Adapter<GalleryAdapter.MyViewHolder>() {
 
-    private var oldList: List<CategoryItem> = emptyList()
     private lateinit var clickOnItem: ClickOnItem
 
-    inner class MyViewHolder(private val binding: CategoryCardViewBinding) :
+    inner class MyViewHolder(private val binding: GalleryCardViewBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
         init {
@@ -27,12 +21,11 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
         }
 
         fun bind(position: Int) {
-            binding.categoryTv.text = oldList[position].name
 
             Glide.with(binding.root)
-                .load(oldList[position].image.src)
+                .load(items[position])
                 .placeholder(R.drawable.ic_baseline_image_24)
-                .into(binding.categoryIv)
+                .into(binding.galleryCardViewIv)
         }
 
         override fun onClick(p0: View?) {
@@ -43,7 +36,7 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = CategoryCardViewBinding.inflate(inflater)
+        val view = GalleryCardViewBinding.inflate(inflater)
 
         return MyViewHolder(view)
     }
@@ -53,7 +46,7 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return oldList.size
+        return items.size
     }
 
     interface ClickOnItem {
@@ -62,12 +55,5 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
 
     fun setToClickOnItem(clickOnItem: ClickOnItem) {
         this.clickOnItem = clickOnItem
-    }
-
-    fun setData(newList: List<CategoryItem>) {
-        val diffUtil = CategoryDiffUtil(oldList, newList)
-        val diffResults = DiffUtil.calculateDiff(diffUtil)
-        oldList = newList
-        diffResults.dispatchUpdatesTo(this)
     }
 }

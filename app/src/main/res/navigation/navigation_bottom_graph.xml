@@ -11,13 +11,29 @@
     <fragment
         android:id="@+id/best_product_menu"
         android:name="com.example.store.ui.product.BestProductFragment"
-        android:label="BestProductFragment" />
+        android:label="BestProductFragment" >
+        <action
+            android:id="@+id/action_best_product_menu_to_detailProductFragment"
+            app:destination="@id/detailProductFragment" />
+    </fragment>
     <fragment
         android:id="@+id/favourite_product_menu"
         android:name="com.example.store.ui.product.FavouriteProductFragment"
-        android:label="FavouriteProductFragment" />
+        android:label="FavouriteProductFragment" >
+        <action
+            android:id="@+id/action_favourite_product_menu_to_detailProductFragment"
+            app:destination="@id/detailProductFragment" />
+    </fragment>
     <fragment
         android:id="@+id/newest_product_menu"
         android:name="com.example.store.ui.product.NewProductFragment"
-        android:label="NewProductFragment" />
+        android:label="NewProductFragment" >
+        <action
+            android:id="@+id/action_newest_product_menu_to_detailProductFragment"
+            app:destination="@id/detailProductFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailProductFragment"
+        android:name="com.example.store.ui.product.detail.DetailProductFragment"
+        android:label="DetailProductFragment" />
 </navigation>

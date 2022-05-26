@@ -6,12 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.store.R
 import com.example.store.data.model.product.ProductItem
 import com.example.store.databinding.ProductCardViewBinding
 
 class ProductAdapter: RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
 
-    private var oldList: List<ProductItem> = emptyList()
+    var oldList: List<ProductItem> = emptyList()
     private lateinit var clickOnItem: ClickOnItem
 
     inner class MyViewHolder(private val binding: ProductCardViewBinding) :
@@ -26,6 +27,7 @@ class ProductAdapter: RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
 
             Glide.with(binding.root)
                 .load(oldList[position].images.first().src)
+                .placeholder(R.drawable.ic_baseline_image_24)
                 .into(binding.cardViewIv)
 
             binding.priceCardViewTv.text = oldList[position].price
