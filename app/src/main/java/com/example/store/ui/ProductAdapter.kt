@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.store.data.model.product.ProductItem
-import com.example.store.databinding.CustomeCardViewBinding
+import com.example.store.databinding.ProductCardViewBinding
 
 
 class ProductAdapter: RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
@@ -15,7 +15,7 @@ class ProductAdapter: RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
     private var oldList: List<ProductItem> = emptyList()
     private lateinit var clickOnItem: ClickOnItem
 
-    inner class MyViewHolder(private val binding: CustomeCardViewBinding) :
+    inner class MyViewHolder(private val binding: ProductCardViewBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
         init {
@@ -38,7 +38,7 @@ class ProductAdapter: RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = CustomeCardViewBinding.inflate(inflater)
+        val view = ProductCardViewBinding.inflate(inflater)
 
         return MyViewHolder(view)
     }

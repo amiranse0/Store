@@ -31,8 +31,6 @@ class BestProductFragment : Fragment(R.layout.fragment_best_product) {
 
         binding = FragmentBestProductBinding.bind(view)
 
-
-
         getListBestProduct()
 
     }
@@ -61,6 +59,5 @@ class BestProductFragment : Fragment(R.layout.fragment_best_product) {
                 }
             }
         }
-
     }
 }
