@@ -2,9 +2,11 @@ package com.example.store.ui.category
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.store.R
@@ -30,6 +32,21 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
 
         getCategories()
 
+        goToCategoryProductList()
+
+    }
+
+    private fun goToCategoryProductList() {
+        recyclerAdaptor.setToClickOnItem(object : CategoryAdapter.ClickOnItem {
+            override fun clickOnItem(position: Int, view: View?) {
+                val category = recyclerAdaptor.oldList[position].id.toString()
+                val bundle = bundleOf("category" to category)
+                findNavController().navigate(
+                    R.id.action_category_menu_to_categoryProductFragment,
+                    bundle
+                )
+            }
+        })
     }
 
     private fun getCategories() {
@@ -39,7 +56,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         recyclerView.adapter = recyclerAdaptor
 
         lifecycleScope.launch {
-            viewModel.categoriesStateFlow.collect{
+            viewModel.categoriesStateFlow.collect {
                 when (it) {
                     is Result.Error -> {
                         binding.categoryPb.visibility = View.GONE

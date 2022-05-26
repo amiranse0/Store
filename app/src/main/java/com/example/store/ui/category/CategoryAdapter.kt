@@ -16,7 +16,7 @@ import com.example.store.ui.product.ProductDiffUtil
 
 class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
 
-    private var oldList: List<CategoryItem> = emptyList()
+    var oldList: List<CategoryItem> = emptyList()
     private lateinit var clickOnItem: ClickOnItem
 
     inner class MyViewHolder(private val binding: CategoryCardViewBinding) :

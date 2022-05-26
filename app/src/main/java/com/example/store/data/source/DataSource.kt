@@ -8,4 +8,5 @@ interface DataSource {
     suspend fun getFavouriteProducts(page: Int) : List<ProductItem>
     suspend fun getBestProducts(page: Int) : List<ProductItem>
     suspend fun getCategories(): List<CategoryItem>
+    suspend fun getSomeCategory(page: Int, category:String): List<ProductItem>
 }

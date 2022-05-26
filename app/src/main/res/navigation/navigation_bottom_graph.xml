@@ -7,7 +7,11 @@
     <fragment
         android:id="@+id/category_menu"
         android:name="com.example.store.ui.category.CategoryFragment"
-        android:label="CategoryFragment" />
+        android:label="CategoryFragment" >
+        <action
+            android:id="@+id/action_category_menu_to_categoryProductFragment"
+            app:destination="@id/categoryProductFragment" />
+    </fragment>
     <fragment
         android:id="@+id/best_product_menu"
         android:name="com.example.store.ui.product.BestProductFragment"
@@ -36,4 +40,12 @@
         android:id="@+id/detailProductFragment"
         android:name="com.example.store.ui.product.detail.DetailProductFragment"
         android:label="DetailProductFragment" />
+    <fragment
+        android:id="@+id/categoryProductFragment"
+        android:name="com.example.store.ui.category.category.CategoryProductFragment"
+        android:label="CategoryProductFragment" >
+        <action
+            android:id="@+id/action_categoryProductFragment_to_detailProductFragment"
+            app:destination="@id/detailProductFragment" />
+    </fragment>
 </navigation>

@@ -43,4 +43,12 @@ class RemoteDataSource(
             "consumer_secret" to Keys.consumerSecret
         ))
     }
+
+    override suspend fun getSomeCategory(page: Int, category: String): List<ProductItem> {
+        val queryForCategory = query
+        queryForCategory["page"] = "$page"
+        queryForCategory["category"] = category
+        queryForCategory["per_page"] = "20"
+        return service.getProducts(queryForCategory)
+    }
 }
