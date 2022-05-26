@@ -5,10 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
+import com.bumptech.glide.Glide
 import com.example.store.data.model.product.ProductItem
 import com.example.store.databinding.ProductCardViewBinding
-
 
 class ProductAdapter: RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
 
@@ -25,8 +24,10 @@ class ProductAdapter: RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
         fun bind(position: Int) {
             binding.titleCardViewTv.text = oldList[position].name
 
-            binding.cardViewIv.load("https://fantasy.premierleague.com/img/favicons/favicon-32x32.png")
-            //binding.cardViewIv.load(oldList[position].images.first().src)
+            Glide.with(binding.root)
+                .load(oldList[position].images.first().src)
+                .into(binding.cardViewIv)
+
             binding.priceCardViewTv.text = oldList[position].price
         }
 

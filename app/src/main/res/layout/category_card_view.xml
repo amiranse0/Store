@@ -24,6 +24,7 @@
                 android:id="@+id/category_tv"
                 android:layout_width="@dimen/category_size_card_view"
                 android:layout_height="@dimen/height_text_view_category"
+                android:textSize="@dimen/size_name_category"
                 android:gravity="center_horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

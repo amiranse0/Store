@@ -10,4 +10,5 @@
     <dimen name="category_size_card_view">200dp</dimen>
     <dimen name="image_view_category_size">150dp</dimen>
     <dimen name="height_text_view_category">50dp</dimen>
+    <dimen name="size_name_category">20sp</dimen>
 </resources>

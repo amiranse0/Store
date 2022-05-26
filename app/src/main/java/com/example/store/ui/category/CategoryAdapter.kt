@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.bumptech.glide.Glide
 import com.example.store.data.model.category.CategoryItem
 import com.example.store.data.model.product.ProductItem
 import com.example.store.databinding.CategoryCardViewBinding
@@ -27,8 +28,9 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
         fun bind(position: Int) {
             binding.categoryTv.text = oldList[position].name
 
-            binding.categoryIv.load("https://fantasy.premierleague.com/img/favicons/favicon-32x32.png")
-            //binding.cardViewIv.load(oldList[position].images.first().src)
+            Glide.with(binding.root)
+                .load(oldList[position].image.src)
+                .into(binding.categoryIv)
         }
 
         override fun onClick(p0: View?) {
