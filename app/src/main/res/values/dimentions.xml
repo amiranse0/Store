@@ -7,4 +7,7 @@
     <dimen name="dimen_of_progress_bar">150dp</dimen>
     <dimen name="margin_for_items">5dp</dimen>
     <dimen name="stroke_size_card_view">1dp</dimen>
+    <dimen name="category_size_card_view">200dp</dimen>
+    <dimen name="image_view_category_size">150dp</dimen>
+    <dimen name="height_text_view_category">50dp</dimen>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.store.ui
+package com.example.store.ui.product
 
 import android.os.Bundle
 import android.view.View
@@ -9,16 +9,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.store.R
 import com.example.store.data.Result
-import com.example.store.databinding.FragmentNewProductBinding
-import com.example.store.ui.viewmodels.NewestProductViewModel
+import com.example.store.databinding.FragmentFavouriteProductBinding
+import com.example.store.ui.viewmodels.FavouriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class NewProductFragment:Fragment(R.layout.fragment_new_product) {
+class FavouriteProductFragment : Fragment(R.layout.fragment_favourite_product) {
 
-    private lateinit var binding: FragmentNewProductBinding
-    private val viewModel by viewModels<NewestProductViewModel>()
+    private lateinit var binding: FragmentFavouriteProductBinding
+    private val viewModel by viewModels<FavouriteViewModel>()
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var recyclerAdaptor: ProductAdapter
@@ -26,30 +26,31 @@ class NewProductFragment:Fragment(R.layout.fragment_new_product) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = FragmentNewProductBinding.bind(view)
+        binding = FragmentFavouriteProductBinding.bind(view)
 
-        getListNewestProduct()
+        getListFavouriteProduct()
+
     }
 
-    private fun getListNewestProduct() {
-        recyclerView = binding.newestProductRc
+    private fun getListFavouriteProduct() {
+        recyclerView = binding.favouriteProductRc
         recyclerAdaptor = ProductAdapter()
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = recyclerAdaptor
 
         lifecycleScope.launch {
-            viewModel.newestProductsStateFlow.collect {
+            viewModel.favouriteProductsStateFlow.collect {
                 when (it) {
                     is Result.Error -> {
-                        binding.newestProductPb.visibility = View.GONE
+                        binding.favouriteProductPb.visibility = View.GONE
                         recyclerAdaptor.setData(emptyList())
                     }
                     is Result.Loading -> {
-                        binding.newestProductPb.visibility = View.VISIBLE
+                        binding.favouriteProductPb.visibility = View.VISIBLE
                         recyclerAdaptor.setData(emptyList())
                     }
                     is Result.Success -> {
-                        binding.newestProductPb.visibility = View.GONE
+                        binding.favouriteProductPb.visibility = View.GONE
                         recyclerAdaptor.setData(it.data)
                     }
                 }

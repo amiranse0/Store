@@ -6,18 +6,18 @@
 
     <fragment
         android:id="@+id/category_menu"
-        android:name="com.example.store.ui.CategoryFragment"
+        android:name="com.example.store.ui.category.CategoryFragment"
         android:label="CategoryFragment" />
     <fragment
         android:id="@+id/best_product_menu"
-        android:name="com.example.store.ui.BestProductFragment"
+        android:name="com.example.store.ui.product.BestProductFragment"
         android:label="BestProductFragment" />
     <fragment
         android:id="@+id/favourite_product_menu"
-        android:name="com.example.store.ui.FavouriteProductFragment"
+        android:name="com.example.store.ui.product.FavouriteProductFragment"
         android:label="FavouriteProductFragment" />
     <fragment
         android:id="@+id/newest_product_menu"
-        android:name="com.example.store.ui.NewProductFragment"
+        android:name="com.example.store.ui.product.NewProductFragment"
         android:label="NewProductFragment" />
 </navigation>

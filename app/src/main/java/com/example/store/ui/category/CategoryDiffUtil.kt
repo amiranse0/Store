@@ -1,11 +1,11 @@
-package com.example.store.ui
+package com.example.store.ui.category
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.store.data.model.product.ProductItem
+import com.example.store.data.model.category.CategoryItem
 
-class ProductDiffUtil(
-    private val oldList: List<ProductItem>,
-    private val newList: List<ProductItem>,
+class CategoryDiffUtil(
+    private val oldList: List<CategoryItem>,
+    private val newList: List<CategoryItem>,
 
     ) : DiffUtil.Callback() {
     override fun getOldListSize(): Int {
@@ -24,7 +24,7 @@ class ProductDiffUtil(
         return when {
             oldList[oldItemPosition].id != newList[newItemPosition].id -> false
             oldList[oldItemPosition].name != newList[newItemPosition].name -> false
-            oldList[oldItemPosition].categories != newList[newItemPosition].categories -> false
+            oldList[oldItemPosition].description != newList[newItemPosition].description -> false
             oldList[oldItemPosition]._links != newList[newItemPosition]._links -> false
             else -> true
         }
