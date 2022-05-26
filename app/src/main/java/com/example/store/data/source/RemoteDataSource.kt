@@ -38,6 +38,9 @@ class RemoteDataSource(
     }
 
     override suspend fun getCategories(): List<CategoryItem> {
-        return service.getCategories(query)
+        return service.getCategories(hashMapOf(
+            "consumer_key" to Keys.consumerKey,
+            "consumer_secret" to Keys.consumerSecret
+        ))
     }
 }

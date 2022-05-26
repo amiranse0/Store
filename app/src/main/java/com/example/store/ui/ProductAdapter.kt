@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.store.data.model.product.ProductItem
 import com.example.store.databinding.CustomeCardViewBinding
 
@@ -23,6 +24,10 @@ class ProductAdapter: RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
 
         fun bind(position: Int) {
             binding.titleCardViewTv.text = oldList[position].name
+
+            binding.cardViewIv.load("https://fantasy.premierleague.com/img/favicons/favicon-32x32.png")
+            //binding.cardViewIv.load(oldList[position].images.first().src)
+            binding.priceCardViewTv.text = oldList[position].price
         }
 
         override fun onClick(p0: View?) {
@@ -59,6 +64,5 @@ class ProductAdapter: RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
         val diffResults = DiffUtil.calculateDiff(diffUtil)
         oldList = newList
         diffResults.dispatchUpdatesTo(this)
-
     }
 }

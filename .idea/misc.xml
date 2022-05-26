@@ -6,6 +6,7 @@
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_star_rate_24.xml" value="0.1125" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_heart_svgrepo_com.xml" value="0.1125" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1055" />
+        <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_new_svgrepo_com.xml" value="0.1125" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_select_product_svgrepo_com.xml" value="0.1125" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_star_svgrepo_com.xml" value="0.1125" />
@@ -18,6 +19,8 @@
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/fragment_favourite_product.xml" value="0.182518115942029" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/fragment_new_product.xml" value="0.182518115942029" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/menu/bottom_menu.xml" value="0.20416666666666666" />
+        <entry key="..\:/bootcamp/final/project/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="..\:/bootcamp/final/project/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
       </map>
     </option>
   </component>

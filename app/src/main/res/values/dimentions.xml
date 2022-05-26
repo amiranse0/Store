@@ -2,6 +2,9 @@
 <resources>
     <dimen name="height_navigation_bar">48dp</dimen>
     <dimen name="elevation_size">5dp</dimen>
-    <dimen name="height_card_view">150dp</dimen>
+    <dimen name="height_card_view">100dp</dimen>
     <dimen name="width_card_view">150dp</dimen>
+    <dimen name="dimen_of_progress_bar">150dp</dimen>
+    <dimen name="margin_for_items">5dp</dimen>
+    <dimen name="stroke_size_card_view">1dp</dimen>
 </resources>
