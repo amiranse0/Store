@@ -1,5 +1,6 @@
 package com.example.store.ui.product
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,6 +32,8 @@ class ProductAdapter: RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
                 .into(binding.cardViewIv)
 
             binding.priceCardViewTv.text = oldList[position].price
+
+            Log.d("PRO", position.toString())
         }
 
         override fun onClick(p0: View?) {

@@ -19,10 +19,10 @@ class HomeActivity : AppCompatActivity() {
         val navController = findNavController(R.id.fragment)
 
         val appBrConfig = AppBarConfiguration(setOf(
-            R.id.favourite_product_menu,
-            R.id.best_product_menu,
-            R.id.newest_product_menu,
-            R.id.category_menu
+            R.id.homeFragment,
+            R.id.categoryFragment,
+            R.id.cartFragment,
+            R.id.accountFragment
         ))
 
         setupActionBarWithNavController(navController,appBrConfig)

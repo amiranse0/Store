@@ -41,9 +41,6 @@ class BestProductFragment : Fragment(R.layout.fragment_best_product) {
     }
 
     private fun goToSome() {
-        binding.click.setOnClickListener {
-            findNavController().navigate(R.id.action_best_product_menu_to_productFragment)
-        }
     }
 
     private fun goToDetail() {
@@ -57,10 +54,6 @@ class BestProductFragment : Fragment(R.layout.fragment_best_product) {
                     "description" to item.description,
                     "category" to item.categories.map { it.name },
                     "purchasable" to item.purchasable
-                )
-                findNavController().navigate(
-                    R.id.action_best_product_menu_to_detailProductFragment,
-                    bundle
                 )
             }
 

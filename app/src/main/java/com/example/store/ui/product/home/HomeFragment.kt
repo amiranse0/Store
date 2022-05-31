@@ -10,15 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.store.R
 import com.example.store.data.Result
 import com.example.store.data.model.product.ProductItem
-import com.example.store.databinding.FragmentProductBinding
-import com.example.store.ui.product.ProductAdapter
+import com.example.store.databinding.HomeProductBinding
 import com.example.store.ui.viewmodels.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ProductFragment : Fragment(R.layout.fragment_product) {
-    private lateinit var binding: FragmentProductBinding
+class HomeFragment : Fragment(R.layout.home_product) {
+    private lateinit var binding: HomeProductBinding
 
     private lateinit var mainRecyclerView: RecyclerView
 
@@ -30,7 +29,7 @@ class ProductFragment : Fragment(R.layout.fragment_product) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentProductBinding.bind(view)
+        binding = HomeProductBinding.bind(view)
 
         putItemsInRows()
         getLatestProduct()
@@ -43,7 +42,7 @@ class ProductFragment : Fragment(R.layout.fragment_product) {
         mainRecyclerView = binding.mainProductRc
         mainAdapter = MainHomeAdaptor(requireContext())
         mainRecyclerView.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            LinearLayoutManager(requireContext())
         mainRecyclerView.adapter = mainAdapter
 
         mainAdapter.setData(metaData)

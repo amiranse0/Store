@@ -1,6 +1,7 @@
 package com.example.store.ui.product.home
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -23,13 +24,14 @@ class MainHomeAdaptor(private val context: Context):RecyclerView.Adapter<MainHom
                 2 -> "favourite"
                 else -> "nothing"
             }
-            oldList[name]?.let { setRecyclerView(binding.rowRc, it) }
+            setRecyclerView(binding.rowRc, oldList[name]?: emptyList())
+            Log.d("MAIN", position.toString())
         }
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
+        val inflater = LayoutInflater.from(context)
         val view = HomeCardViewMainRowBinding.inflate(inflater)
 
         return ViewHolder(view)
@@ -44,9 +46,11 @@ class MainHomeAdaptor(private val context: Context):RecyclerView.Adapter<MainHom
     }
 
     fun setRecyclerView(recyclerView: RecyclerView, items: List<ProductItem>){
-        val innerAdaptor = MainRowHomeAdaptor(items)
+        val innerAdaptor = MainRowHomeAdaptor(context)
         recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         recyclerView.adapter = innerAdaptor
+
+        innerAdaptor.setData(items)
 
     }
 
@@ -55,5 +59,6 @@ class MainHomeAdaptor(private val context: Context):RecyclerView.Adapter<MainHom
         val diffResults = DiffUtil.calculateDiff(diffUtil)
         oldList = newList
         diffResults.dispatchUpdatesTo(this)
+
     }
 }
