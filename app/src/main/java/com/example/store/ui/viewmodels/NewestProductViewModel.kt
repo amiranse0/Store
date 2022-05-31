@@ -25,7 +25,7 @@ class NewestProductViewModel @Inject constructor(
     fun getNewestProducts(page: Int) {
         viewModelScope.launch {
             repository.getLatestProducts(page).collect {
-                newestProductsStateFlow.value = it
+                newestProductsStateFlow.emit(it)
             }
         }
     }

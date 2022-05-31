@@ -36,6 +36,14 @@ class BestProductFragment : Fragment(R.layout.fragment_best_product) {
         getListBestProduct()
         goToDetail()
 
+        goToSome()
+
+    }
+
+    private fun goToSome() {
+        binding.click.setOnClickListener {
+            findNavController().navigate(R.id.action_best_product_menu_to_productFragment)
+        }
     }
 
     private fun goToDetail() {

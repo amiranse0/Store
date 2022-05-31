@@ -38,14 +38,20 @@ class RemoteDataSource(
     }
 
     override suspend fun getCategories(): List<CategoryItem> {
-        return service.getCategories(hashMapOf(
-            "consumer_key" to Keys.consumerKey,
-            "consumer_secret" to Keys.consumerSecret
-        ))
+        return service.getCategories(
+            hashMapOf(
+                "consumer_key" to Keys.consumerKey,
+                "consumer_secret" to Keys.consumerSecret
+            )
+        )
     }
 
     override suspend fun getSomeCategory(page: Int, category: String): List<ProductItem> {
-        val queryForCategory = query
+        val queryForCategory =
+            hashMapOf(
+                "consumer_key" to Keys.consumerKey,
+                "consumer_secret" to Keys.consumerSecret
+            )
         queryForCategory["page"] = "$page"
         queryForCategory["category"] = category
         queryForCategory["per_page"] = "20"

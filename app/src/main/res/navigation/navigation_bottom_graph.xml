@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_best_product_menu_to_detailProductFragment"
             app:destination="@id/detailProductFragment" />
+        <action
+            android:id="@+id/action_best_product_menu_to_productFragment"
+            app:destination="@id/productFragment" />
     </fragment>
     <fragment
         android:id="@+id/favourite_product_menu"
@@ -48,4 +51,8 @@
             android:id="@+id/action_categoryProductFragment_to_detailProductFragment"
             app:destination="@id/detailProductFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="com.example.store.ui.product.home.ProductFragment"
+        android:label="ProductFragment" />
 </navigation>
