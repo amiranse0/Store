@@ -7,6 +7,7 @@ import com.example.store.data.Result
 import com.example.store.data.model.product.ProductItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,6 +25,10 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
     private val _lastProductsStateFlow =
         MutableStateFlow<Result<List<ProductItem>>>(Result.Loading)
     val lastProductsStateFlow = _lastProductsStateFlow
+
+    private val _resultSearchProductsStateFlow =
+        MutableStateFlow<Result<List<ProductItem>>>(Result.Loading)
+    val resultSearchProductsStateFlow = _resultSearchProductsStateFlow
 
     init {
         getBestProducts(1, 10)
@@ -53,5 +58,14 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
                 bestProductsStateFlow.emit(it)
             }
         }
+    }
+
+    fun search(page: Int, searchQuery: String): MutableStateFlow<Result<List<ProductItem>>>{
+        viewModelScope.launch {
+            repository.search(page, searchQuery).collect{
+                resultSearchProductsStateFlow.emit(it)
+            }
+        }
+        return resultSearchProductsStateFlow
     }
 }

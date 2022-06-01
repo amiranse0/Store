@@ -13,7 +13,7 @@ class RemoteDataSource(
             "consumer_secret" to Keys.consumerSecret
         )
 
-    override suspend fun getLatestProducts(page: Int, perPage:Int): List<ProductItem> {
+    override suspend fun getLatestProducts(page: Int, perPage: Int): List<ProductItem> {
         val latestQuery = query
         latestQuery["orderby"] = "date"
         latestQuery["page"] = "$page"
@@ -21,7 +21,7 @@ class RemoteDataSource(
         return service.getProducts(latestQuery)
     }
 
-    override suspend fun getFavouriteProducts(page: Int, perPage:Int): List<ProductItem> {
+    override suspend fun getFavouriteProducts(page: Int, perPage: Int): List<ProductItem> {
         val favouriteQuery = query
         favouriteQuery["orderby"] = "popularity"
         favouriteQuery["page"] = "$page"
@@ -29,7 +29,7 @@ class RemoteDataSource(
         return service.getProducts(favouriteQuery)
     }
 
-    override suspend fun getBestProducts(page: Int, perPage:Int): List<ProductItem> {
+    override suspend fun getBestProducts(page: Int, perPage: Int): List<ProductItem> {
         val bestQuery = query
         bestQuery["orderby"] = "rating"
         bestQuery["page"] = "$page"
@@ -56,5 +56,16 @@ class RemoteDataSource(
         queryForCategory["category"] = category
         queryForCategory["per_page"] = "20"
         return service.getProducts(queryForCategory)
+    }
+
+    override suspend fun searchQuery(perPage: Int, searchQuery: String): List<ProductItem> {
+        val query =
+            hashMapOf(
+                "consumer_key" to Keys.consumerKey,
+                "consumer_secret" to Keys.consumerSecret
+            )
+        query["search"] = searchQuery
+        query["perPage"] = "$perPage"
+        return service.getProducts(query)
     }
 }

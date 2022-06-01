@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class Repository @Inject constructor(@AppModule.RemoteProductDataSource private val remoteDataSource: DataSource) {
 
-    suspend fun getLatestProducts(page: Int, perPage:Int): Flow<Result<List<ProductItem>>> = flow {
+    suspend fun getLatestProducts(page: Int, perPage: Int): Flow<Result<List<ProductItem>>> = flow {
         emit(Result.Loading)
         try {
             val latestProducts = remoteDataSource.getLatestProducts(page, perPage)
@@ -20,17 +20,18 @@ class Repository @Inject constructor(@AppModule.RemoteProductDataSource private 
         }
     }
 
-    suspend fun getFavouriteProducts(page: Int, perPage:Int): Flow<Result<List<ProductItem>>> = flow {
-        emit(Result.Loading)
-        try {
-            val favouriteProducts = remoteDataSource.getFavouriteProducts(page, perPage)
-            emit(Result.Success(favouriteProducts))
-        } catch (e: Exception) {
-            emit(Result.Error(e))
+    suspend fun getFavouriteProducts(page: Int, perPage: Int): Flow<Result<List<ProductItem>>> =
+        flow {
+            emit(Result.Loading)
+            try {
+                val favouriteProducts = remoteDataSource.getFavouriteProducts(page, perPage)
+                emit(Result.Success(favouriteProducts))
+            } catch (e: Exception) {
+                emit(Result.Error(e))
+            }
         }
-    }
 
-    suspend fun getBestProducts(page: Int, perPage:Int): Flow<Result<List<ProductItem>>> = flow {
+    suspend fun getBestProducts(page: Int, perPage: Int): Flow<Result<List<ProductItem>>> = flow {
         emit(Result.Loading)
         try {
             val bestProducts = remoteDataSource.getBestProducts(page, perPage)
@@ -60,4 +61,14 @@ class Repository @Inject constructor(@AppModule.RemoteProductDataSource private 
                 emit(Result.Error(e))
             }
         }
+
+    suspend fun search(page: Int, searchQuery: String): Flow<Result<List<ProductItem>>> = flow {
+        emit(Result.Loading)
+        try {
+            val result = remoteDataSource.searchQuery(page, searchQuery)
+            emit(Result.Success(result))
+        }catch (e:Exception){
+            emit(Result.Error(e))
+        }
+    }
 }
