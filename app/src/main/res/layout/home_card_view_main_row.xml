@@ -5,9 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="250dp">
 
+    <TextView
+        android:id="@+id/row_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:textSize="@dimen/size_title_product"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/row_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:height="50dp"
+        android:text="مشاهده همه"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/row_rc"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/row_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

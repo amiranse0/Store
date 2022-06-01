@@ -13,27 +13,27 @@ class RemoteDataSource(
             "consumer_secret" to Keys.consumerSecret
         )
 
-    override suspend fun getLatestProducts(page: Int): List<ProductItem> {
+    override suspend fun getLatestProducts(page: Int, perPage:Int): List<ProductItem> {
         val latestQuery = query
         latestQuery["orderby"] = "date"
         latestQuery["page"] = "$page"
-        latestQuery["per_page"] = "20"
+        latestQuery["per_page"] = "$perPage"
         return service.getProducts(latestQuery)
     }
 
-    override suspend fun getFavouriteProducts(page: Int): List<ProductItem> {
+    override suspend fun getFavouriteProducts(page: Int, perPage:Int): List<ProductItem> {
         val favouriteQuery = query
         favouriteQuery["orderby"] = "popularity"
         favouriteQuery["page"] = "$page"
-        favouriteQuery["per_page"] = "20"
+        favouriteQuery["per_page"] = "$perPage"
         return service.getProducts(favouriteQuery)
     }
 
-    override suspend fun getBestProducts(page: Int): List<ProductItem> {
+    override suspend fun getBestProducts(page: Int, perPage:Int): List<ProductItem> {
         val bestQuery = query
         bestQuery["orderby"] = "rating"
         bestQuery["page"] = "$page"
-        bestQuery["per_page"] = "20"
+        bestQuery["per_page"] = "$perPage"
         return service.getProducts(bestQuery)
     }
 

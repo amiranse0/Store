@@ -15,16 +15,16 @@ class BestProductViewModel @Inject constructor(
     private val repository: Repository
 ):ViewModel() {
     init {
-        getBestProducts(1)
+        getBestProducts(1, 100)
     }
 
     private val _bestProductsStateFlow =
         MutableStateFlow<Result<List<ProductItem>>>(Result.Loading)
     val bestProductsStateFlow = _bestProductsStateFlow
 
-    fun getBestProducts(page: Int) {
+    fun getBestProducts(page: Int, perPage:Int) {
         viewModelScope.launch {
-            repository.getBestProducts(page).collect {
+            repository.getBestProducts(page, perPage).collect {
                 bestProductsStateFlow.value = it
             }
         }

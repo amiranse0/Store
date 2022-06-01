@@ -6,7 +6,11 @@
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.example.store.ui.category.CategoryFragment"
-        android:label="CategoryFragment" />
+        android:label="CategoryFragment" >
+        <action
+            android:id="@+id/action_categoryFragment_to_categoryProductFragment"
+            app:destination="@id/categoryProductFragment" />
+    </fragment>
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.example.store.ui.product.account.AccountFragment"
@@ -14,9 +18,46 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.store.ui.product.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_detailProductFragment"
+            app:destination="@id/detailProductFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_bestProductFragment"
+            app:destination="@id/bestProductFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_favouriteProductFragment"
+            app:destination="@id/favouriteProductFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_newProductFragment"
+            app:destination="@id/newProductFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.example.store.ui.product.cart.CartFragment"
         android:label="CartFragment" />
+    <fragment
+        android:id="@+id/categoryProductFragment"
+        android:name="com.example.store.ui.category.category.CategoryProductFragment"
+        android:label="CategoryProductFragment" >
+        <action
+            android:id="@+id/action_categoryProductFragment_to_detailProductFragment"
+            app:destination="@id/detailProductFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailProductFragment"
+        android:name="com.example.store.ui.product.detail.DetailProductFragment"
+        android:label="DetailProductFragment" />
+    <fragment
+        android:id="@+id/bestProductFragment"
+        android:name="com.example.store.ui.product.BestProductFragment"
+        android:label="BestProductFragment" />
+    <fragment
+        android:id="@+id/favouriteProductFragment"
+        android:name="com.example.store.ui.product.FavouriteProductFragment"
+        android:label="FavouriteProductFragment" />
+    <fragment
+        android:id="@+id/newProductFragment"
+        android:name="com.example.store.ui.product.NewProductFragment"
+        android:label="NewProductFragment" />
 </navigation>

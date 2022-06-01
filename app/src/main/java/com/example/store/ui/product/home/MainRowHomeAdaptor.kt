@@ -1,9 +1,7 @@
 package com.example.store.ui.product.home
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -16,12 +14,10 @@ import com.example.store.ui.product.ProductDiffUtil
 class MainRowHomeAdaptor(private val context: Context) :
     RecyclerView.Adapter<MainRowHomeAdaptor.ViewHolder>() {
 
-    private var oldList: List<ProductItem> = emptyList()
-
-    private lateinit var clickOnItem: MainRowHomeAdaptor.ClickOnItem
+    var oldList: List<ProductItem> = emptyList()
 
     inner class ViewHolder(private val binding: HomeCardViewItemBinding) :
-        RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(position: Int){
             Glide.with(binding.root)
@@ -29,11 +25,7 @@ class MainRowHomeAdaptor(private val context: Context) :
                 .placeholder(R.drawable.ic_baseline_image_24)
                 .into(binding.homeItemIv)
 
-            Log.d("ROW", position.toString())
-        }
-
-        override fun onClick(p0: View?) {
-            clickOnItem.clickOnItem(adapterPosition, p0)
+            binding.homeItemTv.text = oldList[position].name
         }
 
     }
@@ -51,14 +43,6 @@ class MainRowHomeAdaptor(private val context: Context) :
 
     override fun getItemCount(): Int {
         return oldList.size
-    }
-
-    interface ClickOnItem {
-        fun clickOnItem(position: Int, view: View?)
-    }
-
-    fun setToClickOnItem(clickOnItem: ClickOnItem) {
-        this.clickOnItem = clickOnItem
     }
 
     fun setData(newList: List<ProductItem>) {

@@ -41,6 +41,10 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
             override fun clickOnItem(position: Int, view: View?) {
                 val category = recyclerAdaptor.oldList[position].id.toString()
                 val bundle = bundleOf("category" to category)
+                findNavController().navigate(
+                    R.id.action_categoryFragment_to_categoryProductFragment,
+                    bundle
+                )
             }
         })
     }

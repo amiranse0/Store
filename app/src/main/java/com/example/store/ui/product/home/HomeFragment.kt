@@ -1,17 +1,19 @@
 package com.example.store.ui.product.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.store.R
 import com.example.store.data.Result
 import com.example.store.data.model.product.ProductItem
 import com.example.store.databinding.HomeProductBinding
-import com.example.store.ui.viewmodels.ProductViewModel
+import com.example.store.ui.viewmodels.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -23,7 +25,7 @@ class HomeFragment : Fragment(R.layout.home_product) {
 
     private lateinit var mainAdapter: MainHomeAdaptor
 
-    private val viewModel by viewModels<ProductViewModel>()
+    private val viewModel by viewModels<HomeViewModel>()
 
     private val metaData: HashMap<String, List<ProductItem>> = hashMapOf()
 
@@ -35,12 +37,11 @@ class HomeFragment : Fragment(R.layout.home_product) {
         getLatestProduct()
         getBestProduct()
         getFavouriteProduct()
-
     }
 
     private fun putItemsInRows() {
         mainRecyclerView = binding.mainProductRc
-        mainAdapter = MainHomeAdaptor(requireContext())
+        mainAdapter = MainHomeAdaptor(requireContext(), findNavController())
         mainRecyclerView.layoutManager =
             LinearLayoutManager(requireContext())
         mainRecyclerView.adapter = mainAdapter

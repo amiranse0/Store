@@ -10,30 +10,30 @@ import javax.inject.Inject
 
 class Repository @Inject constructor(@AppModule.RemoteProductDataSource private val remoteDataSource: DataSource) {
 
-    suspend fun getLatestProducts(page: Int): Flow<Result<List<ProductItem>>> = flow {
+    suspend fun getLatestProducts(page: Int, perPage:Int): Flow<Result<List<ProductItem>>> = flow {
         emit(Result.Loading)
         try {
-            val latestProducts = remoteDataSource.getLatestProducts(page)
+            val latestProducts = remoteDataSource.getLatestProducts(page, perPage)
             emit(Result.Success(latestProducts))
         } catch (e: Exception) {
             emit(Result.Error(e))
         }
     }
 
-    suspend fun getFavouriteProducts(page: Int): Flow<Result<List<ProductItem>>> = flow {
+    suspend fun getFavouriteProducts(page: Int, perPage:Int): Flow<Result<List<ProductItem>>> = flow {
         emit(Result.Loading)
         try {
-            val favouriteProducts = remoteDataSource.getFavouriteProducts(page)
+            val favouriteProducts = remoteDataSource.getFavouriteProducts(page, perPage)
             emit(Result.Success(favouriteProducts))
         } catch (e: Exception) {
             emit(Result.Error(e))
         }
     }
 
-    suspend fun getBestProducts(page: Int): Flow<Result<List<ProductItem>>> = flow {
+    suspend fun getBestProducts(page: Int, perPage:Int): Flow<Result<List<ProductItem>>> = flow {
         emit(Result.Loading)
         try {
-            val bestProducts = remoteDataSource.getBestProducts(page)
+            val bestProducts = remoteDataSource.getBestProducts(page, perPage)
             emit(Result.Success(bestProducts))
         } catch (e: Exception) {
             emit(Result.Error(e))

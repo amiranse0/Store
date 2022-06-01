@@ -16,16 +16,16 @@ class FavouriteViewModel @Inject constructor(
 ) : ViewModel() {
 
     init {
-        getFavouriteProducts(1)
+        getFavouriteProducts(1, 100)
     }
 
     private val _favouriteProductsStateFlow =
         MutableStateFlow<Result<List<ProductItem>>>(Result.Loading)
     val favouriteProductsStateFlow = _favouriteProductsStateFlow
 
-    fun getFavouriteProducts(page: Int) {
+    fun getFavouriteProducts(page: Int, perPage:Int) {
         viewModelScope.launch {
-            repository.getFavouriteProducts(page).collect {
+            repository.getFavouriteProducts(page, perPage).collect {
                 favouriteProductsStateFlow.value = it
             }
         }

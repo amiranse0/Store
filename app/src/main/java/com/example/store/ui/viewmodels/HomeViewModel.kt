@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProductViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+class HomeViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
     private val _bestProductsStateFlow =
         MutableStateFlow<Result<List<ProductItem>>>(Result.Loading)
@@ -26,30 +26,30 @@ class ProductViewModel @Inject constructor(private val repository: Repository) :
     val lastProductsStateFlow = _lastProductsStateFlow
 
     init {
-        getBestProducts(1)
-        getLatestProducts(1)
-        getFavouriteProducts(1)
+        getBestProducts(1, 10)
+        getLatestProducts(1, 10)
+        getFavouriteProducts(1, 10)
     }
 
-    fun getFavouriteProducts(page: Int) {
+    fun getFavouriteProducts(page: Int, perPage:Int) {
         viewModelScope.launch {
-            repository.getFavouriteProducts(page).collect {
+            repository.getFavouriteProducts(page, perPage).collect {
                 favouriteProductsStateFlow.emit(it)
             }
         }
     }
 
-    fun getLatestProducts(page: Int) {
+    fun getLatestProducts(page: Int, perPage:Int) {
         viewModelScope.launch {
-            repository.getLatestProducts(page).collect {
+            repository.getLatestProducts(page, perPage).collect {
                 lastProductsStateFlow.emit(it)
             }
         }
     }
 
-    fun getBestProducts(page: Int){
+    fun getBestProducts(page: Int, perPage:Int){
         viewModelScope.launch {
-            repository.getBestProducts(page).collect{
+            repository.getBestProducts(page, perPage).collect{
                 bestProductsStateFlow.emit(it)
             }
         }

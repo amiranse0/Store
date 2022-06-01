@@ -15,16 +15,16 @@ class NewestProductViewModel @Inject constructor(
     private val repository: Repository
 ):ViewModel() {
     init {
-        getNewestProducts(1)
+        getNewestProducts(1, 100)
     }
 
     private val _newestProductsStateFlow =
         MutableStateFlow<Result<List<ProductItem>>>(Result.Loading)
     val newestProductsStateFlow = _newestProductsStateFlow
 
-    fun getNewestProducts(page: Int) {
+    fun getNewestProducts(page: Int, perPage: Int) {
         viewModelScope.launch {
-            repository.getLatestProducts(page).collect {
+            repository.getLatestProducts(page, perPage).collect {
                 newestProductsStateFlow.emit(it)
             }
         }
