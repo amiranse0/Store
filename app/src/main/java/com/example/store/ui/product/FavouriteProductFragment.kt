@@ -48,6 +48,7 @@ class FavouriteProductFragment : Fragment(R.layout.fragment_favourite_product) {
                     "category" to item.categories.map { it.name },
                     "purchasable" to item.purchasable
                 )
+                findNavController().navigate(R.id.action_favouriteProductFragment_to_detailProductFragment, bundle)
             }
 
         })

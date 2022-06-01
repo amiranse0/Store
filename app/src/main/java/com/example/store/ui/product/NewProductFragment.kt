@@ -47,6 +47,7 @@ class NewProductFragment:Fragment(R.layout.fragment_new_product) {
                     "category" to item.categories.map { it.name },
                     "purchasable" to item.purchasable
                 )
+                findNavController().navigate(R.id.action_newProductFragment_to_detailProductFragment, bundle)
             }
 
         })

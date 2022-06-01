@@ -36,11 +36,6 @@ class BestProductFragment : Fragment(R.layout.fragment_best_product) {
         getListBestProduct()
         goToDetail()
 
-        goToSome()
-
-    }
-
-    private fun goToSome() {
     }
 
     private fun goToDetail() {
@@ -55,6 +50,7 @@ class BestProductFragment : Fragment(R.layout.fragment_best_product) {
                     "category" to item.categories.map { it.name },
                     "purchasable" to item.purchasable
                 )
+                findNavController().navigate(R.id.action_bestProductFragment_to_detailProductFragment, bundle)
             }
 
         })

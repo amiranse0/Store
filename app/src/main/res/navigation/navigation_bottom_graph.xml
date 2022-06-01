@@ -51,13 +51,25 @@
     <fragment
         android:id="@+id/bestProductFragment"
         android:name="com.example.store.ui.product.BestProductFragment"
-        android:label="BestProductFragment" />
+        android:label="BestProductFragment" >
+        <action
+            android:id="@+id/action_bestProductFragment_to_detailProductFragment"
+            app:destination="@id/detailProductFragment" />
+    </fragment>
     <fragment
         android:id="@+id/favouriteProductFragment"
         android:name="com.example.store.ui.product.FavouriteProductFragment"
-        android:label="FavouriteProductFragment" />
+        android:label="FavouriteProductFragment" >
+        <action
+            android:id="@+id/action_favouriteProductFragment_to_detailProductFragment"
+            app:destination="@id/detailProductFragment" />
+    </fragment>
     <fragment
         android:id="@+id/newProductFragment"
         android:name="com.example.store.ui.product.NewProductFragment"
-        android:label="NewProductFragment" />
+        android:label="NewProductFragment" >
+        <action
+            android:id="@+id/action_newProductFragment_to_detailProductFragment"
+            app:destination="@id/detailProductFragment" />
+    </fragment>
 </navigation>
