@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_homeFragment_to_newProductFragment"
             app:destination="@id/newProductFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchResultFragment"
+            app:destination="@id/searchResultFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -70,6 +73,14 @@
         android:label="NewProductFragment" >
         <action
             android:id="@+id/action_newProductFragment_to_detailProductFragment"
+            app:destination="@id/detailProductFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="com.example.store.ui.product.home.search.SearchResultFragment"
+        android:label="SearchResultFragment" >
+        <action
+            android:id="@+id/action_searchResultFragment_to_detailProductFragment"
             app:destination="@id/detailProductFragment" />
     </fragment>
 </navigation>

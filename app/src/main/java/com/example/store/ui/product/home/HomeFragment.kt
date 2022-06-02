@@ -69,6 +69,12 @@ class HomeFragment : Fragment(R.layout.home_product) {
         binding.homeSv.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
 
+                if (p0 != null) {
+                    findNavController().navigate(
+                        R.id.action_homeFragment_to_searchResultFragment,
+                        bundleOf("query" to p0)
+                    )
+                }
 
                 return false
             }
@@ -99,8 +105,8 @@ class HomeFragment : Fragment(R.layout.home_product) {
         })
     }
 
-    private fun goToDetailFromSearch(){
-        searchAdapter.setToClickOnItem(object : ProductAdapter.ClickOnItem{
+    private fun goToDetailFromSearch() {
+        searchAdapter.setToClickOnItem(object : ProductAdapter.ClickOnItem {
             override fun clickOnItem(position: Int, view: View?) {
                 val item = searchAdapter.oldList[position]
                 val bundle = bundleOf(
@@ -111,7 +117,10 @@ class HomeFragment : Fragment(R.layout.home_product) {
                     "category" to item.categories.map { it.name },
                     "purchasable" to item.purchasable
                 )
-                findNavController().navigate(R.id.action_homeFragment_to_detailProductFragment, bundle)
+                findNavController().navigate(
+                    R.id.action_homeFragment_to_detailProductFragment,
+                    bundle
+                )
             }
 
         })

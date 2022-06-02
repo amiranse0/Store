@@ -62,10 +62,10 @@ class Repository @Inject constructor(@AppModule.RemoteProductDataSource private 
             }
         }
 
-    suspend fun search(page: Int, searchQuery: String): Flow<Result<List<ProductItem>>> = flow {
+    suspend fun search(perPage: Int, searchQuery: String): Flow<Result<List<ProductItem>>> = flow {
         emit(Result.Loading)
         try {
-            val result = remoteDataSource.searchQuery(page, searchQuery)
+            val result = remoteDataSource.searchQuery(perPage, searchQuery)
             emit(Result.Success(result))
         }catch (e:Exception){
             emit(Result.Error(e))
