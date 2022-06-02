@@ -1,6 +1,7 @@
 package com.example.store.ui.product.home.search
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -36,6 +37,17 @@ class SearchResultFragment : Fragment(R.layout.fragment_result_search) {
         getItemsFromSearch()
 
         goToDetail()
+
+        sortResult()
+    }
+
+    private fun sortResult() {
+        binding.sortLayout.setOnClickListener {
+            val orderDialogFragment = OrderDialogFragment()
+            val args = bundleOf("Query" to query)
+            orderDialogFragment.arguments = args
+            orderDialogFragment.show(parentFragmentManager, "order")
+        }
     }
 
     private fun goToDetail() {
@@ -63,6 +75,7 @@ class SearchResultFragment : Fragment(R.layout.fragment_result_search) {
         recyclerView.adapter = recyclerAdaptor
 
         lifecycleScope.launch {
+            Log.d("QUERY", query)
             viewModel.resultSearch(query).collect {
                 when (it) {
                     is Result.Loading -> {

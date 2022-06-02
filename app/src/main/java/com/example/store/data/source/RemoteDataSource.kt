@@ -68,4 +68,25 @@ class RemoteDataSource(
         query["perPage"] = "$perPage"
         return service.getProducts(query)
     }
+
+    override suspend fun sort(perPage: Int, searchQuery: String, sort: String): List<ProductItem> {
+        val query = hashMapOf(
+            "consumer_key" to Keys.consumerKey,
+            "consumer_secret" to Keys.consumerSecret
+        )
+        query["search"] = searchQuery
+        query["perPage"] = "$perPage"
+        when(sort){
+            "date" -> query["orderby"] = "date"
+            "cheap" -> {
+                query["orderby"] = "price"
+                query["order"] = "asc"
+            }
+            "expensive" -> query["orderby"] = "price"
+            "rating" -> query["orderby"] = "rating"
+            "popularity" -> query["orderby"] = "popularity"
+        }
+
+        return service.getProducts(query)
+    }
 }

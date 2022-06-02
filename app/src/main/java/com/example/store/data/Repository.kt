@@ -71,4 +71,13 @@ class Repository @Inject constructor(@AppModule.RemoteProductDataSource private 
             emit(Result.Error(e))
         }
     }
+
+    suspend fun sort(perPage: Int, searchQuery: String, sort: String): Flow<Result<List<ProductItem>>> = flow {
+        emit(Result.Loading)
+        try {
+            val result = remoteDataSource.sort(perPage, searchQuery, sort)
+        }catch (e:Exception){
+            emit(Result.Error(e))
+        }
+    }
 }

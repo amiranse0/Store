@@ -6,7 +6,9 @@ import com.example.store.data.Repository
 import com.example.store.data.Result
 import com.example.store.data.model.product.ProductItem
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,5 +26,13 @@ class SearchResultViewModel @Inject constructor(private val repository: Reposito
             }
         }
         return searchResultProductsStateFlow
+    }
+
+    fun sort(querySearch: String, orderBy:String){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.sort(100, querySearch, orderBy).collect{
+                searchResultProductsStateFlow.emit(it)
+            }
+        }
     }
 }
