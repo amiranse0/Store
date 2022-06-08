@@ -31,7 +31,7 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
     val resultSearchProductsStateFlow = _resultSearchProductsStateFlow
 
     private val _resultSpecialOffersStateFlow =
-        MutableStateFlow<Result<List<ProductItem>>>(Result.Loading)
+        MutableStateFlow<Result<ProductItem>>(Result.Loading)
     val resultSpecialOffersStateFlow = _resultSpecialOffersStateFlow
 
     init {

@@ -72,7 +72,8 @@ class HomeFragment : Fragment(R.layout.home_product) {
                     is Result.Loading -> {
                     }
                     is Result.Success -> {
-                        sliderAdaptor.setData(it.data)
+                        sliderAdaptor.images = it.data.images.map { it -> it.src }
+                        sliderAdaptor.notifyDataSetChanged()
                     }
                 }
             }

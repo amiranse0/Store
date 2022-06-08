@@ -81,7 +81,7 @@ class Repository @Inject constructor(@AppModule.RemoteProductDataSource private 
         }
     }
 
-    suspend fun getSpecialOffers(): Flow<Result<List<ProductItem>>> = flow {
+    suspend fun getSpecialOffers(): Flow<Result<ProductItem>> = flow {
         emit(Result.Loading)
         try {
             val result = remoteDataSource.getSpecialOffers()

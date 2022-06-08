@@ -15,5 +15,5 @@ interface IStoreService {
     suspend fun getCategories(@QueryMap hashMap: HashMap<String, String>): List<CategoryItem>
 
     @GET("products/{id}")
-    suspend fun getSpecialOffers(@Path("id") id:String, @QueryMap hashMap: HashMap<String, String>): List<ProductItem>
+    suspend fun getSpecialOffers(@Path("id") id:String, @QueryMap hashMap: HashMap<String, String>): ProductItem
 }

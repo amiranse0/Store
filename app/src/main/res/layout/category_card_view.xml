@@ -2,15 +2,23 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/category_size_card_view"
     android:layout_height="@dimen/category_size_card_view"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="10dp"
+    android:layout_margin="10dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:cardCornerRadius="20dp"
+        android:backgroundTint="@color/light_orange"
+        android:elevation="5dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:layout_margin="10dp">
+
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/category_iv"
@@ -25,6 +33,7 @@
                 android:layout_width="@dimen/category_size_card_view"
                 android:layout_height="@dimen/height_text_view_category"
                 android:textSize="@dimen/size_name_category"
+                android:textStyle="bold"
                 android:gravity="center_horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

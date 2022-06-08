@@ -90,7 +90,7 @@ class RemoteDataSource(
         return service.getProducts(query)
     }
 
-    override suspend fun getSpecialOffers(): List<ProductItem> {
+    override suspend fun getSpecialOffers(): ProductItem {
         val query = hashMapOf(
             "consumer_key" to Keys.consumerKey,
             "consumer_secret" to Keys.consumerSecret

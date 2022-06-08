@@ -11,5 +11,5 @@ interface DataSource {
     suspend fun getSomeCategory(page: Int, category: String): List<ProductItem>
     suspend fun searchQuery(perPage: Int, searchQuery: String): List<ProductItem>
     suspend fun sort(perPage: Int, searchQuery: String, sort:String): List<ProductItem>
-    suspend fun getSpecialOffers(): List<ProductItem>
+    suspend fun getSpecialOffers(): ProductItem
 }

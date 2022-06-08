@@ -13,14 +13,14 @@ import com.example.store.ui.product.ProductDiffUtil
 class SpecialOffersAdaptor(private val viewPager2: ViewPager2) :
     RecyclerView.Adapter<SpecialOffersAdaptor.ImageViewHolder>() {
 
-    var oldList: List<ProductItem> = emptyList()
+    var images: List<String> = emptyList()
 
     inner class ImageViewHolder(private val binding: SpecialOffersCardViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(pos: Int) {
             Glide.with(binding.root)
-                .load(oldList[pos].images.first())
+                .load(images[pos])
                 .into(binding.specialOffersIv)
         }
 
@@ -35,19 +35,13 @@ class SpecialOffersAdaptor(private val viewPager2: ViewPager2) :
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         holder.bind(position)
-        if (position == oldList.size - 1){
+        if (position == images.size - 1){
 
         }
     }
 
     override fun getItemCount(): Int {
-        return oldList.size
+        return images.size
     }
 
-    fun setData(newList: List<ProductItem>) {
-        val diffUtil = ProductDiffUtil(oldList, newList)
-        val diffResults = DiffUtil.calculateDiff(diffUtil)
-        oldList = newList
-        diffResults.dispatchUpdatesTo(this)
-    }
 }

@@ -7,9 +7,9 @@
     <dimen name="dimen_of_progress_bar">150dp</dimen>
     <dimen name="margin_for_items">5dp</dimen>
     <dimen name="stroke_size_card_view">1dp</dimen>
-    <dimen name="category_size_card_view">200dp</dimen>
-    <dimen name="image_view_category_size">150dp</dimen>
-    <dimen name="height_text_view_category">50dp</dimen>
+    <dimen name="category_size_card_view">100dp</dimen>
+    <dimen name="image_view_category_size">75dp</dimen>
+    <dimen name="height_text_view_category">25dp</dimen>
     <dimen name="size_name_category">20sp</dimen>
     <dimen name="size_height_rc_gallery">200dp</dimen>
     <dimen name="size_title_product">25sp</dimen>
