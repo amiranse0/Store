@@ -69,12 +69,10 @@ class HomeFragment : Fragment(R.layout.home_product) {
         binding.homeSv.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
 
-                if (p0 != null) {
-                    findNavController().navigate(
-                        R.id.action_homeFragment_to_searchResultFragment,
-                        bundleOf("query" to p0)
-                    )
-                }
+                findNavController().navigate(
+                    R.id.action_homeFragment_to_searchResultFragment,
+                    bundleOf("query" to p0)
+                )
 
                 return false
             }

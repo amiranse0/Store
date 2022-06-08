@@ -29,7 +29,7 @@ class SearchResultViewModel @Inject constructor(private val repository: Reposito
     }
 
     fun sort(querySearch: String, orderBy:String){
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             repository.sort(100, querySearch, orderBy).collect{
                 searchResultProductsStateFlow.emit(it)
             }

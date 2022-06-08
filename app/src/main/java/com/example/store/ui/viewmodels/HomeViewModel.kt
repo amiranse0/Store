@@ -30,6 +30,9 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
         MutableStateFlow<Result<List<ProductItem>>>(Result.Loading)
     val resultSearchProductsStateFlow = _resultSearchProductsStateFlow
 
+    private val _resultSpecialOffersStateFlow = MutableStateFlow<Result<List<ProductItem>>>(Result.Loading)
+    val resultSpecialOffersStateFlow = _resultSpecialOffersStateFlow
+
     init {
         getBestProducts(1, 10)
         getLatestProducts(1, 10)
@@ -67,5 +70,14 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
             }
         }
         return resultSearchProductsStateFlow
+    }
+
+    fun getSpecialOffers(): MutableStateFlow<Result<List<ProductItem>>>{
+        viewModelScope.launch {
+            repository.getSpecialOffers().collect{
+                resultSpecialOffersStateFlow.emit(it)
+            }
+        }
+        return resultSpecialOffersStateFlow
     }
 }
