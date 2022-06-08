@@ -1,6 +1,8 @@
 package com.example.store.data
 
 import com.example.store.data.model.category.CategoryItem
+import com.example.store.data.model.customer.body.Customer
+import com.example.store.data.model.customer.result.CustomerResult
 import com.example.store.data.model.product.ProductItem
 import com.example.store.data.source.DataSource
 import com.example.store.di.AppModule
@@ -76,6 +78,8 @@ class Repository @Inject constructor(@AppModule.RemoteProductDataSource private 
         emit(Result.Loading)
         try {
             val result = remoteDataSource.sort(perPage, searchQuery, sort)
+            emit(Result.Success(result))
+
         }catch (e:Exception){
             emit(Result.Error(e))
         }
@@ -85,6 +89,24 @@ class Repository @Inject constructor(@AppModule.RemoteProductDataSource private 
         emit(Result.Loading)
         try {
             val result = remoteDataSource.getSpecialOffers()
+            emit(Result.Success(result))
+        }catch (e:Exception){
+            emit(Result.Error(e))
+        }
+    }
+    suspend fun createCustomer(customer:Customer): Flow<Result<CustomerResult>> = flow {
+        try {
+            val result = remoteDataSource.createCustomer(customer)
+            emit(Result.Success(result))
+        }catch (e:Exception){
+            emit(Result.Error(e))
+        }
+    }
+
+    suspend fun updateCustomer(customer: Customer,id: String): Flow<Result<CustomerResult>> = flow{
+        try {
+            val result = remoteDataSource.updateCustomer(customer, id)
+            emit(Result.Success(result))
         }catch (e:Exception){
             emit(Result.Error(e))
         }

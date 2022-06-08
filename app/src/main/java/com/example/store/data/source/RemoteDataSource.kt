@@ -2,6 +2,8 @@ package com.example.store.data.source
 
 import com.example.store.data.Keys
 import com.example.store.data.model.category.CategoryItem
+import com.example.store.data.model.customer.body.Customer
+import com.example.store.data.model.customer.result.CustomerResult
 import com.example.store.data.model.product.ProductItem
 
 class RemoteDataSource(
@@ -96,5 +98,21 @@ class RemoteDataSource(
             "consumer_secret" to Keys.consumerSecret
         )
         return service.getSpecialOffers("608", query)
+    }
+
+    override suspend fun createCustomer(customer: Customer): CustomerResult {
+        val query = hashMapOf(
+            "consumer_key" to Keys.consumerKey,
+            "consumer_secret" to Keys.consumerSecret
+        )
+        return service.createCustomer(query, customer)
+    }
+
+    override suspend fun updateCustomer(customer: Customer, id:String): CustomerResult {
+        val query = hashMapOf(
+            "consumer_key" to Keys.consumerKey,
+            "consumer_secret" to Keys.consumerSecret
+        )
+        return service.updateCustomer(query, id, customer)
     }
 }

@@ -1,10 +1,10 @@
 package com.example.store.data.source
 
 import com.example.store.data.model.category.CategoryItem
+import com.example.store.data.model.customer.body.Customer
+import com.example.store.data.model.customer.result.CustomerResult
 import com.example.store.data.model.product.ProductItem
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.QueryMap
+import retrofit2.http.*
 
 interface IStoreService {
 
@@ -15,5 +15,21 @@ interface IStoreService {
     suspend fun getCategories(@QueryMap hashMap: HashMap<String, String>): List<CategoryItem>
 
     @GET("products/{id}")
-    suspend fun getSpecialOffers(@Path("id") id:String, @QueryMap hashMap: HashMap<String, String>): ProductItem
+    suspend fun getSpecialOffers(
+        @Path("id") id: String,
+        @QueryMap hashMap: HashMap<String, String>
+    ): ProductItem
+
+    @POST("customers")
+    suspend fun createCustomer(
+        @QueryMap hashMap: HashMap<String, String>,
+        @Body customer: Customer
+    ): CustomerResult
+
+    @PUT("customers/{id}")
+    suspend fun updateCustomer(
+        @QueryMap hashMap: HashMap<String, String>,
+        @Path("id") id: String,
+        @Body customer: Customer
+    ): CustomerResult
 }
