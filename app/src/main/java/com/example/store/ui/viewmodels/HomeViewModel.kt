@@ -30,16 +30,18 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
         MutableStateFlow<Result<List<ProductItem>>>(Result.Loading)
     val resultSearchProductsStateFlow = _resultSearchProductsStateFlow
 
-    private val _resultSpecialOffersStateFlow = MutableStateFlow<Result<List<ProductItem>>>(Result.Loading)
+    private val _resultSpecialOffersStateFlow =
+        MutableStateFlow<Result<List<ProductItem>>>(Result.Loading)
     val resultSpecialOffersStateFlow = _resultSpecialOffersStateFlow
 
     init {
         getBestProducts(1, 10)
         getLatestProducts(1, 10)
         getFavouriteProducts(1, 10)
+        getSpecialOffers()
     }
 
-    fun getFavouriteProducts(page: Int, perPage:Int) {
+    fun getFavouriteProducts(page: Int, perPage: Int) {
         viewModelScope.launch {
             repository.getFavouriteProducts(page, perPage).collect {
                 favouriteProductsStateFlow.emit(it)
@@ -47,7 +49,7 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
         }
     }
 
-    fun getLatestProducts(page: Int, perPage:Int) {
+    fun getLatestProducts(page: Int, perPage: Int) {
         viewModelScope.launch {
             repository.getLatestProducts(page, perPage).collect {
                 lastProductsStateFlow.emit(it)
@@ -55,29 +57,28 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
         }
     }
 
-    fun getBestProducts(page: Int, perPage:Int){
+    fun getBestProducts(page: Int, perPage: Int) {
         viewModelScope.launch {
-            repository.getBestProducts(page, perPage).collect{
+            repository.getBestProducts(page, perPage).collect {
                 bestProductsStateFlow.emit(it)
             }
         }
     }
 
-    fun search(page: Int, searchQuery: String): MutableStateFlow<Result<List<ProductItem>>>{
+    fun search(page: Int, searchQuery: String): MutableStateFlow<Result<List<ProductItem>>> {
         viewModelScope.launch {
-            repository.search(page, searchQuery).collect{
+            repository.search(page, searchQuery).collect {
                 resultSearchProductsStateFlow.emit(it)
             }
         }
         return resultSearchProductsStateFlow
     }
 
-    fun getSpecialOffers(): MutableStateFlow<Result<List<ProductItem>>>{
+    fun getSpecialOffers() {
         viewModelScope.launch {
-            repository.getSpecialOffers().collect{
+            repository.getSpecialOffers().collect {
                 resultSpecialOffersStateFlow.emit(it)
             }
         }
-        return resultSpecialOffersStateFlow
     }
 }

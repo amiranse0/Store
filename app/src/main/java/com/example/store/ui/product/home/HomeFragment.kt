@@ -11,14 +11,19 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
 import com.example.store.R
 import com.example.store.data.Result
 import com.example.store.data.model.product.ProductItem
 import com.example.store.databinding.HomeProductBinding
 import com.example.store.ui.product.ProductAdapter
+import com.example.store.ui.product.home.slider.SpecialOffersAdaptor
 import com.example.store.ui.viewmodels.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.lang.Math.abs
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.home_product) {
@@ -35,9 +40,14 @@ class HomeFragment : Fragment(R.layout.home_product) {
 
     private val metaData: HashMap<String, List<ProductItem>> = hashMapOf()
 
+    private lateinit var sliderAdaptor: SpecialOffersAdaptor
+    private lateinit var viewPager2: ViewPager2
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = HomeProductBinding.bind(view)
+
+        viewPager2 = binding.specialOffersVp
 
         putItemsInRows()
         getLatestProduct()
@@ -46,6 +56,39 @@ class HomeFragment : Fragment(R.layout.home_product) {
 
         search()
         goToDetailFromSearch()
+        slider()
+    }
+
+    private fun slider() {
+        sliderAdaptor = SpecialOffersAdaptor(viewPager2)
+        viewPager2.offscreenPageLimit = 3
+        viewPager2.clipToPadding = false
+        viewPager2.clipChildren = false
+        viewPager2.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+
+        lifecycleScope.launch {
+            viewModel.resultSpecialOffersStateFlow.collect {
+                when (it) {
+                    is Result.Loading -> {
+                    }
+                    is Result.Success -> {
+                        sliderAdaptor.setData(it.data)
+                    }
+                }
+            }
+        }
+
+        val transformer = CompositePageTransformer()
+        transformer.apply {
+            addTransformer(MarginPageTransformer(40))
+            addTransformer { page, position ->
+                val r = 1 - abs(position)
+                page.scaleY = 0.85f + r + 0.14f
+            }
+        }
+
+        viewPager2.setPageTransformer(transformer)
+
     }
 
     private fun search() {
