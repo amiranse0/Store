@@ -8,4 +8,13 @@
     <string name="price_format">قیمت: %s تومان</string>
     <string name="description_format">توضیحات: %s</string>
     <string name="see_all">مشاهده همه</string>
+    <string name="enter_the_first_name">نام خود را وارد کنید</string>
+    <string name="sign_in">ثبت نام</string>
+    <string name="enter_the_last_name">نام خانوادگی خود را وارد کنید</string>
+    <string name="enter_the_email">ایمیل خود را وارد کنید</string>
+    <string name="enter_the_user_name">نام کاربری خود را وارد کنید</string>
+    <string name="i_already_have_an_account">ورود به حساب کاربری</string>
+    <string name="login">حساب کاربری</string>
+    <string name="enter">ورود</string>
+    <string name="i_have_no_account">ثبت نام</string>
 </resources>

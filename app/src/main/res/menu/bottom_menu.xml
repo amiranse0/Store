@@ -17,7 +17,7 @@
         android:title="@string/title_favourite_items_bottom_navigation" />
 
     <item
-        android:id="@+id/accountFragment"
+        android:id="@+id/loginFragment"
         android:icon="@drawable/ic_baseline_person_24"
         android:title="@string/title_newest_items_bottom_navigation" />
 
