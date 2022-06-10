@@ -16,4 +16,5 @@ interface DataSource {
     suspend fun getSpecialOffers(): ProductItem
     suspend fun createCustomer(customer: Customer): CustomerResult
     suspend fun updateCustomer(customer: Customer, id: String): CustomerResult
+    suspend fun getCustomer(email: String): List<CustomerResult>
 }

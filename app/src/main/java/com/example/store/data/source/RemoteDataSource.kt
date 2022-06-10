@@ -115,4 +115,13 @@ class RemoteDataSource(
         )
         return service.updateCustomer(query, id, customer)
     }
+
+    override suspend fun getCustomer(email: String): List<CustomerResult> {
+        val query = hashMapOf(
+            "consumer_key" to Keys.consumerKey,
+            "consumer_secret" to Keys.consumerSecret
+        )
+        query["email"] = email
+        return service.getCustomer(query)
+    }
 }

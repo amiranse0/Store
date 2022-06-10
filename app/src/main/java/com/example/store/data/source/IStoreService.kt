@@ -32,4 +32,7 @@ interface IStoreService {
         @Path("id") id: String,
         @Body customer: Customer
     ): CustomerResult
+
+    @GET("customers")
+    suspend fun getCustomer(@QueryMap hashMap: HashMap<String, String>): List<CustomerResult>
 }

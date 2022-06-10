@@ -94,18 +94,22 @@ class Repository @Inject constructor(@AppModule.RemoteProductDataSource private 
             emit(Result.Error(e))
         }
     }
-    suspend fun createCustomer(customer:Customer): Flow<Result<CustomerResult>> = flow {
+    suspend fun createCustomer(customer:Customer){
+        remoteDataSource.createCustomer(customer)
+    }
+
+    suspend fun updateCustomer(customer: Customer,id: String): Flow<Result<CustomerResult>> = flow{
         try {
-            val result = remoteDataSource.createCustomer(customer)
+            val result = remoteDataSource.updateCustomer(customer, id)
             emit(Result.Success(result))
         }catch (e:Exception){
             emit(Result.Error(e))
         }
     }
 
-    suspend fun updateCustomer(customer: Customer,id: String): Flow<Result<CustomerResult>> = flow{
+    suspend fun getCustomer(email: String): Flow<Result<List<CustomerResult>>> = flow{
         try {
-            val result = remoteDataSource.updateCustomer(customer, id)
+            val result = remoteDataSource.getCustomer(email)
             emit(Result.Success(result))
         }catch (e:Exception){
             emit(Result.Error(e))

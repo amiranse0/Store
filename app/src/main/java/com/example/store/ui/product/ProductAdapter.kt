@@ -26,10 +26,12 @@ class ProductAdapter: RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
         fun bind(position: Int) {
             binding.titleCardViewTv.text = oldList[position].name
 
-            Glide.with(binding.root)
-                .load(oldList[position].images.first().src)
-                .placeholder(R.drawable.ic_baseline_image_24)
-                .into(binding.cardViewIv)
+            if(oldList[position].images.isNotEmpty()) {
+                Glide.with(binding.root)
+                    .load(oldList[position].images.first().src)
+                    .placeholder(R.drawable.ic_baseline_image_24)
+                    .into(binding.cardViewIv)
+            }
 
             binding.priceCardViewTv.text = oldList[position].price
 

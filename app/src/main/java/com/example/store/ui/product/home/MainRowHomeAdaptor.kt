@@ -20,14 +20,15 @@ class MainRowHomeAdaptor(private val context: Context) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(position: Int){
-            Glide.with(binding.root)
-                .load(oldList[position].images.first().src)
-                .placeholder(R.drawable.ic_baseline_image_24)
-                .into(binding.homeItemIv)
+            if(oldList[position].images.isNotEmpty()) {
+                Glide.with(binding.root)
+                    .load(oldList[position].images.first().src)
+                    .placeholder(R.drawable.ic_baseline_image_24)
+                    .into(binding.homeItemIv)
+            }
 
             binding.homeItemTv.text = oldList[position].name
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
