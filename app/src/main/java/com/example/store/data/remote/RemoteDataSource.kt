@@ -1,4 +1,4 @@
-package com.example.store.data.source
+package com.example.store.data.remote
 
 import com.example.store.data.Keys
 import com.example.store.data.model.category.CategoryItem

@@ -1,4 +1,4 @@
-package com.example.store.ui.customer
+package com.example.store.ui.customer.signin
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,8 +9,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CustomerViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
-
+class SignInViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
     suspend fun createCustomer(customer: Customer) {
         repository.createCustomer(customer)

@@ -34,6 +34,7 @@ class SearchResultFragment : Fragment(R.layout.fragment_result_search) {
 
         binding = FragmentResultSearchBinding.bind(view)
 
+
         getItemsFromSearch()
 
         goToDetail()

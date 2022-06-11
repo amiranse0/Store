@@ -1,9 +1,8 @@
 package com.example.store.di
 
-import com.example.store.data.Repository
-import com.example.store.data.source.DataSource
-import com.example.store.data.source.IStoreService
-import com.example.store.data.source.RemoteDataSource
+import com.example.store.data.remote.DataSource
+import com.example.store.data.remote.IStoreService
+import com.example.store.data.remote.RemoteDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

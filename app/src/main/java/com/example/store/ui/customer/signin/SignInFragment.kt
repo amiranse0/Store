@@ -1,7 +1,6 @@
 package com.example.store.ui.customer.signin
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -10,9 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.store.R
 import com.example.store.data.model.customer.body.Billing
 import com.example.store.data.model.customer.body.Customer
-import com.example.store.data.model.customer.body.Shipping
 import com.example.store.databinding.FragmentSignInBinding
-import com.example.store.ui.customer.CustomerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -20,7 +17,7 @@ import kotlinx.coroutines.launch
 class SignInFragment: Fragment(R.layout.fragment_sign_in) {
 
     private lateinit var binding: FragmentSignInBinding
-    private val viewModel by viewModels<CustomerViewModel>()
+    private val viewModel by viewModels<SignInViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,7 +32,7 @@ class SignInFragment: Fragment(R.layout.fragment_sign_in) {
         binding.signInBtn.setOnClickListener {
             lifecycleScope.launch{
                 val customer = Customer(
-                    first_name = binding.firstNameIet.text.toString(),
+                    firstName = binding.firstNameIet.text.toString(),
                     last_name = binding.lastNameIet.text.toString(),
                     email = binding.emailIet.text.toString(),
                     username = binding.userNameIet.text.toString(),

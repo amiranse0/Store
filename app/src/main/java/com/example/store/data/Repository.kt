@@ -4,7 +4,7 @@ import com.example.store.data.model.category.CategoryItem
 import com.example.store.data.model.customer.body.Customer
 import com.example.store.data.model.customer.result.CustomerResult
 import com.example.store.data.model.product.ProductItem
-import com.example.store.data.source.DataSource
+import com.example.store.data.remote.DataSource
 import com.example.store.di.AppModule
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.Flow

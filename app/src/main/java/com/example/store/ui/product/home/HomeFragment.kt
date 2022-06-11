@@ -180,7 +180,7 @@ class HomeFragment : Fragment(R.layout.home_product) {
 
     private fun getFavouriteProduct() {
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.favouriteProductsStateFlow.collect {
                 when (it) {
                     is Result.Error -> {

@@ -3,11 +3,9 @@ package com.example.store.ui.customer.login
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.store.R
 import com.example.store.databinding.FragmentLoginBinding
-import com.example.store.ui.customer.CustomerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -17,4 +17,7 @@
     <string name="login">حساب کاربری</string>
     <string name="enter">ورود</string>
     <string name="i_have_no_account">ثبت نام</string>
+    <string name="no_connection">اتصال برقرار نیست</string>
+    <string name="connected">اتصال برقرار شد</string>
+    <string name="retry">تلاش مجدد</string>
 </resources>
