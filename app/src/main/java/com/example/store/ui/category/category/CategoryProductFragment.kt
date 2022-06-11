@@ -73,15 +73,12 @@ class CategoryProductFragment:Fragment(R.layout.fragment_category_product) {
             viewModel.productsStateFlow.collect{
                 when(it){
                     is Result.Success -> {
-                        binding.productPb.visibility = View.GONE
                         recyclerAdaptor.setData(it.data)
                     }
                     is Result.Error -> {
-                        binding.productPb.visibility = View.GONE
 
                     }
                     is Result.Loading -> {
-                        binding.productPb.visibility = View.VISIBLE
                     }
                 }
             }

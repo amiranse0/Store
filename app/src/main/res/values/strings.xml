@@ -20,4 +20,8 @@
     <string name="no_connection">اتصال برقرار نیست</string>
     <string name="connected">اتصال برقرار شد</string>
     <string name="retry">تلاش مجدد</string>
+    <string name="search_in_store">جست و جو در استور</string>
+    <string name="title_best_product">بهترین</string>
+    <string name="title_favourite_product">محبوب ترین</string>
+    <string name="title_latest_product">جدیدترین</string>
 </resources>
