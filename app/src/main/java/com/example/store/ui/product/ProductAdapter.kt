@@ -35,6 +35,7 @@ class ProductAdapter: RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
 
             binding.priceCardViewTv.text = oldList[position].price
 
+            Log.d("PRO", position.toString())
         }
 
         override fun onClick(p0: View?) {

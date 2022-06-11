@@ -5,7 +5,6 @@
       <map>
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.128" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.2115" />
-        <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1195" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_shopping_cart_24.xml" value="0.128" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_sort_24.xml" value="0.12" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_star_rate_24.xml" value="0.1125" />
@@ -20,7 +19,7 @@
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/special_offers_card_view.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/splash_image.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/activity_home.xml" value="0.22" />
-        <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/activity_main.xml" value="0.18" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/category_card_view.xml" value="0.18432971014492755" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/custome_card_view.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/dialog_fragment_order.xml" value="0.22" />
@@ -28,7 +27,7 @@
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/fragment_best_product.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/fragment_cart.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/fragment_category.xml" value="0.182518115942029" />
-        <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/fragment_category_product.xml" value="0.33" />
+        <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/fragment_category_product.xml" value="0.41875" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/fragment_customer.xml" value="0.13269927536231885" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/fragment_detail_product.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/fragment_favourite_product.xml" value="0.14720812182741116" />

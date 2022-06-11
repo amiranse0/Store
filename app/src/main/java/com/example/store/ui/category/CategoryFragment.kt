@@ -59,12 +59,15 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
             viewModel.categoriesStateFlow.collect {
                 when (it) {
                     is Result.Error -> {
+                        binding.categoryPb.visibility = View.GONE
                         recyclerAdaptor.setData(emptyList())
                     }
                     is Result.Loading -> {
+                        binding.categoryPb.visibility = View.VISIBLE
                         recyclerAdaptor.setData(emptyList())
                     }
                     is Result.Success -> {
+                        binding.categoryPb.visibility = View.GONE
                         recyclerAdaptor.setData(it.data)
                     }
                 }

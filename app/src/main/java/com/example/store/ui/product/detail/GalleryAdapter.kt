@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.store.R
 import com.example.store.databinding.GalleryCardViewBinding
@@ -11,14 +12,8 @@ import java.util.ArrayList
 
 class GalleryAdapter(private val items: List<String>) :RecyclerView.Adapter<GalleryAdapter.MyViewHolder>() {
 
-    private lateinit var clickOnItem: ClickOnItem
-
     inner class MyViewHolder(private val binding: GalleryCardViewBinding) :
-        RecyclerView.ViewHolder(binding.root), View.OnClickListener {
-
-        init {
-            binding.root.setOnClickListener(this)
-        }
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(position: Int) {
 
@@ -26,10 +21,6 @@ class GalleryAdapter(private val items: List<String>) :RecyclerView.Adapter<Gall
                 .load(items[position])
                 .placeholder(R.drawable.ic_baseline_image_24)
                 .into(binding.galleryCardViewIv)
-        }
-
-        override fun onClick(p0: View?) {
-            clickOnItem.clickOnItem(adapterPosition, p0)
         }
 
     }
@@ -47,13 +38,5 @@ class GalleryAdapter(private val items: List<String>) :RecyclerView.Adapter<Gall
 
     override fun getItemCount(): Int {
         return items.size
-    }
-
-    interface ClickOnItem {
-        fun clickOnItem(position: Int, view: View?)
-    }
-
-    fun setToClickOnItem(clickOnItem: ClickOnItem) {
-        this.clickOnItem = clickOnItem
     }
 }
