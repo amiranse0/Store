@@ -6,7 +6,7 @@
     <string name="title_best_items_bottom_navigation">best</string>
     <string name="title_favourite_items_bottom_navigation">favourite</string>
     <string name="price_format">قیمت: %s تومان</string>
-    <string name="description_format">توضیحات: %s</string>
+    <string name="description_format">توضیحات: \n %s</string>
     <string name="see_all">مشاهده همه</string>
     <string name="enter_the_first_name">نام خود را وارد کنید</string>
     <string name="sign_in">ثبت نام</string>

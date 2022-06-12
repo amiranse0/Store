@@ -92,7 +92,7 @@ class HomeFragment : Fragment(R.layout.home_product) {
                     "purchasable" to item.purchasable
                 )
                 findNavController().navigate(
-                    R.id.action_homeFragment_to_bestProductFragment,
+                    R.id.action_homeFragment_to_detailProductFragment,
                     bundle
                 )
             }
