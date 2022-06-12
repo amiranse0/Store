@@ -42,8 +42,6 @@ class HomeFragment : Fragment(R.layout.home_product) {
 
     private val viewModel by viewModels<HomeViewModel>()
 
-    private val metaData: HashMap<String, List<ProductItem>> = hashMapOf()
-
     private lateinit var sliderAdaptor: SpecialOffersAdaptor
     private lateinit var viewPager2: ViewPager2
 
@@ -53,21 +51,114 @@ class HomeFragment : Fragment(R.layout.home_product) {
 
         viewPager2 = binding.specialOffersVp
 
+
+        initValues()
+
         getLatestProduct()
         getBestProduct()
         getFavouriteProduct()
 
-        putDataInRecyclerView(bestAdaptor)
-        putDataInRecyclerView(favouriteAdaptor)
-        putDataInRecyclerView(latestAdaptor)
+        putDataInRecyclerView()
+        goToDetail()
+        goToSeeAll()
 
         search()
         goToDetailFromSearch()
         slider()
     }
 
-    private fun putDataInRecyclerView(adaptor: MainRowHomeAdaptor) {
+    private fun goToSeeAll() {
+        binding.seeAllBestTv.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_bestProductFragment)
+        }
+        binding.seeAllFavouriteTv.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_favouriteProductFragment)
+        }
+        binding.seeAllLatestTv.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_newProductFragment)
+        }
+    }
 
+    private fun goToDetail() {
+        bestAdaptor.setToClickOnItem(object : MainRowHomeAdaptor.ClickOnItem {
+            override fun clickOnItem(position: Int, view: View?) {
+                val item = bestAdaptor.oldList[position]
+                val bundle = bundleOf(
+                    "title" to item.name,
+                    "images" to item.images.map { it.src },
+                    "price" to item.price,
+                    "description" to item.description,
+                    "category" to item.categories.map { it.name },
+                    "purchasable" to item.purchasable
+                )
+                findNavController().navigate(
+                    R.id.action_homeFragment_to_bestProductFragment,
+                    bundle
+                )
+            }
+
+        })
+
+        favouriteAdaptor.setToClickOnItem(object : MainRowHomeAdaptor.ClickOnItem {
+            override fun clickOnItem(position: Int, view: View?) {
+                val item = favouriteAdaptor.oldList[position]
+                val bundle = bundleOf(
+                    "title" to item.name,
+                    "images" to item.images.map { it.src },
+                    "price" to item.price,
+                    "description" to item.description,
+                    "category" to item.categories.map { it.name },
+                    "purchasable" to item.purchasable
+                )
+                findNavController().navigate(
+                    R.id.action_homeFragment_to_favouriteProductFragment,
+                    bundle
+                )
+            }
+        })
+
+        latestAdaptor.setToClickOnItem(object : MainRowHomeAdaptor.ClickOnItem {
+            override fun clickOnItem(position: Int, view: View?) {
+                val item = latestAdaptor.oldList[position]
+                val bundle = bundleOf(
+                    "title" to item.name,
+                    "images" to item.images.map { it.src },
+                    "price" to item.price,
+                    "description" to item.description,
+                    "category" to item.categories.map { it.name },
+                    "purchasable" to item.purchasable
+                )
+                findNavController().navigate(
+                    R.id.action_homeFragment_to_newProductFragment,
+                    bundle
+                )
+            }
+
+        })
+    }
+
+    private fun initValues() {
+        mainBestRecyclerView = binding.bestProductRc
+        mainFavouriteRecyclerView = binding.favouriteProductRc
+        mainLatestRecyclerView = binding.latestProductRc
+
+        bestAdaptor = MainRowHomeAdaptor()
+        favouriteAdaptor = MainRowHomeAdaptor()
+        latestAdaptor = MainRowHomeAdaptor()
+    }
+
+    private fun putDataInRecyclerView() {
+        mainBestRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        mainBestRecyclerView.adapter = bestAdaptor
+
+        mainFavouriteRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        mainFavouriteRecyclerView.adapter = favouriteAdaptor
+
+        mainLatestRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        mainLatestRecyclerView.adapter = latestAdaptor
     }
 
     private fun slider() {
@@ -189,7 +280,7 @@ class HomeFragment : Fragment(R.layout.home_product) {
                     is Result.Loading -> {
                     }
                     is Result.Success -> {
-                        metaData["favourite"] = it.data
+                        favouriteAdaptor.setData(it.data)
                     }
                 }
             }
@@ -206,7 +297,7 @@ class HomeFragment : Fragment(R.layout.home_product) {
                     is Result.Loading -> {
                     }
                     is Result.Success -> {
-                        metaData["best"] = it.data
+                        bestAdaptor.setData(it.data)
                     }
                 }
             }
@@ -223,7 +314,7 @@ class HomeFragment : Fragment(R.layout.home_product) {
                     is Result.Loading -> {
                     }
                     is Result.Success -> {
-                        metaData["latest"] = it.data
+                        latestAdaptor.setData(it.data)
                     }
                 }
             }
