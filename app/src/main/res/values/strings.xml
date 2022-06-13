@@ -23,5 +23,6 @@
     <string name="best">بهترین</string>
     <string name="favourite">محبوب ترین</string>
     <string name="latest">جدیدترین</string>
+    <string name="search_box">جست و جو در استور</string>
 
 </resources>

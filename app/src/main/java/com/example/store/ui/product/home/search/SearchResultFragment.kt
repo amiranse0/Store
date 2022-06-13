@@ -1,8 +1,10 @@
 package com.example.store.ui.product.home.search
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -44,10 +46,10 @@ class SearchResultFragment : Fragment(R.layout.fragment_result_search) {
 
     private fun sortResult() {
         binding.sortLayout.setOnClickListener {
-            val orderDialogFragment = OrderDialogFragment()
-            val args = bundleOf("Query" to query)
-            orderDialogFragment.arguments = args
-            orderDialogFragment.show(parentFragmentManager, "order")
+            val orderDialogFragment = Dialog(requireContext())
+            orderDialogFragment.setContentView(R.layout.dialog_fragment_order)
+            orderDialogFragment.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            orderDialogFragment.show()
         }
     }
 

@@ -6,32 +6,57 @@
     android:layout_height="match_parent"
     android:layout_margin="5dp">
 
-    <SearchView
-        android:id="@+id/home_sv"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/home_search_card_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:queryHint="جست و جو در استور" />
+        android:layout_height="54dp"
+        android:elevation="@dimen/elevation_size"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toTopOf="parent">
 
-
-    <LinearLayout
-        android:id="@+id/search_result_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/home_sv">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/search_rc"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="48dp"
+            android:backgroundTint="#ccc"
+            app:cardCornerRadius="20dp">
 
-    </LinearLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/search_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_baseline_search_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/search_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="@string/search_box"
+                    android:textSize="25sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/search_iv"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.cardview.widget.CardView>
+
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/home_sv">
+        app:layout_constraintTop_toBottomOf="@+id/home_search_card_view">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/main_home_layout"
@@ -64,9 +89,9 @@
                 android:id="@+id/see_all_best_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/see_all"
                 android:clickable="true"
                 android:focusable="true"
+                android:text="@string/see_all"
                 android:textSize="20sp"
                 android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="@+id/title_best_home"
@@ -94,9 +119,9 @@
                 android:id="@+id/see_all_favourite_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/see_all"
                 android:clickable="true"
                 android:focusable="true"
+                android:text="@string/see_all"
                 android:textSize="20sp"
                 android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="@+id/title_favourite_home"
@@ -107,7 +132,7 @@
                 android:id="@+id/favourite_product_rc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/title_favourite_home"/>
+                app:layout_constraintTop_toBottomOf="@id/title_favourite_home" />
 
             <TextView
                 android:id="@+id/title_latest_home"
@@ -123,9 +148,9 @@
                 android:id="@+id/see_all_latest_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/see_all"
                 android:clickable="true"
                 android:focusable="true"
+                android:text="@string/see_all"
                 android:textSize="20sp"
                 android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="@+id/title_latest_home"
@@ -136,7 +161,7 @@
                 android:id="@+id/latest_product_rc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/title_latest_home"/>
+                app:layout_constraintTop_toBottomOf="@id/title_latest_home" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
