@@ -38,9 +38,6 @@ class HomeFragment : Fragment(R.layout.home_product) {
     private lateinit var favouriteAdaptor: MainRowHomeAdaptor
     private lateinit var latestAdaptor: MainRowHomeAdaptor
 
-    private lateinit var searchRecyclerView: RecyclerView
-    private lateinit var searchAdapter: ProductAdapter
-
     private val viewModel by viewModels<HomeViewModel>()
 
     private lateinit var sliderAdaptor: SpecialOffersAdaptor
@@ -70,7 +67,7 @@ class HomeFragment : Fragment(R.layout.home_product) {
 
     private fun goToSearchFragment() {
         binding.homeSearchCardView.setOnClickListener{
-            Toast.makeText(requireContext(), "search", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
         }
     }
 

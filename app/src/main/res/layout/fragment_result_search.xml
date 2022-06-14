@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <SearchView
-        android:id="@+id/result_sv"
+    <include
+        android:id="@+id/custom_search_view"
+        layout="@layout/custome_search_view"
+        android:elevation="@dimen/elevation_size"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/light_orange"
-        app:layout_constraintTop_toBottomOf="@+id/result_sv">
+        app:layout_constraintTop_toBottomOf="@+id/custom_search_view">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/sort_layout"

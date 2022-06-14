@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_arrow_forward_24.xml" value="0.171" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_broken_image_24.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.128" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.2115" />
@@ -24,6 +25,7 @@
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/category_card_view.xml" value="0.18432971014492755" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/custome_card_view.xml" value="0.1" />
+        <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/custome_search_view.xml" value="0.1308876811594203" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/dialog_fragment_order.xml" value="0.22" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/fragment_account.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/fragment_best_product.xml" value="0.1" />
@@ -36,7 +38,7 @@
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/fragment_login.xml" value="0.20416666666666666" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/fragment_new_product.xml" value="0.182518115942029" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/fragment_product.xml" value="0.1" />
-        <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/fragment_result_search.xml" value="0.22" />
+        <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/fragment_result_search.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/fragment_search.xml" value="0.14356884057971014" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/fragment_sign_in.xml" value="0.1875" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/gallery_card_view.xml" value="0.1" />

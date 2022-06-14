@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView.OnEditorActionListener
 import androidx.core.os.bundleOf
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -17,11 +20,24 @@ import com.example.store.data.Result
 import com.example.store.databinding.FragmentResultSearchBinding
 import com.example.store.ui.product.ProductAdapter
 import com.example.store.ui.viewmodels.SearchResultViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SearchResultFragment : Fragment(R.layout.fragment_result_search) {
+
+    override fun onStart() {
+        super.onStart()
+        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
+            View.GONE
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
+            View.VISIBLE
+    }
 
     private lateinit var binding: FragmentResultSearchBinding
     private val viewModel by viewModels<SearchResultViewModel>()
@@ -29,19 +45,45 @@ class SearchResultFragment : Fragment(R.layout.fragment_result_search) {
     private lateinit var recyclerView: RecyclerView
     private lateinit var recyclerAdaptor: ProductAdapter
 
-    private val query = arguments?.getString("query") ?: ""
+    private var query: String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentResultSearchBinding.bind(view)
 
+        getQuery()
 
         getItemsFromSearch()
 
         goToDetail()
 
         sortResult()
+
+        searchAgain()
+
+        backToHome()
+    }
+
+    private fun backToHome() {
+        binding.customSearchView.backToHomeFromSearch.setOnClickListener {
+            findNavController().navigate(R.id.action_searchResultFragment_to_homeFragment)
+        }
+    }
+
+    private fun searchAgain() {
+        binding.customSearchView.searchEd.addTextChangedListener {
+            val query = binding.customSearchView.searchEd.text.toString()
+            val bundle = bundleOf("query" to query)
+            findNavController().navigate(R.id.action_searchResultFragment_to_searchFragment, bundle)
+
+        }
+
+    }
+
+    private fun getQuery() {
+        query = arguments?.getString("query") ?: ""
+        binding.customSearchView.searchEd.setText(query)
     }
 
     private fun sortResult() {
@@ -78,7 +120,6 @@ class SearchResultFragment : Fragment(R.layout.fragment_result_search) {
         recyclerView.adapter = recyclerAdaptor
 
         lifecycleScope.launch {
-            Log.d("QUERY", query)
             viewModel.resultSearch(query).collect {
                 when (it) {
                     is Result.Loading -> {
