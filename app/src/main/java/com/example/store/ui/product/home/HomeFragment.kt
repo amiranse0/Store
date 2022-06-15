@@ -8,7 +8,9 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,12 +24,20 @@ import com.example.store.databinding.HomeProductBinding
 import com.example.store.ui.product.ProductAdapter
 import com.example.store.ui.product.home.slider.SpecialOffersAdaptor
 import com.example.store.ui.viewmodels.HomeViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.lang.Math.abs
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.home_product) {
+
+    override fun onStart() {
+        super.onStart()
+        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
+            View.VISIBLE
+    }
+
     private lateinit var binding: HomeProductBinding
 
     private lateinit var mainBestRecyclerView: RecyclerView
@@ -66,19 +76,27 @@ class HomeFragment : Fragment(R.layout.home_product) {
     }
 
     private fun goToSearchFragment() {
-        binding.homeSearchCardView.setOnClickListener{
+        binding.homeSearchCardView.setOnClickListener {
+            activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
+                View.GONE
             findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
         }
     }
 
     private fun goToSeeAll() {
         binding.seeAllBestTv.setOnClickListener {
+            activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
+                View.GONE
             findNavController().navigate(R.id.action_homeFragment_to_bestProductFragment)
         }
         binding.seeAllFavouriteTv.setOnClickListener {
+            activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
+                View.GONE
             findNavController().navigate(R.id.action_homeFragment_to_favouriteProductFragment)
         }
         binding.seeAllLatestTv.setOnClickListener {
+            activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
+                View.GONE
             findNavController().navigate(R.id.action_homeFragment_to_newProductFragment)
         }
     }
@@ -95,6 +113,8 @@ class HomeFragment : Fragment(R.layout.home_product) {
                     "category" to item.categories.map { it.name },
                     "purchasable" to item.purchasable
                 )
+                activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
+                    View.GONE
                 findNavController().navigate(
                     R.id.action_homeFragment_to_detailProductFragment,
                     bundle
@@ -171,14 +191,16 @@ class HomeFragment : Fragment(R.layout.home_product) {
         viewPager2.clipChildren = false
         viewPager2.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
 
-        lifecycleScope.launch {
-            viewModel.resultSpecialOffersStateFlow.collect {
-                when (it) {
-                    is Result.Loading -> {
-                    }
-                    is Result.Success -> {
-                        sliderAdaptor.images = it.data.images.map { it -> it.src }
-                        sliderAdaptor.notifyDataSetChanged()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.resultSpecialOffersStateFlow.collect {
+                    when (it) {
+                        is Result.Loading -> {
+                        }
+                        is Result.Success -> {
+                            sliderAdaptor.images = it.data.images.map { it -> it.src }
+                            sliderAdaptor.notifyDataSetChanged()
+                        }
                     }
                 }
             }
@@ -201,14 +223,16 @@ class HomeFragment : Fragment(R.layout.home_product) {
     private fun getFavouriteProduct() {
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.favouriteProductsStateFlow.collect {
-                when (it) {
-                    is Result.Error -> {
-                    }
-                    is Result.Loading -> {
-                    }
-                    is Result.Success -> {
-                        favouriteAdaptor.setData(it.data)
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.favouriteProductsStateFlow.collect {
+                    when (it) {
+                        is Result.Error -> {
+                        }
+                        is Result.Loading -> {
+                        }
+                        is Result.Success -> {
+                            favouriteAdaptor.setData(it.data)
+                        }
                     }
                 }
             }
@@ -217,15 +241,17 @@ class HomeFragment : Fragment(R.layout.home_product) {
 
     private fun getBestProduct() {
 
-        lifecycleScope.launch {
-            viewModel.bestProductsStateFlow.collect {
-                when (it) {
-                    is Result.Error -> {
-                    }
-                    is Result.Loading -> {
-                    }
-                    is Result.Success -> {
-                        bestAdaptor.setData(it.data)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.bestProductsStateFlow.collect {
+                    when (it) {
+                        is Result.Error -> {
+                        }
+                        is Result.Loading -> {
+                        }
+                        is Result.Success -> {
+                            bestAdaptor.setData(it.data)
+                        }
                     }
                 }
             }
@@ -234,18 +260,21 @@ class HomeFragment : Fragment(R.layout.home_product) {
 
     private fun getLatestProduct() {
 
-        lifecycleScope.launch {
-            viewModel.lastProductsStateFlow.collect {
-                when (it) {
-                    is Result.Error -> {
-                    }
-                    is Result.Loading -> {
-                    }
-                    is Result.Success -> {
-                        latestAdaptor.setData(it.data)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.lastProductsStateFlow.collect {
+                    when (it) {
+                        is Result.Error -> {
+                        }
+                        is Result.Loading -> {
+                        }
+                        is Result.Success -> {
+                            latestAdaptor.setData(it.data)
+                        }
                     }
                 }
             }
+
         }
     }
 }

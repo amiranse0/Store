@@ -5,7 +5,9 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -59,20 +61,22 @@ class NewProductFragment:Fragment(R.layout.fragment_new_product) {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = recyclerAdaptor
 
-        lifecycleScope.launch {
-            viewModel.newestProductsStateFlow.collect {
-                when (it) {
-                    is Result.Error -> {
-                        binding.newestProductPb.visibility = View.GONE
-                        recyclerAdaptor.setData(emptyList())
-                    }
-                    is Result.Loading -> {
-                        binding.newestProductPb.visibility = View.VISIBLE
-                        recyclerAdaptor.setData(emptyList())
-                    }
-                    is Result.Success -> {
-                        binding.newestProductPb.visibility = View.GONE
-                        recyclerAdaptor.setData(it.data)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.newestProductsStateFlow.collect {
+                    when (it) {
+                        is Result.Error -> {
+                            binding.newestProductPb.visibility = View.GONE
+                            recyclerAdaptor.setData(emptyList())
+                        }
+                        is Result.Loading -> {
+                            binding.newestProductPb.visibility = View.VISIBLE
+                            recyclerAdaptor.setData(emptyList())
+                        }
+                        is Result.Success -> {
+                            binding.newestProductPb.visibility = View.GONE
+                            recyclerAdaptor.setData(it.data)
+                        }
                     }
                 }
             }

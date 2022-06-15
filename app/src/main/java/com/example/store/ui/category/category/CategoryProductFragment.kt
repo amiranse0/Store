@@ -5,7 +5,9 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CategoryProductFragment:Fragment(R.layout.fragment_category_product) {
+class CategoryProductFragment : Fragment(R.layout.fragment_category_product) {
     private lateinit var binding: FragmentCategoryProductBinding
 
     private lateinit var recyclerView: RecyclerView
@@ -60,7 +62,7 @@ class CategoryProductFragment:Fragment(R.layout.fragment_category_product) {
 
     private fun getProducts() {
         val category = arguments?.getString("category")
-        if (category != null){
+        if (category != null) {
             viewModel.getProducts(1, category)
         }
 
@@ -69,19 +71,21 @@ class CategoryProductFragment:Fragment(R.layout.fragment_category_product) {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = recyclerAdaptor
 
-        lifecycleScope.launch {
-            viewModel.productsStateFlow.collect{
-                when(it){
-                    is Result.Success -> {
-                        binding.productPb.visibility = View.GONE
-                        recyclerAdaptor.setData(it.data)
-                    }
-                    is Result.Error -> {
-                        binding.productPb.visibility = View.GONE
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.productsStateFlow.collect {
+                    when (it) {
+                        is Result.Success -> {
+                            binding.productPb.visibility = View.GONE
+                            recyclerAdaptor.setData(it.data)
+                        }
+                        is Result.Error -> {
+                            binding.productPb.visibility = View.GONE
 
-                    }
-                    is Result.Loading -> {
-                        binding.productPb.visibility = View.VISIBLE
+                        }
+                        is Result.Loading -> {
+                            binding.productPb.visibility = View.VISIBLE
+                        }
                     }
                 }
             }

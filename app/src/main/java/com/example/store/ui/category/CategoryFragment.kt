@@ -13,11 +13,18 @@ import com.example.store.R
 import com.example.store.data.Result
 import com.example.store.databinding.FragmentCategoryBinding
 import com.example.store.ui.viewmodels.CategoryViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CategoryFragment : Fragment(R.layout.fragment_category) {
+
+    override fun onStart() {
+        super.onStart()
+        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
+            View.VISIBLE
+    }
 
     private lateinit var binding: FragmentCategoryBinding
     private val viewModel by viewModels<CategoryViewModel>()
@@ -41,6 +48,10 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
             override fun clickOnItem(position: Int, view: View?) {
                 val category = recyclerAdaptor.oldList[position].id.toString()
                 val bundle = bundleOf("category" to category)
+
+                activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
+                    View.GONE
+
                 findNavController().navigate(
                     R.id.action_categoryFragment_to_categoryProductFragment,
                     bundle

@@ -26,18 +26,6 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class SearchFragment : Fragment(R.layout.fragment_search) {
 
-    override fun onStart() {
-        super.onStart()
-        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
-            View.GONE
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
-            View.VISIBLE
-    }
-
     private lateinit var binding: FragmentSearchBinding
 
     private lateinit var searchRecyclerView: RecyclerView
