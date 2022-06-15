@@ -88,7 +88,7 @@ class SearchResultFragment : Fragment(R.layout.fragment_result_search) {
 
     private fun sortResult() {
         binding.sortLayout.setOnClickListener {
-            val orderDialogFragment = Dialog(requireContext())
+            val orderDialogFragment = Dialog(requireContext(), androidx.transition.R.style.Base_Theme_AppCompat_Light_DarkActionBar)
             orderDialogFragment.setContentView(R.layout.dialog_fragment_order)
             orderDialogFragment.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
             orderDialogFragment.show()

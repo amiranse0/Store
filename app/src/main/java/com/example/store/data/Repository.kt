@@ -1,5 +1,6 @@
 package com.example.store.data
 
+import android.util.Log
 import com.example.store.data.model.category.CategoryItem
 import com.example.store.data.model.customer.body.Customer
 import com.example.store.data.model.customer.result.CustomerResult
@@ -8,6 +9,7 @@ import com.example.store.data.remote.DataSource
 import com.example.store.di.AppModule
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.Flow
+import retrofit2.HttpException
 import javax.inject.Inject
 
 class Repository @Inject constructor(@AppModule.RemoteProductDataSource private val remoteDataSource: DataSource) {
@@ -94,8 +96,14 @@ class Repository @Inject constructor(@AppModule.RemoteProductDataSource private 
             emit(Result.Error(e))
         }
     }
-    suspend fun createCustomer(customer:Customer){
-        remoteDataSource.createCustomer(customer)
+    suspend fun createCustomer(customer:Customer): Flow<Result<CustomerResult>> = flow{
+        try {
+            val result = remoteDataSource.createCustomer(customer)
+            emit(Result.Success(result))
+        }catch (e:Exception){
+
+            emit(Result.Error(e))
+        }
     }
 
     suspend fun updateCustomer(customer: Customer,id: String): Flow<Result<CustomerResult>> = flow{
@@ -107,9 +115,9 @@ class Repository @Inject constructor(@AppModule.RemoteProductDataSource private 
         }
     }
 
-    suspend fun getCustomer(email: String): Flow<Result<List<CustomerResult>>> = flow{
+    suspend fun getCustomer(email: String): Flow<Result<CustomerResult>> = flow{
         try {
-            val result = remoteDataSource.getCustomer(email)
+            val result = remoteDataSource.getCustomer(email).first()
             emit(Result.Success(result))
         }catch (e:Exception){
             emit(Result.Error(e))

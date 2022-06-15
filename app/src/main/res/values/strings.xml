@@ -24,5 +24,9 @@
     <string name="favourite">محبوب ترین</string>
     <string name="latest">جدیدترین</string>
     <string name="search_box">جست و جو در استور</string>
+    <string name="invalid_email">ایمیل شما نامعتبر است.</string>
+    <string name="invalid_user_name_and_email">ایمیل یا نام کاربری شما نامعتبر است.</string>
+    <string name="title_info">اطلاعات شخصی</string>
+    <string name="exit">خروج از حساب کاربری</string>
 
 </resources>
