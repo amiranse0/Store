@@ -28,5 +28,11 @@
     <string name="invalid_user_name_and_email">ایمیل یا نام کاربری شما نامعتبر است.</string>
     <string name="title_info">اطلاعات شخصی</string>
     <string name="exit">خروج از حساب کاربری</string>
+    <string name="enter_the_name">نام و نام خانوادگی خود را وارد کنید.</string>
+    <string name="name">نام</string>
+    <string name="submit_info">تایید اطلاعات</string>
+    <string name="last_name">نام خانوادگی</string>
+    <string name="are_you_sure">آیا مطمئن هستید؟</string>
+    <string name="yes">بله</string>
 
 </resources>

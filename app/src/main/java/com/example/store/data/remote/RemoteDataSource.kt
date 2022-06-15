@@ -113,7 +113,7 @@ class RemoteDataSource(
             "consumer_key" to Keys.consumerKey,
             "consumer_secret" to Keys.consumerSecret
         )
-        return service.updateCustomer(query, id, customer)
+        return service.updateCustomer(id, query, customer)
     }
 
     override suspend fun getCustomer(email: String): List<CustomerResult> {

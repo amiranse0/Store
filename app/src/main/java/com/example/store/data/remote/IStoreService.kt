@@ -28,8 +28,8 @@ interface IStoreService {
 
     @PUT("customers/{id}")
     suspend fun updateCustomer(
-        @QueryMap hashMap: HashMap<String, String>,
         @Path("id") id: String,
+        @QueryMap hashMap: HashMap<String, String>,
         @Body customer: Customer
     ): CustomerResult
 
