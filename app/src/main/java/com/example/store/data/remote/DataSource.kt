@@ -16,7 +16,14 @@ interface DataSource {
     suspend fun getSomeCategory(page: Int, category: String): List<ProductItem>
 
     suspend fun searchQuery(perPage: Int, searchQuery: String): List<ProductItem>
-    suspend fun sort(perPage: Int, searchQuery: String, sort:String): List<ProductItem>
+    suspend fun sortAndFilter(
+        perPage: Int,
+        searchQuery: String,
+        sort: String,
+        lowerPrice: String,
+        higherPrice: String,
+        categoryId: Int
+    ): List<ProductItem>
 
     suspend fun getSpecialOffers(): ProductItem
 
@@ -24,8 +31,8 @@ interface DataSource {
     suspend fun updateCustomer(customer: Customer, id: String): CustomerResult
     suspend fun getCustomer(email: String): List<CustomerResult>
 
-    suspend fun createOrder(order:Order): OrderResult
-    suspend fun updateOrder(order: Order, id:String): OrderResult
-    suspend fun deleteOrder(id:String)
-    suspend fun getOrder(id:String): OrderResult
+    suspend fun createOrder(order: Order): OrderResult
+    suspend fun updateOrder(order: Order, id: String): OrderResult
+    suspend fun deleteOrder(id: String)
+    suspend fun getOrder(id: String): OrderResult
 }

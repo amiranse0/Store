@@ -1,6 +1,5 @@
 package com.example.store.data
 
-import android.util.Log
 import com.example.store.data.model.category.CategoryItem
 import com.example.store.data.model.customer.body.Customer
 import com.example.store.data.model.customer.result.CustomerResult
@@ -11,8 +10,6 @@ import com.example.store.data.remote.DataSource
 import com.example.store.di.AppModule
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.Flow
-import retrofit2.HttpException
-import java.lang.reflect.Executable
 import javax.inject.Inject
 
 class Repository @Inject constructor(@AppModule.RemoteProductDataSource private val remoteDataSource: DataSource) {
@@ -74,18 +71,25 @@ class Repository @Inject constructor(@AppModule.RemoteProductDataSource private 
         try {
             val result = remoteDataSource.searchQuery(perPage, searchQuery)
             emit(Result.Success(result))
-        }catch (e:Exception){
+        } catch (e: Exception) {
             emit(Result.Error(e))
         }
     }
 
-    suspend fun sort(perPage: Int, searchQuery: String, sort: String): Flow<Result<List<ProductItem>>> = flow {
+    suspend fun sortAndFilter(
+        perPage: Int,
+        searchQuery: String,
+        sort: String,
+        higherPrice: String,
+        lowerPrice: String,
+        categoryId: Int
+    ): Flow<Result<List<ProductItem>>> = flow {
         emit(Result.Loading)
         try {
-            val result = remoteDataSource.sort(perPage, searchQuery, sort)
+            val result = remoteDataSource.sortAndFilter(perPage, searchQuery, sort, lowerPrice, higherPrice, categoryId)
             emit(Result.Success(result))
 
-        }catch (e:Exception){
+        } catch (e: Exception) {
             emit(Result.Error(e))
         }
     }
@@ -95,34 +99,36 @@ class Repository @Inject constructor(@AppModule.RemoteProductDataSource private 
         try {
             val result = remoteDataSource.getSpecialOffers()
             emit(Result.Success(result))
-        }catch (e:Exception){
+        } catch (e: Exception) {
             emit(Result.Error(e))
         }
     }
-    suspend fun createCustomer(customer:Customer): Flow<Result<CustomerResult>> = flow{
+
+    suspend fun createCustomer(customer: Customer): Flow<Result<CustomerResult>> = flow {
         try {
             val result = remoteDataSource.createCustomer(customer)
             emit(Result.Success(result))
-        }catch (e:Exception){
+        } catch (e: Exception) {
 
             emit(Result.Error(e))
         }
     }
 
-    suspend fun updateCustomer(customer: Customer,id: String): Flow<Result<CustomerResult>> = flow{
-        try {
-            val result = remoteDataSource.updateCustomer(customer, id)
-            emit(Result.Success(result))
-        }catch (e:Exception){
-            emit(Result.Error(e))
+    suspend fun updateCustomer(customer: Customer, id: String): Flow<Result<CustomerResult>> =
+        flow {
+            try {
+                val result = remoteDataSource.updateCustomer(customer, id)
+                emit(Result.Success(result))
+            } catch (e: Exception) {
+                emit(Result.Error(e))
+            }
         }
-    }
 
-    suspend fun getCustomer(email: String): Flow<Result<CustomerResult>> = flow{
+    suspend fun getCustomer(email: String): Flow<Result<CustomerResult>> = flow {
         try {
             val result = remoteDataSource.getCustomer(email).first()
             emit(Result.Success(result))
-        }catch (e:Exception){
+        } catch (e: Exception) {
             emit(Result.Error(e))
         }
     }
@@ -131,7 +137,7 @@ class Repository @Inject constructor(@AppModule.RemoteProductDataSource private 
         try {
             val result = remoteDataSource.createOrder(order)
             emit(Result.Success(result))
-        } catch (e:Exception){
+        } catch (e: Exception) {
             emit(Result.Error(e))
         }
     }
@@ -140,16 +146,16 @@ class Repository @Inject constructor(@AppModule.RemoteProductDataSource private 
         try {
             val result = remoteDataSource.updateOrder(order, id)
             emit(Result.Success(result))
-        }catch (e:Exception){
+        } catch (e: Exception) {
             emit(Result.Error(e))
         }
     }
 
-    suspend fun getOrder(id:String): Flow<Result<OrderResult>> = flow{
+    suspend fun getOrder(id: String): Flow<Result<OrderResult>> = flow {
         try {
             val result = remoteDataSource.getOrder(id)
             emit(Result.Success(result))
-        }catch (e:Exception){
+        } catch (e: Exception) {
             emit(Result.Error(e))
         }
     }

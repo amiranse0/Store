@@ -73,14 +73,18 @@ class RemoteDataSource(
         return service.getProducts(query)
     }
 
-    override suspend fun sort(perPage: Int, searchQuery: String, sort: String): List<ProductItem> {
+    override suspend fun sortAndFilter(
+        perPage: Int, searchQuery: String, sort: String, lowerPrice: String,
+        higherPrice: String,
+        categoryId: Int
+    ): List<ProductItem> {
         val query = hashMapOf(
             "consumer_key" to Keys.consumerKey,
             "consumer_secret" to Keys.consumerSecret
         )
         query["search"] = searchQuery
         query["perPage"] = "$perPage"
-        when(sort){
+        when (sort) {
             "date" -> query["orderby"] = "date"
             "cheap" -> {
                 query["orderby"] = "price"
@@ -90,6 +94,13 @@ class RemoteDataSource(
             "rating" -> query["orderby"] = "rating"
             "popularity" -> query["orderby"] = "popularity"
         }
+
+        if (lowerPrice != "")
+            query["min_price"] = lowerPrice
+        if (higherPrice != "")
+            query["max_price"] = higherPrice
+        if (categoryId == 0)
+            query["category"] = categoryId.toString()
 
         return service.getProducts(query)
     }
@@ -110,7 +121,7 @@ class RemoteDataSource(
         return service.createCustomer(query, customer)
     }
 
-    override suspend fun updateCustomer(customer: Customer, id:String): CustomerResult {
+    override suspend fun updateCustomer(customer: Customer, id: String): CustomerResult {
         val query = hashMapOf(
             "consumer_key" to Keys.consumerKey,
             "consumer_secret" to Keys.consumerSecret

@@ -36,5 +36,8 @@
     <string name="yes">بله</string>
     <string name="add_to_card">افزودن به سبد خرید</string>
     <string name="see_cart">مشاهده سبد خرید</string>
+    <string name="category">دسته بندی</string>
+    <string name="price">قیمت</string>
+    <string name="submit_filter">اعمال فیلتر</string>
 
 </resources>
