@@ -3,6 +3,8 @@ package com.example.store.data.remote
 import com.example.store.data.model.category.CategoryItem
 import com.example.store.data.model.customer.body.Customer
 import com.example.store.data.model.customer.result.CustomerResult
+import com.example.store.data.model.order.body.Order
+import com.example.store.data.model.order.result.OrderResult
 import com.example.store.data.model.product.ProductItem
 import retrofit2.http.*
 
@@ -35,4 +37,23 @@ interface IStoreService {
 
     @GET("customers")
     suspend fun getCustomer(@QueryMap hashMap: HashMap<String, String>): List<CustomerResult>
+
+    @POST("orders")
+    suspend fun createOrder(
+        @QueryMap hashMap: HashMap<String, String>,
+        @Body order: Order
+    ): OrderResult
+
+    @PUT("orders/{id}")
+    suspend fun updateOrder(
+        @Path("id") id: String,
+        @QueryMap hashMap: HashMap<String, String>,
+        @Body order: Order
+    ): OrderResult
+
+    @DELETE("orders/{id}")
+    suspend fun deleteOrder(
+        @Path("id") id: String,
+        @QueryMap hashMap: HashMap<String, String>
+    )
 }

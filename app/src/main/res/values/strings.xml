@@ -34,5 +34,6 @@
     <string name="last_name">نام خانوادگی</string>
     <string name="are_you_sure">آیا مطمئن هستید؟</string>
     <string name="yes">بله</string>
+    <string name="add_to_card">افزودن به سبد خرید</string>
 
 </resources>

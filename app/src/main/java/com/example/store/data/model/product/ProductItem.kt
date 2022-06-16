@@ -1,76 +1,79 @@
 package com.example.store.data.model.product
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-import kotlinx.parcelize.RawValue
+import com.google.gson.annotations.SerializedName as SN
 
-@Parcelize
 data class ProductItem(
-    val _links: Links,
-    val attributes: @RawValue List<Any>,
-    val average_rating: String,
-    val backordered: Boolean,
-    val backorders: String,
-    val backorders_allowed: Boolean,
-    val button_text: String,
-    val catalog_visibility: String,
+    val attributes: List<Any>,
+    @SN("average_rating")
+    val averageRating: String,
+    @SN("backordered")
+    val backOrdered: Boolean,
+    @SN("backorders")
+    val backOrders: String,
+    @SN("backorders_allowed")
+    val backOrdersAllowed: Boolean,
+    @SN("catalog_visibility")
+    val catalogVisibility: String,
     val categories: List<Category>,
-    val cross_sell_ids: @RawValue List<Any>,
-    val date_created: String,
-    val date_created_gmt: String,
-    val date_modified: String,
-    val date_modified_gmt: String,
-    val date_on_sale_from: @RawValue Any,
-    val date_on_sale_from_gmt: @RawValue Any,
-    val date_on_sale_to: @RawValue Any,
-    val date_on_sale_to_gmt: @RawValue Any,
-    val default_attributes: @RawValue List<Any>,
+    @SN("default_attributes")
+    val defaultAttributes: List<Any>,
     val description: String,
     val dimensions: Dimensions,
-    val download_expiry: Int,
-    val download_limit: Int,
-    val downloadable: Boolean,
-    val downloads: @RawValue List<Any>,
-    val external_url: String,
     val featured: Boolean,
-    val grouped_products: @RawValue List<Any>,
+    @SN("grouped_products")
+    val groupedProducts: List<Any>,
     val id: Int,
-    val images: @RawValue List<Image>,
-    val low_stock_amount: @RawValue Any,
-    val manage_stock: Boolean,
-    val menu_order: Int,
-    val meta_data: @RawValue List<Any>,
+    val images: List<Image>,
+    @SN("menu_order")
+    val menuOrder: Int,
+    @SN("meta_data")
+    val metaData: List<Any>,
     val name: String,
-    val on_sale: Boolean,
-    val parent_id: Int,
+    @SN("on_sale")
+    val onSale: Boolean,
+    @SN("parent_id")
+    val parentId: Int,
+    @SN("permalink")
     val permalink: String,
     val price: String,
-    val price_html: String,
+    @SN("price_html")
+    val priceHtml: String,
     val purchasable: Boolean,
-    val purchase_note: String,
-    val rating_count: Int,
-    val regular_price: String,
-    val related_ids: List<Int>,
-    val reviews_allowed: Boolean,
-    val sale_price: String,
-    val shipping_class: String,
-    val shipping_class_id: Int,
-    val shipping_required: Boolean,
-    val shipping_taxable: Boolean,
-    val short_description: String,
+    @SN("purchase_note")
+    val purchaseNote: String,
+    @SN("rating_count")
+    val ratingCount: Int,
+    @SN("regular_price")
+    val regularPrice: String,
+    @SN("related_ids")
+    val relatedIds: List<Int>,
+    @SN("reviews_allowed")
+    val reviewsAllowed: Boolean,
+    @SN("sale_price")
+    val salePrice: String,
+    @SN("shipping_class")
+    val shippingClass: String,
+    @SN("shipping_class_id")
+    val shippingClassId: Int,
+    @SN("shipping_required")
+    val shippingRequired: Boolean,
+    @SN("shipping_taxable")
+    val shippingTaxable: Boolean,
+    @SN("short_description")
+    val shortDescription: String,
     val sku: String,
     val slug: String,
-    val sold_individually: Boolean,
     val status: String,
-    val stock_quantity: @RawValue Any,
-    val stock_status: String,
-    val tags: @RawValue List<Tag>,
-    val tax_class: String,
-    val tax_status: String,
-    val total_sales: Int,
+    @SN("stock_quantity")
+    val stockQuantity: Any,
+    @SN("stock_status")
+    val stockStatus: String,
+    val tags: List<Tag>,
+    @SN("total_sales")
+    val totalSales: Int,
     val type: String,
-    val upsell_ids: @RawValue List<Any>,
-    val variations: @RawValue List<Any>,
-    val virtual: Boolean,
+    @SN("upsell_ids")
+    val upsellIds: List<Any>,
+    val variations:List<Any>,
     val weight: String
-) : Parcelable
+)

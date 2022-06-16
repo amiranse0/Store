@@ -4,6 +4,8 @@ import android.util.Log
 import com.example.store.data.model.category.CategoryItem
 import com.example.store.data.model.customer.body.Customer
 import com.example.store.data.model.customer.result.CustomerResult
+import com.example.store.data.model.order.body.Order
+import com.example.store.data.model.order.result.OrderResult
 import com.example.store.data.model.product.ProductItem
 import com.example.store.data.remote.DataSource
 import com.example.store.di.AppModule
@@ -123,4 +125,23 @@ class Repository @Inject constructor(@AppModule.RemoteProductDataSource private 
             emit(Result.Error(e))
         }
     }
+
+    suspend fun createOrder(order: Order): Flow<Result<OrderResult>> = flow {
+        try {
+            val result = remoteDataSource.createOrder(order)
+            emit(Result.Success(result))
+        } catch (e:Exception){
+            emit(Result.Error(e))
+        }
+    }
+
+    suspend fun updateOrder(order: Order, id: String): Flow<Result<OrderResult>> = flow {
+        try {
+            val result = remoteDataSource.updateOrder(order, id)
+            emit(Result.Success(result))
+        }catch (e:Exception){
+            emit(Result.Error(e))
+        }
+    }
+
 }

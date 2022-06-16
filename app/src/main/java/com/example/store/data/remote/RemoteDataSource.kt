@@ -4,6 +4,8 @@ import com.example.store.data.Keys
 import com.example.store.data.model.category.CategoryItem
 import com.example.store.data.model.customer.body.Customer
 import com.example.store.data.model.customer.result.CustomerResult
+import com.example.store.data.model.order.body.Order
+import com.example.store.data.model.order.result.OrderResult
 import com.example.store.data.model.product.ProductItem
 
 class RemoteDataSource(
@@ -124,4 +126,29 @@ class RemoteDataSource(
         query["email"] = email
         return service.getCustomer(query)
     }
+
+    override suspend fun createOrder(order: Order): OrderResult {
+        val query = hashMapOf(
+            "consumer_key" to Keys.consumerKey,
+            "consumer_secret" to Keys.consumerSecret
+        )
+        return service.createOrder(query, order)
+    }
+
+    override suspend fun updateOrder(order: Order, id: String): OrderResult {
+        val query = hashMapOf(
+            "consumer_key" to Keys.consumerKey,
+            "consumer_secret" to Keys.consumerSecret
+        )
+        return service.updateOrder(id, query, order)
+    }
+
+    override suspend fun deleteOrder(id: String) {
+        val query = hashMapOf(
+            "consumer_key" to Keys.consumerKey,
+            "consumer_secret" to Keys.consumerSecret
+        )
+        service.deleteOrder(id, query)
+    }
+
 }

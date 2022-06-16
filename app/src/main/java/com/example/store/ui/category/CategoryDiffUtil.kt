@@ -25,7 +25,6 @@ class CategoryDiffUtil(
             oldList[oldItemPosition].id != newList[newItemPosition].id -> false
             oldList[oldItemPosition].name != newList[newItemPosition].name -> false
             oldList[oldItemPosition].description != newList[newItemPosition].description -> false
-            oldList[oldItemPosition]._links != newList[newItemPosition]._links -> false
             else -> true
         }
     }

@@ -1,4 +1,4 @@
-package com.example.store.data.model.category
+package com.example.store.data.model.order.result
 
 data class Links(
     val collection: List<Collection>,
