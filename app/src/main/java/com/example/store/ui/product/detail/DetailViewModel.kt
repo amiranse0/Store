@@ -27,4 +27,13 @@ class DetailViewModel @Inject constructor(private val repository: Repository) : 
         }
         return orderResultStateFlow
     }
+
+    fun updateOrder(order: Order, id:String): MutableStateFlow<Result<OrderResult>>{
+        viewModelScope.launch {
+            repository.updateOrder(order, id).collect{
+                orderResultStateFlow.emit(it)
+            }
+        }
+        return orderResultStateFlow
+    }
 }

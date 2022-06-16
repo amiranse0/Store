@@ -151,4 +151,12 @@ class RemoteDataSource(
         service.deleteOrder(id, query)
     }
 
+    override suspend fun getOrder(id: String): OrderResult {
+        val query = hashMapOf(
+            "consumer_key" to Keys.consumerKey,
+            "consumer_secret" to Keys.consumerSecret
+        )
+        return service.getOrder(id, query).first()
+    }
+
 }

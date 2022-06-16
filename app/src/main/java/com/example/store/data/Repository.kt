@@ -12,6 +12,7 @@ import com.example.store.di.AppModule
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.Flow
 import retrofit2.HttpException
+import java.lang.reflect.Executable
 import javax.inject.Inject
 
 class Repository @Inject constructor(@AppModule.RemoteProductDataSource private val remoteDataSource: DataSource) {
@@ -144,4 +145,12 @@ class Repository @Inject constructor(@AppModule.RemoteProductDataSource private 
         }
     }
 
+    suspend fun getOrder(id:String): Flow<Result<OrderResult>> = flow{
+        try {
+            val result = remoteDataSource.getOrder(id)
+            emit(Result.Success(result))
+        }catch (e:Exception){
+            emit(Result.Error(e))
+        }
+    }
 }

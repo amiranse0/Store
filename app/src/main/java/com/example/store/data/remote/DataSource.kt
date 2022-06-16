@@ -27,4 +27,5 @@ interface DataSource {
     suspend fun createOrder(order:Order): OrderResult
     suspend fun updateOrder(order: Order, id:String): OrderResult
     suspend fun deleteOrder(id:String)
+    suspend fun getOrder(id:String): OrderResult
 }

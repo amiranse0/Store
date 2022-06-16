@@ -7,5 +7,7 @@ data class LineItem(
     val productId: Int,
     val quantity: Int,
     @SN("variation_id")
-    val variationId: Int
+    val variationId: Int,
+    @SN("price")
+    val price:Int
 )

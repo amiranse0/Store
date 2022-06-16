@@ -1,6 +1,7 @@
 package com.example.store.ui.product.detail
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.store.R
+import com.example.store.data.Result
 import com.example.store.data.model.order.body.LineItem
 import com.example.store.data.model.order.body.Order
 import com.example.store.data.model.product.ProductItem
@@ -30,7 +32,7 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
     private val args: DetailProductFragmentArgs by navArgs()
     private lateinit var item: ProductItem
 
-    private var idProduct = ""
+    private val lineItem: MutableList<LineItem> = mutableListOf()
 
     private val viewModel: DetailViewModel by viewModels()
 
@@ -55,26 +57,68 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
             activity?.getSharedPreferences("orderSharePref", Context.MODE_PRIVATE)
         val id = sharedPreferences?.getString("id", "")
         val setOfProductInCart: MutableSet<String>? =
-            sharedPreferences?.getStringSet("set", emptySet())
+            sharedPreferences?.getStringSet("items", emptySet())
+
+        if (setOfProductInCart?.contains(args.item.id.toString()) == true) {
+            binding.addToCartBtn.text = getString(R.string.see_cart)
+        }
 
         val editor = sharedPreferences?.edit()
 
-        if (id == ""){
-            createCart()
-        } else{
-            updateCart()
+        binding.addToCartBtn.setOnClickListener {
+            if (id == "") {
+                createCart(editor)
+            } else {
+                if (setOfProductInCart?.contains(args.item.id.toString()) == true) {
+                    addOnesToCart()
+                } else {
+                    addNewItemToCart(editor)
+                }
+            }
         }
 
     }
 
-    private fun updateCart() {
+    private fun addNewItemToCart(editor: SharedPreferences.Editor?) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+
+            }
+        }
+    }
+
+    private fun addOnesToCart() {
         TODO("Not yet implemented")
     }
 
-    private fun createCart() {
+    private fun createCart(editor: SharedPreferences.Editor?) {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                val items = LineItem(
+                    item.id,
+                    1,
+                    item.id + 1,
+                    item.price.toInt()
+                )
+                val order = Order(
+                    listOf(items),
+                    "bacs",
+                    "Direct Bank Transfer",
+                    false
+                )
+                viewModel.createCart(order).collect {
+                    when (it) {
+                        is Result.Success -> {
+                            editor?.apply {
+                                putString("id", "${it.data.id}")
+                                putStringSet("items", setOf(args.item.id.toString()))
+                                apply()
+                            }
 
+                            binding.addToCartBtn.text = getString(R.string.see_cart)
+                        }
+                    }
+                }
             }
         }
     }

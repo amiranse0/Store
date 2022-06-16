@@ -56,4 +56,10 @@ interface IStoreService {
         @Path("id") id: String,
         @QueryMap hashMap: HashMap<String, String>
     )
+
+    @GET("orders/{id}")
+    suspend fun getOrder(
+        @Path("id") id: String,
+        @QueryMap hashMap: HashMap<String, String>
+    ): List<OrderResult>
 }
