@@ -12,6 +12,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,18 +27,6 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SearchResultFragment : Fragment(R.layout.fragment_result_search) {
-
-    override fun onStart() {
-        super.onStart()
-        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
-            View.GONE
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
-            View.VISIBLE
-    }
 
     private lateinit var binding: FragmentResultSearchBinding
     private val viewModel by viewModels<SearchResultViewModel>()
@@ -99,15 +88,10 @@ class SearchResultFragment : Fragment(R.layout.fragment_result_search) {
         recyclerAdaptor.setToClickOnItem(object : ProductAdapter.ClickOnItem {
             override fun clickOnItem(position: Int, view: View?) {
                 val item = recyclerAdaptor.oldList[position]
-                val bundle = bundleOf(
-                    "title" to item.name,
-                    "images" to item.images.map { it.src },
-                    "price" to item.price,
-                    "description" to item.description,
-                    "category" to item.categories.map { it.name },
-                    "purchasable" to item.purchasable
-                )
-                findNavController().navigate(R.id.action_searchResultFragment_to_detailProductFragment, bundle)
+                val action = SearchResultFragmentDirections.actionSearchResultFragmentToDetailProductFragment(item)
+                if (view != null) {
+                    Navigation.findNavController(view).navigate(action)
+                }
             }
 
         })

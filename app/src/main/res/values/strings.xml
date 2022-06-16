@@ -35,5 +35,6 @@
     <string name="are_you_sure">آیا مطمئن هستید؟</string>
     <string name="yes">بله</string>
     <string name="add_to_card">افزودن به سبد خرید</string>
+    <string name="see_cart">مشاهده سبد خرید</string>
 
 </resources>

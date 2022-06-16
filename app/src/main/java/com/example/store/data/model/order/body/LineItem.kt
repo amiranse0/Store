@@ -1,7 +1,11 @@
 package com.example.store.data.model.order.body
 
+import com.google.gson.annotations.SerializedName as SN
+
 data class LineItem(
-    val product_id: Int,
+    @SN("product_id")
+    val productId: Int,
     val quantity: Int,
-    val variation_id: Int
+    @SN("variation_id")
+    val variationId: Int
 )

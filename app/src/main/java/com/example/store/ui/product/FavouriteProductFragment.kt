@@ -8,12 +8,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.store.R
 import com.example.store.data.Result
 import com.example.store.databinding.FragmentFavouriteProductBinding
+import com.example.store.ui.product.home.HomeFragmentDirections
 import com.example.store.ui.viewmodels.FavouriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -42,15 +44,11 @@ class FavouriteProductFragment : Fragment(R.layout.fragment_favourite_product) {
         recyclerAdaptor.setToClickOnItem(object : ProductAdapter.ClickOnItem {
             override fun clickOnItem(position: Int, view: View?) {
                 val item = recyclerAdaptor.oldList[position]
-                val bundle = bundleOf(
-                    "title" to item.name,
-                    "images" to item.images.map { it.src },
-                    "price" to item.price,
-                    "description" to item.description,
-                    "category" to item.categories.map { it.name },
-                    "purchasable" to item.purchasable
-                )
-                findNavController().navigate(R.id.action_favouriteProductFragment_to_detailProductFragment, bundle)
+                val action = FavouriteProductFragmentDirections.actionFavouriteProductFragmentToDetailProductFragment(item)
+
+                if (view != null) {
+                    Navigation.findNavController(view).navigate(action)
+                }
             }
 
         })

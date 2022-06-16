@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +23,7 @@ import com.example.store.data.Result
 import com.example.store.data.model.product.ProductItem
 import com.example.store.databinding.HomeProductBinding
 import com.example.store.ui.product.ProductAdapter
+import com.example.store.ui.product.home.search.SearchFragmentDirections
 import com.example.store.ui.product.home.slider.SpecialOffersAdaptor
 import com.example.store.ui.viewmodels.HomeViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -105,56 +107,43 @@ class HomeFragment : Fragment(R.layout.home_product) {
         bestAdaptor.setToClickOnItem(object : MainRowHomeAdaptor.ClickOnItem {
             override fun clickOnItem(position: Int, view: View?) {
                 val item = bestAdaptor.oldList[position]
-                val bundle = bundleOf(
-                    "title" to item.name,
-                    "images" to item.images.map { it.src },
-                    "price" to item.price,
-                    "description" to item.description,
-                    "category" to item.categories.map { it.name },
-                    "purchasable" to item.purchasable
-                )
+
                 activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
                     View.GONE
-                findNavController().navigate(
-                    R.id.action_homeFragment_to_detailProductFragment,
-                    bundle
-                )
+
+                val action = HomeFragmentDirections.actionHomeFragmentToDetailProductFragment(item)
+                if (view != null) {
+                    Navigation.findNavController(view).navigate(action)
+                }
             }
         })
 
         favouriteAdaptor.setToClickOnItem(object : MainRowHomeAdaptor.ClickOnItem {
             override fun clickOnItem(position: Int, view: View?) {
                 val item = favouriteAdaptor.oldList[position]
-                val bundle = bundleOf(
-                    "title" to item.name,
-                    "images" to item.images.map { it.src },
-                    "price" to item.price,
-                    "description" to item.description,
-                    "category" to item.categories.map { it.name },
-                    "purchasable" to item.purchasable
-                )
-                findNavController().navigate(
-                    R.id.action_homeFragment_to_favouriteProductFragment,
-                    bundle
-                )
+
+                activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
+                    View.GONE
+
+                val action = HomeFragmentDirections.actionHomeFragmentToDetailProductFragment(item)
+                if (view != null) {
+                    Navigation.findNavController(view).navigate(action)
+                }
             }
         })
 
         latestAdaptor.setToClickOnItem(object : MainRowHomeAdaptor.ClickOnItem {
             override fun clickOnItem(position: Int, view: View?) {
                 val item = latestAdaptor.oldList[position]
-                val bundle = bundleOf(
-                    "title" to item.name,
-                    "images" to item.images.map { it.src },
-                    "price" to item.price,
-                    "description" to item.description,
-                    "category" to item.categories.map { it.name },
-                    "purchasable" to item.purchasable
-                )
-                findNavController().navigate(
-                    R.id.action_homeFragment_to_newProductFragment,
-                    bundle
-                )
+
+                activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
+                    View.GONE
+
+                val action = HomeFragmentDirections.actionHomeFragmentToDetailProductFragment(item)
+
+                if (view != null) {
+                    Navigation.findNavController(view).navigate(action)
+                }
             }
 
         })

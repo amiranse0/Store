@@ -49,7 +49,11 @@
     <fragment
         android:id="@+id/detailProductFragment"
         android:name="com.example.store.ui.product.detail.DetailProductFragment"
-        android:label="DetailProductFragment" />
+        android:label="DetailProductFragment" >
+        <argument
+            android:name="item"
+            app:argType="com.example.store.data.model.product.ProductItem" />
+    </fragment>
     <fragment
         android:id="@+id/bestProductFragment"
         android:name="com.example.store.ui.product.BestProductFragment"

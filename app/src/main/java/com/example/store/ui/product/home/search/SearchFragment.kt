@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -43,7 +44,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         suggestion()
 
-        goToDetail()
+        goToDetail(view)
 
         submitSearch()
 
@@ -73,20 +74,14 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         findNavController().navigate(R.id.action_searchFragment_to_searchResultFragment, bundle)
     }
 
-    private fun goToDetail() {
+    private fun goToDetail(view: View) {
         searchAdapter.setToClickOnItem(object : ProductAdapter.ClickOnItem{
             override fun clickOnItem(position: Int, view: View?) {
                 val item = searchAdapter.oldList[position]
-                val bundle = bundleOf(
-                    "title" to item.name,
-                    "images" to item.images.map { it.src },
-                    "price" to item.price,
-                    "description" to item.description,
-                    "category" to item.categories.map { it.name },
-                    "purchasable" to item.purchasable
-                )
-                findNavController().navigate(R.id.action_searchFragment_to_detailProductFragment, bundle)
-
+                val action = SearchFragmentDirections.actionSearchFragmentToDetailProductFragment(item)
+                if (view != null) {
+                    Navigation.findNavController(view).navigate(action)
+                }
             }
 
         })

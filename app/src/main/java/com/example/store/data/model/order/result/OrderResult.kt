@@ -1,8 +1,6 @@
 package com.example.store.data.model.order.result
 
 data class OrderResult(
-    val _links: Links,
-    val billing: Billing,
     val cart_hash: String,
     val cart_tax: String,
     val coupon_lines: List<Any>,
@@ -34,7 +32,6 @@ data class OrderResult(
     val payment_method_title: String,
     val prices_include_tax: Boolean,
     val refunds: List<Any>,
-    val shipping: Shipping,
     val shipping_lines: List<Any>,
     val shipping_tax: String,
     val shipping_total: String,
