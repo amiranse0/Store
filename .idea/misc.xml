@@ -3,12 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/background_bottom_detail.xml" value="0.1685" />
+        <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/default_dot.xml" value="0.1685" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_arrow_forward_24.xml" value="0.171" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_broken_image_24.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.128" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.2115" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_shopping_cart_24.xml" value="0.128" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_sort_24.xml" value="0.12" />
+        <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_star_24.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_star_rate_24.xml" value="0.1125" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_heart_svgrepo_com.xml" value="0.1125" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1055" />
@@ -17,9 +20,11 @@
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_plug_disconnected_svgrepo_com.xml" value="0.1735" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_select_product_svgrepo_com.xml" value="0.1125" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_star_svgrepo_com.xml" value="0.1125" />
+        <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/selected_dot.xml" value="0.1485" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/shopping_bag.xml" value="0.1055" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/special_offers_card_view.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/splash_image.xml" value="0.1" />
+        <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/tab_selector.xml" value="0.1685" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/font/xb_niloofar.xml" value="0.17592592592592593" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/activity_home.xml" value="0.22" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/activity_main.xml" value="0.1" />

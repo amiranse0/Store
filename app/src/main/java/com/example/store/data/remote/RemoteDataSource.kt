@@ -99,7 +99,7 @@ class RemoteDataSource(
             query["min_price"] = lowerPrice
         if (higherPrice != "")
             query["max_price"] = higherPrice
-        if (categoryId == 0)
+        if (categoryId != 0)
             query["category"] = categoryId.toString()
 
         return service.getProducts(query)

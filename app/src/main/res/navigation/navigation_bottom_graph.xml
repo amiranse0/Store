@@ -53,6 +53,9 @@
         <argument
             android:name="item"
             app:argType="com.example.store.data.model.product.ProductItem" />
+        <action
+            android:id="@+id/action_detailProductFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/bestProductFragment"

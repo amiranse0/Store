@@ -19,6 +19,9 @@
             android:id="@+id/home_item_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/home_item_name_size_text"
+            android:textColor="#888"
+            android:gravity="center_horizontal"
             app:layout_constraintTop_toBottomOf="@+id/home_item_iv"
             tools:layout_editor_absoluteX="0dp" />
 

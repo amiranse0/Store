@@ -14,7 +14,9 @@
         <!-- Customize your theme here. -->
         <item name="backgroundTint">@color/orange</item>
 
-        <item name="fontFamily">@font/xb_niloofar</item>
+        <item name="fontFamily">@font/nimkat_typeface_medium</item>
+
+        <item name="android:textColor">@color/black</item>
 
     </style>
 

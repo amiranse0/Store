@@ -3,32 +3,30 @@ package com.example.store.ui.product.detail
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.store.R
 import com.example.store.data.Result
-import com.example.store.data.model.order.body.Coupon
 import com.example.store.data.model.order.body.LineItem
 import com.example.store.data.model.order.body.Order
 import com.example.store.data.model.product.ProductItem
 import com.example.store.databinding.FragmentDetailProductBinding
+import com.example.store.ui.product.home.slider.SpecialAdaptor
+import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
 
     private lateinit var binding: FragmentDetailProductBinding
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var recyclerAdaptor: GalleryAdapter
 
     private val args: DetailProductFragmentArgs by navArgs()
     private lateinit var item: ProductItem
@@ -47,6 +45,14 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
         createGallery()
         detailProduct()
         cart()
+
+        search()
+    }
+
+    private fun search() {
+        binding.homeSearchCardView.setOnClickListener {
+            findNavController().navigate(R.id.action_detailProductFragment_to_searchFragment)
+        }
     }
 
     private fun initValues() {
@@ -133,21 +139,24 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
         binding.descriptionProduct.text = getString(R.string.description_format, description)
 
         val price = item.price
-        binding.priceProduct.text = getString(R.string.price_format, price)
+        binding.priceProduct.text = price
+
+        val categories =
+            item.categories.map { it.name }.toString().replace(",", " / ").replace("[", "")
+                .replace("]", "")
+        binding.categoriesDetailTv.text = categories
+
+        val rating = item.averageRating
+        binding.ratingTv.text = rating
     }
 
     private fun createGallery() {
         val images = item.images.map { it.src }
 
-        recyclerView = binding.galleryRc
+        val sliderAdapter = SpecialAdaptor(requireContext(), images)
+        binding.galleryVp.adapter = sliderAdapter
 
-        if (images != null) {
-            recyclerAdaptor = GalleryAdapter(images)
-        } else recyclerAdaptor = GalleryAdapter(emptyList())
 
-        recyclerView.layoutManager = LinearLayoutManager(
-            requireContext(), LinearLayoutManager.HORIZONTAL, false
-        )
-        recyclerView.adapter = recyclerAdaptor
+        binding.tabLayout.setupWithViewPager(binding.galleryVp, true)
     }
 }
