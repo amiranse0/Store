@@ -28,11 +28,16 @@ class SearchResultViewModel @Inject constructor(private val repository: Reposito
         return searchResultProductsStateFlow
     }
 
-    fun sort(querySearch: String, orderBy:String){
+    fun sort(querySearch: String, orderBy:String): MutableStateFlow<Result<List<ProductItem>>>{
+
+        val sortProductsStateFlow =
+            MutableStateFlow<Result<List<ProductItem>>>(Result.Loading)
+
         viewModelScope.launch {
             repository.sort(100, querySearch, orderBy).collect{
-                searchResultProductsStateFlow.emit(it)
+                sortProductsStateFlow.emit(it)
             }
         }
+        return sortProductsStateFlow
     }
 }
