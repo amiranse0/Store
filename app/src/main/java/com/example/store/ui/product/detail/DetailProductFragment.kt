@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.store.R
 import com.example.store.data.Result
+import com.example.store.data.model.order.body.Coupon
 import com.example.store.data.model.order.body.LineItem
 import com.example.store.data.model.order.body.Order
 import com.example.store.data.model.product.ProductItem

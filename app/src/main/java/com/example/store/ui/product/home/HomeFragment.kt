@@ -1,11 +1,9 @@
 package com.example.store.ui.product.home
 
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
+import android.os.Looper
 import android.view.View
-import android.widget.SearchView
-import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -15,21 +13,15 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.CompositePageTransformer
-import androidx.viewpager2.widget.MarginPageTransformer
-import androidx.viewpager2.widget.ViewPager2
 import com.example.store.R
 import com.example.store.data.Result
-import com.example.store.data.model.product.ProductItem
 import com.example.store.databinding.HomeProductBinding
-import com.example.store.ui.product.ProductAdapter
-import com.example.store.ui.product.home.search.SearchFragmentDirections
-import com.example.store.ui.product.home.slider.SpecialOffersAdaptor
+import com.example.store.ui.product.home.slider.SpecialAdaptor
 import com.example.store.ui.viewmodels.HomeViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.lang.Math.abs
+import java.util.*
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.home_product) {
@@ -52,15 +44,9 @@ class HomeFragment : Fragment(R.layout.home_product) {
 
     private val viewModel by viewModels<HomeViewModel>()
 
-    private lateinit var sliderAdaptor: SpecialOffersAdaptor
-    private lateinit var viewPager2: ViewPager2
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = HomeProductBinding.bind(view)
-
-        viewPager2 = binding.specialOffersVp
-
 
         initValues()
 
@@ -174,38 +160,38 @@ class HomeFragment : Fragment(R.layout.home_product) {
     }
 
     private fun slider() {
-        sliderAdaptor = SpecialOffersAdaptor(viewPager2)
-        viewPager2.offscreenPageLimit = 3
-        viewPager2.clipToPadding = false
-        viewPager2.clipChildren = false
-        viewPager2.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+
+        var currentPage = 0
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.resultSpecialOffersStateFlow.collect {
                     when (it) {
-                        is Result.Loading -> {
-                        }
                         is Result.Success -> {
-                            sliderAdaptor.images = it.data.images.map { it -> it.src }
-                            sliderAdaptor.notifyDataSetChanged()
+                            val images = it.data.images.map { it.src }
+                            val sliderAdaptor =
+                                SpecialAdaptor(requireContext(), images)
+                            binding.specialOffersVp.adapter = sliderAdaptor
+
+                            Timer().schedule(object : TimerTask() {
+                                override fun run() {
+                                    Handler(Looper.getMainLooper()).post(Runnable {
+                                        if (currentPage == images.size - 1) {
+                                            currentPage = 0
+                                        }
+                                        binding.specialOffersVp.setCurrentItem(
+                                            currentPage++,
+                                            true
+                                        )
+                                    })
+                                }
+                            }, 1000, 5000)
+
                         }
                     }
                 }
             }
         }
-
-        val transformer = CompositePageTransformer()
-        transformer.apply {
-            addTransformer(MarginPageTransformer(40))
-            addTransformer { page, position ->
-                val r = 1 - abs(position)
-                page.scaleY = 0.85f + r + 0.14f
-            }
-        }
-
-        viewPager2.setPageTransformer(transformer)
-
     }
 
 

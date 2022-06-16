@@ -107,7 +107,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                         viewModel.updateCustomer(id, customer).collect{
                             when(it){
                                 is Result.Success ->{
-                                    binding.nameAndLastNameTitle.text = "${it.data.first_name} ${it.data.last_name}"
+                                    binding.nameAndLastNameTitle.text = "${it.data.firstName} ${it.data.lastName}"
                                 }
                                 is Result.Error ->{
                                     Log.d("ERROR", "${it.exception}")
@@ -130,10 +130,10 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                         when (it) {
                             is Result.Success -> {
                                 username = it.data.username
-                                lastName = it.data.last_name
-                                name = it.data.first_name
+                                lastName = it.data.lastName
+                                name = it.data.firstName
                                 binding.nameAndLastNameTitle.text =
-                                    "${it.data.first_name} ${it.data.last_name}"
+                                    "${it.data.firstName} ${it.data.lastName}"
                                 binding.emailInfoTv.text = it.data.email
                             }
                         }

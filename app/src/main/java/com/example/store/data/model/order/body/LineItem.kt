@@ -9,5 +9,7 @@ data class LineItem(
     @SN("variation_id")
     val variationId: Int,
     @SN("price")
-    val price:Int
+    val price:Int,
+//    @SN("coupon_lines")
+//    val couponLine: List<Coupon>
 )

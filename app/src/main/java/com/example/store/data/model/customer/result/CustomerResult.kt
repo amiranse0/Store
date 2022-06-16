@@ -1,20 +1,18 @@
 package com.example.store.data.model.customer.result
 
+import com.google.gson.annotations.SerializedName as SN
+
 data class CustomerResult(
-    val _links: Links,
-    val avatar_url: String,
-    val billing: Billing,
-    val date_created: String,
-    val date_created_gmt: String,
-    val date_modified: String,
-    val date_modified_gmt: String,
     val email: String,
-    val first_name: String,
+    @SN("first_name")
+    val firstName: String,
     val id: Int,
-    val is_paying_customer: Boolean,
-    val last_name: String,
-    val meta_data: List<Any>,
+    @SN("is_paying_customer")
+    val isPayingCustomer: Boolean,
+    @SN("last_name")
+    val lastName: String,
+    @SN("meta_data")
+    val metaData: List<Any>,
     val role: String,
-    val shipping: Shipping,
     val username: String
 )
