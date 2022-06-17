@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/bestProductFragment"
-        android:name="com.example.store.ui.product.BestProductFragment"
+        android:name="com.example.store.ui.product.home.best.BestProductFragment"
         android:label="BestProductFragment" >
         <action
             android:id="@+id/action_bestProductFragment_to_detailProductFragment"
@@ -67,7 +67,7 @@
     </fragment>
     <fragment
         android:id="@+id/favouriteProductFragment"
-        android:name="com.example.store.ui.product.FavouriteProductFragment"
+        android:name="com.example.store.ui.product.home.favourite.FavouriteProductFragment"
         android:label="FavouriteProductFragment" >
         <action
             android:id="@+id/action_favouriteProductFragment_to_detailProductFragment"
@@ -75,7 +75,7 @@
     </fragment>
     <fragment
         android:id="@+id/newProductFragment"
-        android:name="com.example.store.ui.product.NewProductFragment"
+        android:name="com.example.store.ui.product.home.latest.NewProductFragment"
         android:label="NewProductFragment" >
         <action
             android:id="@+id/action_newProductFragment_to_detailProductFragment"

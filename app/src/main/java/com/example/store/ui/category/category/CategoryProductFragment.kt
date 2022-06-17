@@ -2,23 +2,21 @@ package com.example.store.ui.category.category
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.store.R
 import com.example.store.data.Result
 import com.example.store.databinding.FragmentCategoryProductBinding
 import com.example.store.ui.product.ProductAdapter
-import com.example.store.ui.product.home.HomeFragmentDirections
-import com.example.store.ui.viewmodels.BestProductViewModel
-import com.example.store.ui.viewmodels.SpecificCategoryViewModel
+import com.example.store.ui.category.SpecificCategoryViewModel
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -71,15 +69,16 @@ class CategoryProductFragment : Fragment(R.layout.fragment_category_product) {
                 viewModel.productsStateFlow.collect {
                     when (it) {
                         is Result.Success -> {
-                            binding.productPb.visibility = View.GONE
                             recyclerAdaptor.setData(it.data)
+                            activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility = View.VISIBLE
+                            activity?.findViewById<LinearProgressIndicator>(R.id.progress_bar)?.visibility = View.INVISIBLE
                         }
                         is Result.Error -> {
-                            binding.productPb.visibility = View.GONE
 
                         }
                         is Result.Loading -> {
-                            binding.productPb.visibility = View.VISIBLE
+                            activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility = View.INVISIBLE
+                            activity?.findViewById<LinearProgressIndicator>(R.id.progress_bar)?.visibility = View.VISIBLE
                         }
                     }
                 }

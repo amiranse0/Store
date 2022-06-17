@@ -1,4 +1,4 @@
-package com.example.store.ui.viewmodels
+package com.example.store.ui.product.home.favourite
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

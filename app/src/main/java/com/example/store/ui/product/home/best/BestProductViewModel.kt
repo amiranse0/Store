@@ -1,4 +1,4 @@
-package com.example.store.ui.viewmodels
+package com.example.store.ui.product.home.best
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,18 +11,21 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SpecificCategoryViewModel @Inject constructor(
+class BestProductViewModel @Inject constructor(
     private val repository: Repository
-): ViewModel() {
+):ViewModel() {
+    init {
+        getBestProducts(1, 100)
+    }
 
-    private val _productsStateFlow =
+    private val _bestProductsStateFlow =
         MutableStateFlow<Result<List<ProductItem>>>(Result.Loading)
-    val productsStateFlow = _productsStateFlow
+    val bestProductsStateFlow = _bestProductsStateFlow
 
-    fun getProducts(page: Int, category:String) {
+    fun getBestProducts(page: Int, perPage:Int) {
         viewModelScope.launch {
-            repository.getSomeCategory(page, category).collect {
-                productsStateFlow.value = it
+            repository.getBestProducts(page, perPage).collect {
+                bestProductsStateFlow.value = it
             }
         }
     }

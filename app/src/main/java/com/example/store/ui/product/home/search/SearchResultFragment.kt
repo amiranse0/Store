@@ -21,7 +21,6 @@ import com.example.store.databinding.DialogFragmentOrderBinding
 import com.example.store.databinding.FilterLayoutDialogBinding
 import com.example.store.databinding.FragmentResultSearchBinding
 import com.example.store.ui.product.ProductAdapter
-import com.example.store.ui.viewmodels.SearchResultViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

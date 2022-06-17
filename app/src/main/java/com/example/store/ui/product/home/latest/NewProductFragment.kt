@@ -1,84 +1,79 @@
-package com.example.store.ui.product
+package com.example.store.ui.product.home.latest
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.store.R
 import com.example.store.data.Result
-import com.example.store.data.model.product.ProductItem
-import com.example.store.databinding.FragmentBestProductBinding
-import com.example.store.ui.product.home.HomeFragmentDirections
-import com.example.store.ui.viewmodels.BestProductViewModel
+import com.example.store.databinding.FragmentNewProductBinding
+import com.example.store.ui.product.ProductAdapter
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class BestProductFragment : Fragment(R.layout.fragment_best_product) {
+class NewProductFragment:Fragment(R.layout.fragment_new_product) {
 
-    private lateinit var binding: FragmentBestProductBinding
+    private lateinit var binding: FragmentNewProductBinding
+    private val viewModel by viewModels<NewestProductViewModel>()
 
     private lateinit var recyclerView: RecyclerView
-
     private lateinit var recyclerAdaptor: ProductAdapter
-
-    private val viewModel by viewModels<BestProductViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = FragmentBestProductBinding.bind(view)
+        binding = FragmentNewProductBinding.bind(view)
 
-        getListBestProduct()
+        getListNewestProduct()
+
         goToDetail()
-
     }
 
     private fun goToDetail() {
         recyclerAdaptor.setToClickOnItem(object : ProductAdapter.ClickOnItem {
             override fun clickOnItem(position: Int, view: View?) {
-                val item:ProductItem = recyclerAdaptor.oldList[position]
-
-                val action = BestProductFragmentDirections.actionBestProductFragmentToDetailProductFragment(item)
+                val item = recyclerAdaptor.oldList[position]
+                val action = NewProductFragmentDirections.actionNewProductFragmentToDetailProductFragment(item)
 
                 if (view != null) {
                     Navigation.findNavController(view).navigate(action)
                 }
-
             }
 
         })
     }
 
-    private fun getListBestProduct() {
-        recyclerView = binding.bestProductRc
+    private fun getListNewestProduct() {
+        recyclerView = binding.newestProductRc
         recyclerAdaptor = ProductAdapter()
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = recyclerAdaptor
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.bestProductsStateFlow.collect {
+                viewModel.newestProductsStateFlow.collect {
                     when (it) {
                         is Result.Error -> {
-                            binding.bestProductPb.visibility = View.GONE
                             recyclerAdaptor.setData(emptyList())
                         }
                         is Result.Loading -> {
-                            binding.bestProductPb.visibility = View.VISIBLE
                             recyclerAdaptor.setData(emptyList())
+                            activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility = View.INVISIBLE
+                            activity?.findViewById<LinearProgressIndicator>(R.id.progress_bar)?.visibility = View.VISIBLE
                         }
                         is Result.Success -> {
-                            binding.bestProductPb.visibility = View.GONE
                             recyclerAdaptor.setData(it.data)
+                            activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility = View.VISIBLE
+                            activity?.findViewById<LinearProgressIndicator>(R.id.progress_bar)?.visibility = View.INVISIBLE
                         }
                     }
                 }

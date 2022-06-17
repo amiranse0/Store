@@ -5,6 +5,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -17,8 +18,8 @@ import com.example.store.R
 import com.example.store.data.Result
 import com.example.store.databinding.HomeProductBinding
 import com.example.store.ui.product.home.slider.SpecialAdaptor
-import com.example.store.ui.viewmodels.HomeViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.*
@@ -43,6 +44,8 @@ class HomeFragment : Fragment(R.layout.home_product) {
     private lateinit var latestAdaptor: MainRowHomeAdaptor
 
     private val viewModel by viewModels<HomeViewModel>()
+
+    var countSuccess = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -168,6 +171,7 @@ class HomeFragment : Fragment(R.layout.home_product) {
                 viewModel.resultSpecialOffersStateFlow.collect {
                     when (it) {
                         is Result.Success -> {
+                            countSuccess++
                             val images = it.data.images.map { it.src }
                             val sliderAdaptor =
                                 SpecialAdaptor(requireContext(), images)
@@ -186,7 +190,11 @@ class HomeFragment : Fragment(R.layout.home_product) {
                                     })
                                 }
                             }, 1000, 5000)
+                        }
+                        is Result.Error -> {
 
+                        }
+                        is Result.Loading ->{
                         }
                     }
                 }
@@ -242,9 +250,13 @@ class HomeFragment : Fragment(R.layout.home_product) {
                         is Result.Error -> {
                         }
                         is Result.Loading -> {
+                            activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility = View.INVISIBLE
+                            activity?.findViewById<LinearProgressIndicator>(R.id.progress_bar)?.visibility = View.VISIBLE
                         }
                         is Result.Success -> {
                             latestAdaptor.setData(it.data)
+                            activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility = View.VISIBLE
+                            activity?.findViewById<LinearProgressIndicator>(R.id.progress_bar)?.visibility = View.INVISIBLE
                         }
                     }
                 }

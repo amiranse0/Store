@@ -13,13 +13,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/best_product_pb"
-        android:layout_width="@dimen/dimen_of_progress_bar"
-        android:layout_height="@dimen/dimen_of_progress_bar"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/best_product_rc" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
