@@ -4,21 +4,21 @@
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/ic_baseline_home_24"
-        android:title="@string/title_best_items_bottom_navigation" />
+        android:title="@string/title_home_items_bottom_navigation" />
 
     <item
         android:id="@+id/categoryFragment"
-        android:icon="@drawable/ic_select_product_svgrepo_com"
+        android:icon="@drawable/ic_baseline_category_24"
         android:title="@string/title_category_bottom_navigation" />
 
     <item
         android:id="@+id/cartFragment"
         android:icon="@drawable/ic_baseline_shopping_cart_24"
-        android:title="@string/title_favourite_items_bottom_navigation" />
+        android:title="@string/title_cart_bottom_navigation" />
 
     <item
         android:id="@+id/loginFragment"
         android:icon="@drawable/ic_baseline_person_24"
-        android:title="@string/title_newest_items_bottom_navigation" />
+        android:title="@string/title_profile_bottom_navigation" />
 
 </menu>

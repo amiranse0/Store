@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Store</string>
 
-    <string name="title_category_bottom_navigation">Category</string>
-    <string name="title_newest_items_bottom_navigation">Newest Items</string>
-    <string name="title_best_items_bottom_navigation">best</string>
-    <string name="title_favourite_items_bottom_navigation">favourite</string>
+    <string name="title_category_bottom_navigation">دسته بندی</string>
+    <string name="title_profile_bottom_navigation">کاربری</string>
+    <string name="title_home_items_bottom_navigation">خانه</string>
+    <string name="title_cart_bottom_navigation">سبد خرید</string>
     <string name="price_format">%s تومان</string>
     <string name="description_format">توضیحات: \n %s</string>
     <string name="see_all">مشاهده همه</string>

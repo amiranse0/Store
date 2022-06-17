@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="home_item_name_size_text">13sp</dimen>
+    <dimen name="home_item_name_size_text">11sp</dimen>
     <dimen name="categories_detail_size_text">13sp</dimen>
 </resources>

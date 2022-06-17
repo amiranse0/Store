@@ -11,6 +11,7 @@
         android:layout_height="54dp"
         android:clickable="true"
         android:elevation="@dimen/elevation_size"
+        android:clipToPadding="false"
         android:focusable="true"
         app:layout_constraintTop_toTopOf="parent">
 
