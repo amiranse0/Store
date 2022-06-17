@@ -88,4 +88,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
+
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 }
