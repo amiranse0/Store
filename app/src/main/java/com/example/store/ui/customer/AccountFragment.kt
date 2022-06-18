@@ -3,22 +3,24 @@ package com.example.store.ui.customer
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.store.R
 import com.example.store.data.Result
 import com.example.store.data.model.customer.body.Customer
 import com.example.store.databinding.AreYouSureDialogBinding
 import com.example.store.databinding.EditInfoDialogBinding
 import com.example.store.databinding.FragmentAccountBinding
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -33,6 +35,8 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
     private var lastName: String = ""
 
     private val viewModel: AccountViewModel by viewModels()
+
+    private val args: AccountFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,7 +58,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
             val bindingExitDialog = AreYouSureDialogBinding.inflate(layoutInflater)
             val exitDialog = Dialog(requireContext())
             exitDialog.setContentView(bindingExitDialog.root)
-            exitDialog.window?.setLayout(700, 550)
+            exitDialog.window?.setLayout(700, 420)
             exitDialog.window?.attributes?.gravity = Gravity.CENTER
             exitDialog.show()
 
@@ -98,7 +102,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                 val customer = Customer(
                     email = email,
                     firstName = bindingDialog.nameInputEd.text.toString(),
-                    last_name = bindingDialog.lastNameInputEd.text.toString(),
+                    lastName = bindingDialog.lastNameInputEd.text.toString(),
                     username = username
                 )
 
@@ -108,9 +112,15 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                             when(it){
                                 is Result.Success ->{
                                     binding.nameAndLastNameTitle.text = "${it.data.firstName} ${it.data.lastName}"
+                                    activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility = View.VISIBLE
+                                    activity?.findViewById<LinearProgressIndicator>(R.id.progress_bar)?.visibility = View.INVISIBLE
                                 }
                                 is Result.Error ->{
-                                    Log.d("ERROR", "${it.exception}")
+
+                                }
+                                is Result.Loading -> {
+                                    activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility = View.INVISIBLE
+                                    activity?.findViewById<LinearProgressIndicator>(R.id.progress_bar)?.visibility = View.VISIBLE
                                 }
                             }
                         }
@@ -145,7 +155,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
 
     private fun initValues(view: View) {
         binding = FragmentAccountBinding.bind(view)
-        id = arguments?.getString("id") ?: ""
-        email = arguments?.getString("email") ?: ""
+        id = args.id
+        email = args.email
     }
 }

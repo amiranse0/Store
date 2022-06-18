@@ -48,8 +48,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             login(editor)
             goToSignIn()
         } else {
-            val bundle = bundleOf("id" to id, "email" to email)
-            findNavController().navigate(R.id.action_loginFragment_to_accountFragment, bundle)
+            //val bundle = bundleOf("id" to id, "email" to email)
+                val action = LoginFragmentDirections.actionLoginFragmentToAccountFragment(id = id?:"", email =  email?:"")
+            findNavController().navigate(action)
         }
     }
 

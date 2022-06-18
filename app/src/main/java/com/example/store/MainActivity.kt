@@ -11,7 +11,10 @@ import android.view.View
 import android.view.animation.AnimationSet
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.store.data.connection.NetworkConnection
 import com.example.store.databinding.ActivityMainBinding
@@ -28,6 +31,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var networkConnection: NetworkConnection
     private var firstTime = false
 
+    private lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -43,6 +48,28 @@ class MainActivity : AppCompatActivity() {
 
         clickRetry()
 
+        bottomNavigation()
+
+    }
+
+    private fun bottomNavigation() {
+        val navHost = supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment
+        navController = navHost.findNavController()
+        binding.bottomNavigationView.setupWithNavController(navController)
+        navController.addOnDestinationChangedListener { controller, destenation, _ ->
+            if (destenation.id == R.id.accountFragment
+                || destenation.id == R.id.homeFragment
+                || destenation.id == R.id.cartFragment
+                || destenation.id == R.id.categoryFragment
+                || destenation.id == R.id.loginFragment
+                || destenation.id == R.id.signInFragment){
+
+                binding.bottomNavigationView.visibility = View.VISIBLE
+            } else {
+                binding.bottomNavigationView.visibility = View.GONE
+            }
+
+        }
     }
 
     private fun checkForConnection() {

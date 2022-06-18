@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.example.store.ui.product.cart.CartFragment"
+        android:name="com.example.store.ui.cart.CartFragment"
         android:label="CartFragment" />
     <fragment
         android:id="@+id/categoryProductFragment"
@@ -56,6 +56,10 @@
         <action
             android:id="@+id/action_detailProductFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_detailProductFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/bestProductFragment"
@@ -123,6 +127,10 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/accountFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument android:name="email" />
     </fragment>
     <fragment
         android:id="@+id/signInFragment"

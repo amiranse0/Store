@@ -11,4 +11,6 @@ data class Order(
     val paymentMethodTitle: String,
     @SN("set_paid")
     val setPaid: Boolean,
+    @SN("customer_id")
+    val customerId: Int
 )

@@ -1,9 +1,13 @@
 package com.example.store.ui.product.detail
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -17,8 +21,10 @@ import com.example.store.data.model.order.body.LineItem
 import com.example.store.data.model.order.body.Order
 import com.example.store.data.model.product.ProductItem
 import com.example.store.databinding.FragmentDetailProductBinding
+import com.example.store.databinding.SnackBarLoginCardViewBinding
 import com.example.store.ui.product.home.slider.SpecialAdaptor
-import com.google.android.material.tabs.TabLayout
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.snackbar.Snackbar.SnackbarLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -34,6 +40,8 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
     private val lineItem: MutableList<LineItem> = mutableListOf()
 
     private val viewModel: DetailViewModel by viewModels()
+    private var userId = ""
+    private var orderId = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,7 +52,7 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
 
         createGallery()
         detailProduct()
-        cart()
+        cart(view)
 
         search()
     }
@@ -59,30 +67,55 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
         item = args.item
     }
 
-    private fun cart() {
-        val sharedPreferences =
+    @SuppressLint("RestrictedApi")
+    private fun cart(view: View) {
+        val accountSharedPreferences =
+            activity?.getSharedPreferences("loginSharedPref", Context.MODE_PRIVATE)
+
+        userId = accountSharedPreferences?.getString("id", "") ?: ""
+
+        val orderSharedPreferences =
             activity?.getSharedPreferences("orderSharePref", Context.MODE_PRIVATE)
-        val id = sharedPreferences?.getString("id", "")
+
         val setOfProductInCart: MutableSet<String>? =
-            sharedPreferences?.getStringSet("items", emptySet())
+            orderSharedPreferences?.getStringSet("items", emptySet())
+
+        val editor = orderSharedPreferences?.edit()
 
         if (setOfProductInCart?.contains(args.item.id.toString()) == true) {
             binding.addToCartBtn.text = getString(R.string.see_cart)
         }
 
-        val editor = sharedPreferences?.edit()
-
         binding.addToCartBtn.setOnClickListener {
-            if (id == "") {
-                createCart(editor)
+            orderId = orderSharedPreferences?.getString("id", "")?:""
+            if (userId == "") {
+                val snackbar = Snackbar.make(it, "", 5000)
+
+                val customSnackView: View =
+                    layoutInflater.inflate(R.layout.snack_bar_login_card_view, null)
+                snackbar.getView().setBackgroundColor(Color.TRANSPARENT)
+                val snackbarLayout = snackbar.view as SnackbarLayout
+                snackbarLayout.setPadding(0, 0, 0, 0)
+
+                val snackBarBinding = SnackBarLoginCardViewBinding.bind(customSnackView)
+
+                snackbarLayout.addView(customSnackView, 0)
+                snackbar.show()
+
+                snackBarBinding.goToLoginBtn.setOnClickListener {
+                    findNavController().navigate(R.id.action_detailProductFragment_to_loginFragment)
+                    snackbar.dismiss()
+                }
             } else {
-                if (setOfProductInCart?.contains(args.item.id.toString()) == true) {
-                    addOnesToCart()
-                } else {
+                Log.d("ORDER", orderId?:"null")
+                if (orderId == "") {
+                    createCart(editor)
+                } else if (setOfProductInCart?.contains(args.item.id.toString()) == false) {
                     addNewItemToCart(editor)
                 }
             }
         }
+
 
     }
 
@@ -95,7 +128,7 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
     }
 
     private fun addOnesToCart() {
-        TODO("Not yet implemented")
+
     }
 
     private fun createCart(editor: SharedPreferences.Editor?) {
@@ -103,26 +136,29 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 val items = LineItem(
                     item.id,
-                    1,
-                    item.id + 1,
-                    item.price.toInt()
+                    1
                 )
                 val order = Order(
                     listOf(items),
                     "bacs",
                     "Direct Bank Transfer",
-                    false
+                    false,
+                    userId.toInt()
                 )
                 viewModel.createCart(order).collect {
                     when (it) {
                         is Result.Success -> {
+
                             editor?.apply {
                                 putString("id", "${it.data.id}")
+
                                 putStringSet("items", setOf(args.item.id.toString()))
                                 apply()
                             }
 
                             binding.addToCartBtn.text = getString(R.string.see_cart)
+
+                            Toast.makeText(requireContext(), "به سبد خرید اضافه شد.", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }

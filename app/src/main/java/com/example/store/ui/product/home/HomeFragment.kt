@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.viewModels
@@ -21,17 +22,13 @@ import com.example.store.ui.product.home.slider.SpecialAdaptor
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.*
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.home_product) {
 
-    override fun onStart() {
-        super.onStart()
-        activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
-            View.VISIBLE
-    }
 
     private lateinit var binding: HomeProductBinding
 
@@ -43,9 +40,10 @@ class HomeFragment : Fragment(R.layout.home_product) {
     private lateinit var favouriteAdaptor: MainRowHomeAdaptor
     private lateinit var latestAdaptor: MainRowHomeAdaptor
 
-    private val viewModel by viewModels<HomeViewModel>()
+    private lateinit var sliderAdaptor: SpecialAdaptor
 
-    var countSuccess = 0
+    private val viewModel by viewModels<HomeViewModel>()
+    var currentPage = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,7 +62,9 @@ class HomeFragment : Fragment(R.layout.home_product) {
         slider()
 
         goToSearchFragment()
+
     }
+
 
     private fun goToSearchFragment() {
         binding.homeSearchCardView.setOnClickListener {
@@ -76,18 +76,12 @@ class HomeFragment : Fragment(R.layout.home_product) {
 
     private fun goToSeeAll() {
         binding.seeAllBestTv.setOnClickListener {
-            activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
-                View.GONE
             findNavController().navigate(R.id.action_homeFragment_to_bestProductFragment)
         }
         binding.seeAllFavouriteTv.setOnClickListener {
-            activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
-                View.GONE
             findNavController().navigate(R.id.action_homeFragment_to_favouriteProductFragment)
         }
         binding.seeAllLatestTv.setOnClickListener {
-            activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
-                View.GONE
             findNavController().navigate(R.id.action_homeFragment_to_newProductFragment)
         }
     }
@@ -96,9 +90,6 @@ class HomeFragment : Fragment(R.layout.home_product) {
         bestAdaptor.setToClickOnItem(object : MainRowHomeAdaptor.ClickOnItem {
             override fun clickOnItem(position: Int, view: View?) {
                 val item = bestAdaptor.oldList[position]
-
-                activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
-                    View.GONE
 
                 val action = HomeFragmentDirections.actionHomeFragmentToDetailProductFragment(item)
                 if (view != null) {
@@ -111,9 +102,6 @@ class HomeFragment : Fragment(R.layout.home_product) {
             override fun clickOnItem(position: Int, view: View?) {
                 val item = favouriteAdaptor.oldList[position]
 
-                activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
-                    View.GONE
-
                 val action = HomeFragmentDirections.actionHomeFragmentToDetailProductFragment(item)
                 if (view != null) {
                     Navigation.findNavController(view).navigate(action)
@@ -124,9 +112,6 @@ class HomeFragment : Fragment(R.layout.home_product) {
         latestAdaptor.setToClickOnItem(object : MainRowHomeAdaptor.ClickOnItem {
             override fun clickOnItem(position: Int, view: View?) {
                 val item = latestAdaptor.oldList[position]
-
-                activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)?.visibility =
-                    View.GONE
 
                 val action = HomeFragmentDirections.actionHomeFragmentToDetailProductFragment(item)
 
@@ -164,18 +149,23 @@ class HomeFragment : Fragment(R.layout.home_product) {
 
     private fun slider() {
 
-        var currentPage = 0
+        sliderAdaptor =
+            SpecialAdaptor(requireContext())
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.resultSpecialOffersStateFlow.collect {
                     when (it) {
                         is Result.Success -> {
-                            countSuccess++
                             val images = it.data.images.map { it.src }
-                            val sliderAdaptor =
-                                SpecialAdaptor(requireContext(), images)
+
+                            sliderAdaptor.images = images
+
+                            sliderAdaptor.notifyDataSetChanged()
+
                             binding.specialOffersVp.adapter = sliderAdaptor
+
+                            binding.tabLayout.setupWithViewPager(binding.specialOffersVp, true)
 
                             Timer().schedule(object : TimerTask() {
                                 override fun run() {
@@ -189,7 +179,7 @@ class HomeFragment : Fragment(R.layout.home_product) {
                                         )
                                     })
                                 }
-                            }, 1000, 5000)
+                            }, 1000, 4000)
                         }
                         is Result.Error -> {
 

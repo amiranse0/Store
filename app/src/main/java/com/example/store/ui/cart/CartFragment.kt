@@ -1,4 +1,4 @@
-package com.example.store.ui.product.cart
+package com.example.store.ui.cart
 
 import androidx.fragment.app.Fragment
 import com.example.store.R

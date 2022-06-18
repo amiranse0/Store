@@ -1,5 +1,6 @@
 package com.example.store.di
 
+import com.example.store.data.Keys
 import com.example.store.data.remote.DataSource
 import com.example.store.data.remote.IStoreService
 import com.example.store.data.remote.RemoteDataSource
@@ -26,7 +27,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideRetrofit(): Retrofit = Retrofit.Builder()
-        .baseUrl("https://woocommerce.maktabsharif.ir/wp-json/wc/v3/")
+        .baseUrl(Keys.baseUrl)
         .addConverterFactory(GsonConverterFactory.create())
         .client(provideClient())
         .build()

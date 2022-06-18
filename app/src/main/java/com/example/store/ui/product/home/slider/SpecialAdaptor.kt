@@ -11,10 +11,8 @@ import com.bumptech.glide.Glide
 import com.example.store.R
 import java.util.*
 
-class SpecialAdaptor(private val context: Context, private val images: List<String>) :
+class SpecialAdaptor(private val context: Context, var images: List<String> = emptyList()) :
     PagerAdapter() {
-
-
 
     override fun getCount(): Int {
         return images.size

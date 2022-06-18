@@ -7,7 +7,8 @@ data class Customer(
     val email: String,
     @SN("first_name")
     val firstName: String,
-    val last_name: String,
+    @SN("last_name")
+    val lastName: String,
     val shipping: Shipping = Shipping(),
     val username: String
 )

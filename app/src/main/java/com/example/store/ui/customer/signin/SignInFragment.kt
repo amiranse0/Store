@@ -1,7 +1,6 @@
 package com.example.store.ui.customer.signin
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -17,7 +16,6 @@ import com.example.store.data.model.customer.body.Customer
 import com.example.store.databinding.FragmentSignInBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 
 @AndroidEntryPoint
 class SignInFragment: Fragment(R.layout.fragment_sign_in) {
@@ -40,7 +38,7 @@ class SignInFragment: Fragment(R.layout.fragment_sign_in) {
                 viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
                     val customer = Customer(
                         firstName = binding.firstNameIet.text.toString(),
-                        last_name = binding.lastNameIet.text.toString(),
+                        lastName = binding.lastNameIet.text.toString(),
                         email = binding.emailIet.text.toString(),
                         username = binding.userNameIet.text.toString(),
                         billing = Billing(email = binding.emailIet.text.toString())
