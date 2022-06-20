@@ -167,7 +167,7 @@ class RemoteDataSource(
             "consumer_key" to Keys.consumerKey,
             "consumer_secret" to Keys.consumerSecret
         )
-        return service.getOrder(id, query).first()
+        return service.getOrder(id, query)
     }
 
 }

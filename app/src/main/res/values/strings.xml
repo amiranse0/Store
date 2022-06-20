@@ -39,5 +39,6 @@
     <string name="category">دسته بندی</string>
     <string name="price">قیمت</string>
     <string name="submit_filter">اعمال فیلتر</string>
+    <string name="added_to_cart">به سبد خرید اضافه شد.</string>
 
 </resources>

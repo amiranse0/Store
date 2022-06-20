@@ -61,5 +61,5 @@ interface IStoreService {
     suspend fun getOrder(
         @Path("id") id: String,
         @QueryMap hashMap: HashMap<String, String>
-    ): List<OrderResult>
+    ): OrderResult
 }

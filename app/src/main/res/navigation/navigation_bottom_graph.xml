@@ -60,6 +60,9 @@
             android:id="@+id/action_detailProductFragment_to_loginFragment"
             app:destination="@id/loginFragment"
             app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_detailProductFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
     </fragment>
     <fragment
         android:id="@+id/bestProductFragment"

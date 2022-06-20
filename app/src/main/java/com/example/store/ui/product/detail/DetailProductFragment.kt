@@ -7,8 +7,10 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -55,9 +57,9 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
 
         binding = FragmentDetailProductBinding.bind(view)
 
-        getCart()
-
         initValues()
+
+        getCart()
 
         createGallery()
         detailProduct()
@@ -102,6 +104,8 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
                     createCart()
                 } else if (!setOfProductInCart.contains(args.item.id.toString())) {
                     addNewItemToCart()
+                } else if (setOfProductInCart.contains(args.item.id.toString())){
+                    findNavController().navigate(R.id.action_detailProductFragment_to_cartFragment)
                 }
             }
         }
@@ -130,6 +134,7 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
     private fun getCart() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.getOrder(orderId).collect {
+                Log.d("ORDER", "$it")
                 when (it) {
                     is Result.Success -> {
 
@@ -145,7 +150,17 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
                             it2.productId.toString()
                         } as MutableList<String>
 
-                        Log.d("ORDER", "1. $setOfProductInCart")
+                        if (item.id.toString() in setOfProductInCart) {
+                            binding.addToCartBtn.text = getString(R.string.see_cart)
+                        }
+
+                        activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility = View.VISIBLE
+                        activity?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility = View.INVISIBLE
+
+                    }
+                    is Result.Loading -> {
+                        activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility = View.INVISIBLE
+                        activity?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility = View.VISIBLE
                     }
                 }
             }
@@ -177,7 +192,7 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
 
                             Toast.makeText(
                                 requireContext(),
-                                "به سبد خرید اضافه شد.",
+                                getString(R.string.added_to_cart),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
