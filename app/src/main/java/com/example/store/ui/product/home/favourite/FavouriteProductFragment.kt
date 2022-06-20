@@ -2,6 +2,7 @@ package com.example.store.ui.product.home.favourite
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.viewModels
@@ -69,12 +70,12 @@ class FavouriteProductFragment : Fragment(R.layout.fragment_favourite_product) {
                         is Result.Loading -> {
                             recyclerAdaptor.setData(emptyList())
                             activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility = View.INVISIBLE
-                            activity?.findViewById<LinearProgressIndicator>(R.id.progress_bar)?.visibility = View.VISIBLE
+                            activity?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility = View.VISIBLE
                         }
                         is Result.Success -> {
                             recyclerAdaptor.setData(it.data)
                             activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility = View.VISIBLE
-                            activity?.findViewById<LinearProgressIndicator>(R.id.progress_bar)?.visibility = View.INVISIBLE
+                            activity?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility = View.INVISIBLE
                         }
                     }
                 }

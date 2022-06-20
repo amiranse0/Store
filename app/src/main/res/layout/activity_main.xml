@@ -101,12 +101,14 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.progressindicator.LinearProgressIndicator
+    <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="50dp"
+        app:trackThickness="5dp"
         android:visibility="invisible"
         android:layout_height="50dp"
-        android:backgroundTint="@color/orange"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/gradient_for_progress_bar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

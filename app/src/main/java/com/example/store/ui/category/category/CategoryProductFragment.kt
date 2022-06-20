@@ -2,6 +2,7 @@ package com.example.store.ui.category.category
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.viewModels
@@ -71,14 +72,14 @@ class CategoryProductFragment : Fragment(R.layout.fragment_category_product) {
                         is Result.Success -> {
                             recyclerAdaptor.setData(it.data)
                             activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility = View.VISIBLE
-                            activity?.findViewById<LinearProgressIndicator>(R.id.progress_bar)?.visibility = View.INVISIBLE
+                            activity?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility = View.INVISIBLE
                         }
                         is Result.Error -> {
 
                         }
                         is Result.Loading -> {
                             activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility = View.INVISIBLE
-                            activity?.findViewById<LinearProgressIndicator>(R.id.progress_bar)?.visibility = View.VISIBLE
+                            activity?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility = View.VISIBLE
                         }
                     }
                 }

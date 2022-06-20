@@ -9,10 +9,15 @@
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/circle.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/default_dot.xml" value="0.1685" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/gradient_for_category.xml" value="0.1" />
+        <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/gradient_for_progress_bar.xml" value="0.1" />
+        <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_arrow_forward_24.xml" value="0.171" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_broken_image_24.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_category_24.xml" value="0.1" />
+        <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_clear_24.xml" value="0.1" />
+        <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.128" />
+        <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_minus_24.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.2115" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_shopping_cart_24.xml" value="0.128" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_sort_24.xml" value="0.12" />
@@ -24,6 +29,7 @@
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_new_svgrepo_com.xml" value="0.1125" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_plug_disconnected_svgrepo_com.xml" value="0.1735" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_select_product_svgrepo_com.xml" value="0.1125" />
+        <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_shopping_cart_flat_icon_vector.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_star_svgrepo_com.xml" value="0.1125" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/image_rounded.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/pic_background.xml" value="0.1" />
@@ -36,9 +42,11 @@
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/activity_home.xml" value="0.22" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/are_you_sure_dialog.xml" value="0.1308876811594203" />
+        <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/cart_card_view.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/category_card_view.xml" value="0.18432971014492755" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/custome_card_view.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/custome_search_view.xml" value="0.1308876811594203" />
+        <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/decreas_increase_cart.xml" value="0.22" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/dialog_fragment_order.xml" value="0.22" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/edit_info_dialog.xml" value="0.1308876811594203" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/filter_layout_dialog.xml" value="0.25" />

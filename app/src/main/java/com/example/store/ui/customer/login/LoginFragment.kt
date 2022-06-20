@@ -5,8 +5,10 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ProgressBar
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -71,6 +73,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                                     apply()
                                 }
 
+                                activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility = View.VISIBLE
+                                activity?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility = View.INVISIBLE
+
                                 findNavController().navigate(
                                     R.id.action_loginFragment_to_accountFragment,
                                     bundle
@@ -78,6 +83,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                             }
                             is Result.Error -> {
                                 binding.emailIl.error = getString(R.string.invalid_email)
+                            }
+                            is Result.Loading -> {
+                                activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility = View.INVISIBLE
+                                activity?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility = View.VISIBLE
                             }
                         }
                     }
