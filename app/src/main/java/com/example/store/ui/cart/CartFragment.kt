@@ -53,38 +53,6 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         Log.d("ORDER", items.size.toString())
 
         viewLifecycleOwner.lifecycleScope.launch {
-
-        }
-    }
-
-
-    private fun initValues() {
-        orderSharedPreferences =
-            activity?.getSharedPreferences("orderSharePref", Context.MODE_PRIVATE)
-        editor = orderSharedPreferences?.edit()
-        orderId = orderSharedPreferences?.getString("id", "") ?: ""
-
-        cartAdaptor = CartAdaptor()
-        binding.cartRc.adapter = cartAdaptor
-
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private fun getOrder() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getOrder(orderId).collect {
-                    when (it) {
-                        is Result.Success -> {
-                            lineItems.clear()
-                            lineItems.addAll(it.data.line_items as MutableList<LineItem>)
-                            Log.d("ORDER", "lineItems ${lineItems.size}")
-                        }
-                    }
-                }
-            }
-
-
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 Log.d("ORDER", "lineItems2 ${lineItems.size}")
                 for (item in lineItems) {
@@ -128,6 +96,35 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                     }
                 }
             }
+        }
+    }
+
+
+    private fun initValues() {
+        orderSharedPreferences =
+            activity?.getSharedPreferences("orderSharePref", Context.MODE_PRIVATE)
+        editor = orderSharedPreferences?.edit()
+        orderId = orderSharedPreferences?.getString("id", "") ?: ""
+
+        cartAdaptor = CartAdaptor()
+        binding.cartRc.adapter = cartAdaptor
+
+    }
+
+    private fun getOrder() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.getOrder(orderId).collect {
+                    when (it) {
+                        is Result.Success -> {
+                            lineItems.clear()
+                            lineItems.addAll(it.data.line_items as MutableList<LineItem>)
+                            Log.d("ORDER", "lineItems ${lineItems.size}")
+                        }
+                    }
+                }
+            }
+
         }
     }
 }

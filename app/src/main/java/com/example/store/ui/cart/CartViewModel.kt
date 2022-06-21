@@ -45,5 +45,4 @@ class CartViewModel @Inject constructor(private val repository: Repository): Vie
         }
         return productStateFlow
     }
-
 }
