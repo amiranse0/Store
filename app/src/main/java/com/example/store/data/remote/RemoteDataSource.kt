@@ -41,6 +41,10 @@ class RemoteDataSource(
         return service.getProducts(bestQuery)
     }
 
+    override suspend fun getProduct(id: String): ProductItem {
+        return service.getProduct(id, query)
+    }
+
     override suspend fun getCategories(): List<CategoryItem> {
         return service.getCategories(
             hashMapOf(

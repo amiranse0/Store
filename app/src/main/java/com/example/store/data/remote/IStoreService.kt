@@ -13,6 +13,12 @@ interface IStoreService {
     @GET("products")
     suspend fun getProducts(@QueryMap hashMap: HashMap<String, String>): List<ProductItem>
 
+    @GET("products/{id}")
+    suspend fun getProduct(
+        @Path("id") id: String,
+        @QueryMap hashMap: HashMap<String, String>
+    ): ProductItem
+
     @GET("products/categories")
     suspend fun getCategories(@QueryMap hashMap: HashMap<String, String>): List<CategoryItem>
 

@@ -45,6 +45,16 @@ class Repository @Inject constructor(@AppModule.RemoteProductDataSource private 
         }
     }
 
+    suspend fun getProduct(id: String): Flow<Result<ProductItem>> = flow {
+        emit(Result.Loading)
+        try {
+            val result = remoteDataSource.getProduct(id)
+            emit(Result.Success(result))
+        } catch (e:Exception){
+            emit(Result.Error(e))
+        }
+    }
+
     suspend fun getCategories(): Flow<Result<List<CategoryItem>>> = flow {
         emit(Result.Loading)
         try {

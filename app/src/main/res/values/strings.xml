@@ -40,5 +40,6 @@
     <string name="price">قیمت</string>
     <string name="submit_filter">اعمال فیلتر</string>
     <string name="added_to_cart">به سبد خرید اضافه شد.</string>
+    <string name="empty_cart">سبد خرید شما خالی است.</string>
 
 </resources>
