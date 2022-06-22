@@ -11,6 +11,7 @@ interface DataSource {
     suspend fun getLatestProducts(page: Int, perPage: Int): List<ProductItem>
     suspend fun getFavouriteProducts(page: Int, perPage: Int): List<ProductItem>
     suspend fun getBestProducts(page: Int, perPage: Int): List<ProductItem>
+    suspend fun getNewAddedProduct(): ProductItem
 
     suspend fun getProduct(id:String): ProductItem
 

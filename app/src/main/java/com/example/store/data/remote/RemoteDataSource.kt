@@ -41,6 +41,14 @@ class RemoteDataSource(
         return service.getProducts(bestQuery)
     }
 
+    override suspend fun getNewAddedProduct(): ProductItem {
+        val addedQuery = query
+        addedQuery["orderby"] = "date"
+        val time = java.util.Calendar.getInstance().timeZone
+
+        return service.getProducts(query).first()
+    }
+
     override suspend fun getProduct(id: String): ProductItem {
         return service.getProduct(id, query)
     }

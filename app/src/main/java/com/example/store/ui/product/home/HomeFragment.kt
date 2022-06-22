@@ -1,9 +1,13 @@
 package com.example.store.ui.product.home
 
 import android.app.Dialog
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
@@ -97,31 +101,35 @@ class HomeFragment : Fragment(R.layout.home_product) {
                 }
 
                 var timePeriod = when {
-                    bindingDialog.notifRb3.isChecked -> 3
-                    bindingDialog.notifRb5.isChecked -> 5
-                    bindingDialog.notifRb8.isChecked -> 8
-                    bindingDialog.notifRb12.isChecked -> 12
-                    else -> 8
+                    bindingDialog.notifRb3.isChecked -> 3L
+                    bindingDialog.notifRb5.isChecked -> 5L
+                    bindingDialog.notifRb8.isChecked -> 8L
+                    bindingDialog.notifRb12.isChecked -> 12L
+                    else -> 8L
                 }
 
                 setNotification(activeNotification, timePeriod)
+
+                notifDialogFragment.dismiss()
             }
 
         }
     }
 
-    private fun setNotification(activeNotification: Boolean, timePeriod: Int) {
+    private fun setNotification(activeNotification: Boolean, timePeriod: Long) {
+
+        Log.d("NOTIFICATION", activeNotification.toString())
+
         if (activeNotification) {
+
             val constraints = Constraints.Builder()
-                .setRequiresCharging(false)
                 .setRequiredNetworkType(NetworkType.CONNECTED)
-                .setRequiresCharging(false)
-                .setRequiresBatteryNotLow(true)
+                //.setRequiresBatteryNotLow(true)
                 .build()
 
             val myRequest = PeriodicWorkRequest.Builder(
                 NotificationWorker::class.java,
-                1,
+                15,
                 TimeUnit.MINUTES
             ).setConstraints(constraints)
                 .build()
@@ -129,12 +137,11 @@ class HomeFragment : Fragment(R.layout.home_product) {
             WorkManager.getInstance(requireContext())
                 .enqueueUniquePeriodicWork(
                     "my_id",
-                    ExistingPeriodicWorkPolicy.KEEP,
+                    ExistingPeriodicWorkPolicy.REPLACE,
                     myRequest
                 )
-        } else{
-
         }
+
     }
 
 

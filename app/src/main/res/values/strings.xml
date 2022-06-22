@@ -41,5 +41,7 @@
     <string name="submit_filter">اعمال فیلتر</string>
     <string name="added_to_cart">به سبد خرید اضافه شد.</string>
     <string name="empty_cart">سبد خرید شما خالی است.</string>
+    <string name="new_product_avail">محصول جدید رسید.</string>
+    <string name="click">کلیک کن!</string>
 
 </resources>
