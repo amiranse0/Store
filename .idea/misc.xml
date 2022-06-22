@@ -18,6 +18,7 @@
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.128" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_minus_24.xml" value="0.1" />
+        <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_notifications_24.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.2115" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_shopping_cart_24.xml" value="0.128" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/drawable/ic_baseline_sort_24.xml" value="0.12" />
@@ -41,7 +42,7 @@
         <entry key="..\:/bootcamp/final/project/app/src/main/res/font/xb_niloofar.xml" value="0.17592592592592593" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/activity_home.xml" value="0.22" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/are_you_sure_dialog.xml" value="0.1308876811594203" />
+        <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/are_you_sure_dialog.xml" value="0.33" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/cart_card_view.xml" value="0.33" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/category_card_view.xml" value="0.18432971014492755" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/custome_card_view.xml" value="0.1" />
@@ -67,8 +68,9 @@
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/gallery_card_view.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/home_card_view_item.xml" value="0.1453804347826087" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/home_card_view_main_row.xml" value="0.1" />
-        <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/home_product.xml" value="0.1368421052631579" />
+        <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/home_product.xml" value="0.25" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/increase_decsrese_cart.xml" value="0.1743659420289855" />
+        <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/notification_dialog.xml" value="0.20416666666666666" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/product_card_view.xml" value="0.1" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/layout/snack_bar_login_card_view.xml" value="0.33" />
         <entry key="..\:/bootcamp/final/project/app/src/main/res/menu/bottom_menu.xml" value="0.20416666666666666" />

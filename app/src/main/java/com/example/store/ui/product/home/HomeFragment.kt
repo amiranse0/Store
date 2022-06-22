@@ -1,10 +1,11 @@
 package com.example.store.ui.product.home
 
+import android.app.Dialog
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import android.widget.Button
+import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
@@ -16,17 +17,18 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.work.*
 import com.example.store.R
 import com.example.store.data.Result
 import com.example.store.databinding.HomeProductBinding
+import com.example.store.databinding.NotificationDialogBinding
 import com.example.store.ui.product.home.slider.SpecialAdaptor
+import com.example.store.workers.NotificationWorker
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.progressindicator.CircularProgressIndicator
-import com.google.android.material.progressindicator.LinearProgressIndicator
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.home_product) {
@@ -65,6 +67,74 @@ class HomeFragment : Fragment(R.layout.home_product) {
 
         goToSearchFragment()
 
+        showNotification()
+
+    }
+
+    private fun showNotification() {
+        binding.notificationCustomize.setOnClickListener {
+
+            val bindingDialog = NotificationDialogBinding.inflate(layoutInflater)
+
+            val notifDialogFragment =
+                Dialog(requireContext(), androidx.transition.R.style.Base_ThemeOverlay_AppCompat)
+            notifDialogFragment.setContentView(bindingDialog.root)
+            notifDialogFragment.window?.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+
+            notifDialogFragment.show()
+
+            bindingDialog.dismissBtn.setOnClickListener {
+                notifDialogFragment.dismiss()
+            }
+
+            bindingDialog.submitBtn.setOnClickListener {
+                var activeNotification = false
+                if (bindingDialog.notificationSwitch.isChecked) {
+                    activeNotification = true
+                }
+
+                var timePeriod = when {
+                    bindingDialog.notifRb3.isChecked -> 3
+                    bindingDialog.notifRb5.isChecked -> 5
+                    bindingDialog.notifRb8.isChecked -> 8
+                    bindingDialog.notifRb12.isChecked -> 12
+                    else -> 8
+                }
+
+                setNotification(activeNotification, timePeriod)
+            }
+
+        }
+    }
+
+    private fun setNotification(activeNotification: Boolean, timePeriod: Int) {
+        if (activeNotification) {
+            val constraints = Constraints.Builder()
+                .setRequiresCharging(false)
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .setRequiresCharging(false)
+                .setRequiresBatteryNotLow(true)
+                .build()
+
+            val myRequest = PeriodicWorkRequest.Builder(
+                NotificationWorker::class.java,
+                1,
+                TimeUnit.MINUTES
+            ).setConstraints(constraints)
+                .build()
+
+            WorkManager.getInstance(requireContext())
+                .enqueueUniquePeriodicWork(
+                    "my_id",
+                    ExistingPeriodicWorkPolicy.KEEP,
+                    myRequest
+                )
+        } else{
+
+        }
     }
 
 
@@ -186,7 +256,7 @@ class HomeFragment : Fragment(R.layout.home_product) {
                         is Result.Error -> {
 
                         }
-                        is Result.Loading ->{
+                        is Result.Loading -> {
                         }
                     }
                 }
@@ -242,13 +312,17 @@ class HomeFragment : Fragment(R.layout.home_product) {
                         is Result.Error -> {
                         }
                         is Result.Loading -> {
-                            activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility = View.INVISIBLE
-                            activity?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility = View.VISIBLE
+                            activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility =
+                                View.INVISIBLE
+                            activity?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility =
+                                View.VISIBLE
                         }
                         is Result.Success -> {
                             latestAdaptor.setData(it.data)
-                            activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility = View.VISIBLE
-                            activity?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility = View.INVISIBLE
+                            activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility =
+                                View.VISIBLE
+                            activity?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility =
+                                View.INVISIBLE
                         }
                     }
                 }

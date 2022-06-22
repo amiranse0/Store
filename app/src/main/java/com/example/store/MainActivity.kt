@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
 
         bottomNavigation()
 
+
     }
 
     private fun bottomNavigation() {
@@ -62,7 +63,8 @@ class MainActivity : AppCompatActivity() {
                 || destenation.id == R.id.cartFragment
                 || destenation.id == R.id.categoryFragment
                 || destenation.id == R.id.loginFragment
-                || destenation.id == R.id.signInFragment){
+                || destenation.id == R.id.signInFragment
+            ) {
 
                 binding.bottomNavigationView.visibility = View.VISIBLE
             } else {
@@ -101,7 +103,8 @@ class MainActivity : AppCompatActivity() {
         val toastNoConnection =
             Toast.makeText(this, getString(R.string.no_connection), Toast.LENGTH_SHORT)
         toastNoConnection.setGravity(Gravity.TOP, 0, 200)
-        val toastConnected = Toast.makeText(this, getString(R.string.connected), Toast.LENGTH_SHORT)
+        val toastConnected =
+            Toast.makeText(this, getString(R.string.connected), Toast.LENGTH_SHORT)
         toastConnected.setGravity(Gravity.TOP, 0, 200)
 
         binding.refreshBtn.setOnClickListener {

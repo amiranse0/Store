@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.work.Worker
@@ -24,6 +25,8 @@ class NotificationWorker(context: Context, workerParameters: WorkerParameters)
     override fun doWork(): Result {
 
         showNotification()
+
+        Log.d("NOTIFICATION", "message")
 
         return Result.success()
     }
@@ -45,7 +48,7 @@ class NotificationWorker(context: Context, workerParameters: WorkerParameters)
         )
             .setSmallIcon(R.drawable.ic_baseline_notifications_24)
             .setContentTitle("محصولات جدید رسید.")
-            .setContentText("")
+            .setContentText("کلیک کن!")
             .setPriority(NotificationCompat.PRIORITY_MAX)
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)

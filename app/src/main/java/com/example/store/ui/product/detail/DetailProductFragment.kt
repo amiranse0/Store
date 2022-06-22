@@ -65,14 +65,6 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
         detailProduct()
         cart()
 
-        search()
-    }
-
-
-    private fun search() {
-        binding.homeSearchCardView.setOnClickListener {
-            findNavController().navigate(R.id.action_detailProductFragment_to_searchFragment)
-        }
     }
 
     private fun initValues() {
