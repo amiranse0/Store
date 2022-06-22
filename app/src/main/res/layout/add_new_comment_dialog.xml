@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/dismiss_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="5dp"
+        android:src="@drawable/ic_baseline_clear_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/add_new_review_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:text="@string/add_review"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/name_reviewer_til"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_new_review_title_tv">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/name_reviewer_ed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_the_name" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/review_til"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_reviewer_til">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/review_ed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_review" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/submit_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/submit"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="5dp" />
+
+    <TextView
+        android:id="@id/rating_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:padding="10dp"
+        android:text="@string/rating"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/rating_rg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rating_rg" />
+
+    <RadioGroup
+        android:id="@+id/rating_rg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        android:checkedButton="@id/rating_5_rb"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/review_til">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rating_1_rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="1" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rating_2_rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="2" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rating_3_rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="3" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rating_4_rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="4" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/rating_5_rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="5" />
+
+    </RadioGroup>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

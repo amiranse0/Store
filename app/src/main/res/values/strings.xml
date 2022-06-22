@@ -45,5 +45,10 @@
     <string name="click">کلیک کن!</string>
     <string name="reviews">دیدگاه کاربران</string>
     <string name="add_review">افزودن نظر</string>
+    <string name="enter_review">دیدگاه خود را بنویسید</string>
+    <string name="submit">تایید</string>
+    <string name="rating">نمره</string>
+    <string name="review_added">نظر شما ثبت شد.</string>
+    <string name="it_is_problem">مشکلی پیش آمده.</string>
 
 </resources>

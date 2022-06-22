@@ -1,12 +1,14 @@
 package com.example.store.ui.product.detail
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -23,6 +25,8 @@ import com.example.store.data.Result
 import com.example.store.data.model.order.body.LineItem
 import com.example.store.data.model.order.body.Order
 import com.example.store.data.model.product.ProductItem
+import com.example.store.data.model.reviews.body.ReviewBody
+import com.example.store.databinding.AddNewCommentDialogBinding
 import com.example.store.databinding.FragmentDetailProductBinding
 import com.example.store.databinding.SnackBarLoginCardViewBinding
 import com.example.store.ui.product.detail.review.ReviewAdaptor
@@ -70,24 +74,101 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
         cart()
 
         reviews()
+        addNewReview()
+
+    }
+
+    private fun addNewReview() {
+
+        val bindingDialog = AddNewCommentDialogBinding.inflate(layoutInflater)
+
+        val newReviewDialogFragment =
+            Dialog(requireContext(), androidx.transition.R.style.Base_ThemeOverlay_AppCompat)
+        newReviewDialogFragment.setContentView(bindingDialog.root)
+        newReviewDialogFragment.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
+
+        binding.addReviewCardView.setOnClickListener {
+            newReviewDialogFragment.show()
+        }
+
+        bindingDialog.dismissBtn.setOnClickListener {
+            newReviewDialogFragment.dismiss()
+        }
+
+        bindingDialog.submitBtn.setOnClickListener {
+            val reviewer = bindingDialog.nameReviewerEd.text.toString()
+            val review = bindingDialog.reviewEd.text.toString()
+            val rating = when {
+                bindingDialog.rating1Rb.isChecked -> 1
+                bindingDialog.rating2Rb.isChecked -> 2
+                bindingDialog.rating3Rb.isChecked -> 3
+                bindingDialog.rating4Rb.isChecked -> 4
+                bindingDialog.rating5Rb.isChecked -> 5
+                else -> 5
+            }
+
+            val reviewBody = ReviewBody(
+                item.id,
+                rating,
+                review,
+                reviewer,
+                "amiranse0@gmail.com"
+            )
+
+            Log.d("REVIEW", reviewBody.toString())
+
+            //viewModel.createReview(reviewBody)
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.createReview(reviewBody).collect {
+                        when (it) {
+                            is Result.Success -> {
+                                Toast.makeText(
+                                    requireContext(),
+                                    getString(R.string.review_added),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                            is Result.Error -> {
+                                Toast.makeText(
+                                    requireContext(),
+                                    getString(R.string.it_is_problem),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    }
+                }
+            }
+
+            newReviewDialogFragment.dismiss()
+        }
 
     }
 
     private fun reviews() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.getReviews(item.id.toString()).collect{
-                    when(it){
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.getReviews(item.id.toString()).collect {
+                    when (it) {
                         is Result.Success -> {
                             reviewAdaptor.setData(it.data)
 
-                            activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility = View.VISIBLE
-                            activity?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility = View.INVISIBLE
+                            activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility =
+                                View.VISIBLE
+                            activity?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility =
+                                View.INVISIBLE
                         }
 
                         is Result.Loading -> {
-                            activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility = View.INVISIBLE
-                            activity?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility = View.VISIBLE
+                            activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility =
+                                View.INVISIBLE
+                            activity?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility =
+                                View.VISIBLE
                         }
 
                     }
@@ -95,7 +176,8 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
             }
         }
 
-        binding.reviewRc.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.reviewRc.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.reviewRc.adapter = reviewAdaptor
     }
 
@@ -130,7 +212,7 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
                     createCart()
                 } else if (!setOfProductInCart.contains(args.item.id.toString())) {
                     addNewItemToCart()
-                } else if (setOfProductInCart.contains(args.item.id.toString())){
+                } else if (setOfProductInCart.contains(args.item.id.toString())) {
                     findNavController().navigate(R.id.action_detailProductFragment_to_cartFragment)
                 }
             }
