@@ -43,5 +43,6 @@
     <string name="empty_cart">سبد خرید شما خالی است.</string>
     <string name="new_product_avail">محصول جدید رسید.</string>
     <string name="click">کلیک کن!</string>
+    <string name="reviews">دیدگاه کاربران</string>
 
 </resources>

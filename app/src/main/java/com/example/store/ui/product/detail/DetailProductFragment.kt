@@ -65,6 +65,8 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
         detailProduct()
         cart()
 
+
+
     }
 
     private fun initValues() {

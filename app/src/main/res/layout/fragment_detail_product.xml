@@ -92,6 +92,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title_product" />
 
+            <TextView
+                android:id="@+id/review_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/reviews"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_margin="10dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/description_product" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
