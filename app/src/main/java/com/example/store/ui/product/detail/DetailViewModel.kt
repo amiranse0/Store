@@ -7,6 +7,7 @@ import com.example.store.data.Result
 import com.example.store.data.model.order.body.Order
 import com.example.store.data.model.order.result.OrderResult
 import com.example.store.data.model.product.ProductItem
+import com.example.store.data.model.reviews.body.ReviewBody
 import com.example.store.data.model.reviews.result.ReviewItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -54,6 +55,14 @@ class DetailViewModel @Inject constructor(private val repository: Repository) : 
             repository.getReviews(productID).collect{
                 reviewItemStateFlow.emit(it)
             }
+        }
+        return reviewItemStateFlow
+    }
+
+    fun createReview(reviewBody: ReviewBody): MutableStateFlow<Result<ReviewItem>> {
+        val reviewItemStateFlow = MutableStateFlow<Result<ReviewItem>>(Result.Loading)
+        viewModelScope.launch {
+            repository.setReview(reviewBody)
         }
         return reviewItemStateFlow
     }

@@ -197,7 +197,7 @@ class RemoteDataSource(
             "consumer_key" to Keys.consumerKey,
             "consumer_secret" to Keys.consumerSecret
         )
-        query["product_id"] = productID
+        query["product"] = productID
 
         return service.getReviews(query)
     }

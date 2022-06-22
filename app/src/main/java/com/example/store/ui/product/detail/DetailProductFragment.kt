@@ -17,6 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.store.R
 import com.example.store.data.Result
 import com.example.store.data.model.order.body.LineItem
@@ -24,6 +25,7 @@ import com.example.store.data.model.order.body.Order
 import com.example.store.data.model.product.ProductItem
 import com.example.store.databinding.FragmentDetailProductBinding
 import com.example.store.databinding.SnackBarLoginCardViewBinding
+import com.example.store.ui.product.detail.review.ReviewAdaptor
 import com.example.store.ui.product.home.slider.SpecialAdaptor
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.SnackbarLayout
@@ -52,6 +54,8 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
     private var orderSharedPreferences: SharedPreferences? = null
     private var editor: SharedPreferences.Editor? = null
 
+    private lateinit var reviewAdaptor: ReviewAdaptor
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -65,8 +69,34 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
         detailProduct()
         cart()
 
+        reviews()
 
+    }
 
+    private fun reviews() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.getReviews(item.id.toString()).collect{
+                    when(it){
+                        is Result.Success -> {
+                            reviewAdaptor.setData(it.data)
+
+                            activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility = View.VISIBLE
+                            activity?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility = View.INVISIBLE
+                        }
+
+                        is Result.Loading -> {
+                            activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility = View.INVISIBLE
+                            activity?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility = View.VISIBLE
+                        }
+
+                    }
+                }
+            }
+        }
+
+        binding.reviewRc.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.reviewRc.adapter = reviewAdaptor
     }
 
     private fun initValues() {
@@ -80,6 +110,8 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
             activity?.getSharedPreferences("orderSharePref", Context.MODE_PRIVATE)
         editor = orderSharedPreferences?.edit()
         orderId = orderSharedPreferences?.getString("id", "") ?: ""
+
+        reviewAdaptor = ReviewAdaptor()
 
     }
 
@@ -148,13 +180,6 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
                             binding.addToCartBtn.text = getString(R.string.see_cart)
                         }
 
-                        activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility = View.VISIBLE
-                        activity?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility = View.INVISIBLE
-
-                    }
-                    is Result.Loading -> {
-                        activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility = View.INVISIBLE
-                        activity?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility = View.VISIBLE
                     }
                 }
             }
