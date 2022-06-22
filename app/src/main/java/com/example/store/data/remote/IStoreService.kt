@@ -6,6 +6,8 @@ import com.example.store.data.model.customer.result.CustomerResult
 import com.example.store.data.model.order.body.Order
 import com.example.store.data.model.order.result.OrderResult
 import com.example.store.data.model.product.ProductItem
+import com.example.store.data.model.reviews.body.ReviewBody
+import com.example.store.data.model.reviews.result.ReviewItem
 import retrofit2.http.*
 
 interface IStoreService {
@@ -68,4 +70,15 @@ interface IStoreService {
         @Path("id") id: String,
         @QueryMap hashMap: HashMap<String, String>
     ): OrderResult
+
+    @GET("products/reviews")
+    suspend fun getReviews(
+        @QueryMap hashMap: HashMap<String, String>
+    ): List<ReviewItem>
+
+    @POST("products/reviews")
+    suspend fun setReviews(
+        @QueryMap hashMap: HashMap<String, String>,
+        @Body body: ReviewBody
+    ): ReviewItem
 }

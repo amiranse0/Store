@@ -6,6 +6,8 @@ import com.example.store.data.model.customer.result.CustomerResult
 import com.example.store.data.model.order.body.Order
 import com.example.store.data.model.order.result.OrderResult
 import com.example.store.data.model.product.ProductItem
+import com.example.store.data.model.reviews.body.ReviewBody
+import com.example.store.data.model.reviews.result.ReviewItem
 import com.example.store.data.remote.DataSource
 import com.example.store.di.AppModule
 import kotlinx.coroutines.flow.flow
@@ -166,6 +168,24 @@ class Repository @Inject constructor(@AppModule.RemoteProductDataSource private 
             val result = remoteDataSource.getOrder(id)
             emit(Result.Success(result))
         } catch (e: Exception) {
+            emit(Result.Error(e))
+        }
+    }
+
+    suspend fun getReviews(productID: String): Flow<Result<List<ReviewItem>>> = flow {
+        try {
+            val result = remoteDataSource.getReviews(productID)
+            emit(Result.Success(result))
+        } catch (e:Exception){
+            emit(Result.Error(e))
+        }
+    }
+
+    suspend fun setReview(reviewBody: ReviewBody): Flow<Result<ReviewItem>> = flow {
+        try {
+            val result = remoteDataSource.createReview(reviewBody)
+            emit(Result.Success(result))
+        } catch (e:Exception){
             emit(Result.Error(e))
         }
     }

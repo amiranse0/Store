@@ -124,13 +124,13 @@ class HomeFragment : Fragment(R.layout.home_product) {
 
             val constraints = Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
-                //.setRequiresBatteryNotLow(true)
+                .setRequiresBatteryNotLow(true)
                 .build()
 
             val myRequest = PeriodicWorkRequest.Builder(
                 NotificationWorker::class.java,
-                15,
-                TimeUnit.MINUTES
+                timePeriod,
+                TimeUnit.HOURS
             ).setConstraints(constraints)
                 .build()
 

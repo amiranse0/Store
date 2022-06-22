@@ -7,6 +7,8 @@ import com.example.store.data.model.customer.result.CustomerResult
 import com.example.store.data.model.order.body.Order
 import com.example.store.data.model.order.result.OrderResult
 import com.example.store.data.model.product.ProductItem
+import com.example.store.data.model.reviews.body.ReviewBody
+import com.example.store.data.model.reviews.result.ReviewItem
 
 class RemoteDataSource(
     private val service: IStoreService
@@ -180,6 +182,24 @@ class RemoteDataSource(
             "consumer_secret" to Keys.consumerSecret
         )
         return service.getOrder(id, query)
+    }
+
+    override suspend fun createReview(reviewBody: ReviewBody): ReviewItem {
+        val query = hashMapOf(
+            "consumer_key" to Keys.consumerKey,
+            "consumer_secret" to Keys.consumerSecret
+        )
+        return service.setReviews(query, reviewBody)
+    }
+
+    override suspend fun getReviews(productID: String): List<ReviewItem> {
+        val query = hashMapOf(
+            "consumer_key" to Keys.consumerKey,
+            "consumer_secret" to Keys.consumerSecret
+        )
+        query["product_id"] = productID
+
+        return service.getReviews(query)
     }
 
 }

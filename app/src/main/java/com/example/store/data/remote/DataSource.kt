@@ -6,6 +6,8 @@ import com.example.store.data.model.customer.result.CustomerResult
 import com.example.store.data.model.order.body.Order
 import com.example.store.data.model.order.result.OrderResult
 import com.example.store.data.model.product.ProductItem
+import com.example.store.data.model.reviews.body.ReviewBody
+import com.example.store.data.model.reviews.result.ReviewItem
 
 interface DataSource {
     suspend fun getLatestProducts(page: Int, perPage: Int): List<ProductItem>
@@ -13,7 +15,7 @@ interface DataSource {
     suspend fun getBestProducts(page: Int, perPage: Int): List<ProductItem>
     suspend fun getNewAddedProduct(): ProductItem
 
-    suspend fun getProduct(id:String): ProductItem
+    suspend fun getProduct(id: String): ProductItem
 
     suspend fun getCategories(): List<CategoryItem>
     suspend fun getSomeCategory(page: Int, category: String): List<ProductItem>
@@ -38,4 +40,7 @@ interface DataSource {
     suspend fun updateOrder(order: Order, id: String): OrderResult
     suspend fun deleteOrder(id: String)
     suspend fun getOrder(id: String): OrderResult
+
+    suspend fun createReview(reviewBody: ReviewBody): ReviewItem
+    suspend fun getReviews(productID: String): List<ReviewItem>
 }
