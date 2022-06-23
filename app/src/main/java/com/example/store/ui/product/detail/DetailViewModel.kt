@@ -62,7 +62,9 @@ class DetailViewModel @Inject constructor(private val repository: Repository) : 
     fun createReview(reviewBody: ReviewBody): MutableStateFlow<Result<ReviewItem>> {
         val reviewItemStateFlow = MutableStateFlow<Result<ReviewItem>>(Result.Loading)
         viewModelScope.launch {
-            repository.setReview(reviewBody)
+            repository.setReview(reviewBody).collect{
+                reviewItemStateFlow.emit(it)
+            }
         }
         return reviewItemStateFlow
     }
