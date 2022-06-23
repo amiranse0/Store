@@ -1,6 +1,7 @@
 package com.example.store.data.remote
 
 import com.example.store.data.model.category.CategoryItem
+import com.example.store.data.model.coupons.CouponItem
 import com.example.store.data.model.customer.body.Customer
 import com.example.store.data.model.customer.result.CustomerResult
 import com.example.store.data.model.order.body.Order
@@ -43,4 +44,6 @@ interface DataSource {
 
     suspend fun createReview(reviewBody: ReviewBody): ReviewItem
     suspend fun getReviews(productID: String): List<ReviewItem>
+
+    suspend fun getCoupons(code:String): List<CouponItem>
 }

@@ -1,6 +1,7 @@
 package com.example.store.data
 
 import com.example.store.data.model.category.CategoryItem
+import com.example.store.data.model.coupons.CouponItem
 import com.example.store.data.model.customer.body.Customer
 import com.example.store.data.model.customer.result.CustomerResult
 import com.example.store.data.model.order.body.Order
@@ -197,6 +198,15 @@ class Repository @Inject constructor(@AppModule.RemoteProductDataSource private 
             val result = remoteDataSource.createReview(reviewBody)
             emit(Result.Success(result))
         } catch (e:Exception){
+            emit(Result.Error(e))
+        }
+    }
+
+    suspend fun getCoupons(code:String): Flow<Result<CouponItem>> = flow {
+        try {
+            val result = remoteDataSource.getCoupons(code).first()
+            emit(Result.Success(result))
+        }catch (e:Exception){
             emit(Result.Error(e))
         }
     }

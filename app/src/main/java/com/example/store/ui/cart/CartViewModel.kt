@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.store.data.Repository
 import com.example.store.data.Result
+import com.example.store.data.model.coupons.CouponItem
+import com.example.store.data.model.order.body.Coupon
 import com.example.store.data.model.order.body.Order
 import com.example.store.data.model.order.result.OrderResult
 import com.example.store.data.model.product.ProductItem
@@ -84,5 +86,20 @@ class CartViewModel @Inject constructor(private val repository: Repository) : Vi
             cartItemStateFlow.emit(cartItems)
         }
         return cartItemStateFlow
+    }
+
+    fun getCoupons(code:String): MutableStateFlow<Result<CouponItem>>{
+        val couponStateFlow: MutableStateFlow<Result<CouponItem>> = MutableStateFlow(Result.Loading)
+
+        viewModelScope.launch {
+            repository.getCoupons(code).collect{
+                couponStateFlow.emit(it)
+            }
+        }
+        return couponStateFlow
+    }
+
+    fun changeTotalPrice(newPrice: Double){
+        totalPriceLiveData.postValue(newPrice.toInt())
     }
 }

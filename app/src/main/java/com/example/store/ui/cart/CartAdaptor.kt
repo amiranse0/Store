@@ -10,13 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.store.R
 import com.example.store.databinding.CartCardViewBinding
-import com.example.store.ui.product.ProductAdapter
 
 
 class CartAdaptor: RecyclerView.Adapter<CartAdaptor.MyViewHolder>() {
 
     var oldList: List<CartItem> = emptyList()
-    //private lateinit var clickOnItem: ProductAdapter.ClickOnItem
+    private lateinit var clickOnIncrease: ClickOnIncrease
+    private lateinit var clickOnDecrease: ClickOnDecrease
 
     inner class MyViewHolder(private val binding: CartCardViewBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener{
@@ -27,7 +27,12 @@ class CartAdaptor: RecyclerView.Adapter<CartAdaptor.MyViewHolder>() {
         }
 
         override fun onClick(p0: View?) {
-            Log.d("CART", "Clicked")
+            binding.increaseBtnCart.setOnClickListener {
+                clickOnIncrease.clickOnIncrease(adapterPosition, p0)
+            }
+            binding.decreaseBtnCart.setOnClickListener {
+                clickOnDecrease.clickOnDecrease(adapterPosition, p0)
+            }
         }
 
         fun bind(position: Int){
@@ -66,5 +71,21 @@ class CartAdaptor: RecyclerView.Adapter<CartAdaptor.MyViewHolder>() {
         val diffResults = DiffUtil.calculateDiff(diffUtil)
         oldList = newList
         diffResults.dispatchUpdatesTo(this)
+    }
+
+    interface ClickOnIncrease {
+        fun clickOnIncrease(position: Int, view: View?)
+    }
+
+    fun setToClickOnItemIncrease(clickOnIncrease: ClickOnIncrease) {
+        this.clickOnIncrease = clickOnIncrease
+    }
+
+    interface ClickOnDecrease {
+        fun clickOnDecrease(position: Int, view: View?)
+    }
+
+    fun setToClickOnItemDecrease(clickOnIncrease: ClickOnDecrease) {
+        this.clickOnDecrease = clickOnIncrease
     }
 }

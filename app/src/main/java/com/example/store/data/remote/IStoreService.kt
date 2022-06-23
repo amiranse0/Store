@@ -1,6 +1,7 @@
 package com.example.store.data.remote
 
 import com.example.store.data.model.category.CategoryItem
+import com.example.store.data.model.coupons.CouponItem
 import com.example.store.data.model.customer.body.Customer
 import com.example.store.data.model.customer.result.CustomerResult
 import com.example.store.data.model.order.body.Order
@@ -81,4 +82,9 @@ interface IStoreService {
         @QueryMap hashMap: HashMap<String, String>,
         @Body body: ReviewBody
     ): ReviewItem
+
+    @GET("coupons")
+    suspend fun getCoupon(
+        @QueryMap hashMap: HashMap<String, String>
+    ): List<CouponItem>
 }

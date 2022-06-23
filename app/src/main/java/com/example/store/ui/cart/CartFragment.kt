@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.viewModels
@@ -16,6 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.store.R
+import com.example.store.data.Result
 import com.example.store.data.model.order.body.LineItem
 import com.example.store.databinding.FinalOrderDialogBinding
 import com.example.store.databinding.FragmentCartBinding
@@ -40,6 +42,8 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
 
     private lateinit var binding: FragmentCartBinding
 
+    private var usedCode = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -56,7 +60,17 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     }
 
     private fun updateCart() {
+        cartAdaptor.setToClickOnItemDecrease(object : CartAdaptor.ClickOnDecrease{
+            override fun clickOnDecrease(position: Int, view: View?) {
+                Toast.makeText(requireContext(), "decrease",Toast.LENGTH_SHORT).show()
+            }
+        })
 
+        cartAdaptor.setToClickOnItemIncrease(object : CartAdaptor.ClickOnIncrease{
+            override fun clickOnIncrease(position: Int, view: View?) {
+                Toast.makeText(requireContext(), "Increase",Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun setTotalPrice() {
@@ -115,6 +129,38 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
             }
 
             binding.emptyCartLayout.visibility = View.VISIBLE
+        }
+
+        bindingDialog.submitCoupon.setOnClickListener {
+            if (usedCode){
+
+                Toast.makeText(requireContext(),getString(R.string.used_code), Toast.LENGTH_SHORT).show()
+
+            } else {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
+                        viewModel.getCoupons(bindingDialog.couponEd.text.toString()).collect{
+                            when(it){
+                                is Result.Success -> {
+                                    val minimum: Int = it.data.minimumAmount.toDouble().toInt()
+                                    val percent = it.data.amount
+                                    val totalPrice: Int = viewModel.totalPriceLiveData.value?:0
+                                    if (totalPrice > minimum){
+                                        val newPrice: Double = totalPrice * (100.0 - percent.toDouble()) * 0.01
+                                        viewModel.changeTotalPrice(newPrice)
+                                        bindingDialog.totalPriceTv.text = newPrice.toInt().toString()
+                                    }
+                                    usedCode = true
+
+                                    if (it.data == null){
+                                        Toast.makeText(requireContext(), getString(R.string.incorrect_code), Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
     }

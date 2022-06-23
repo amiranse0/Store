@@ -2,6 +2,7 @@ package com.example.store.data.remote
 
 import com.example.store.data.Keys
 import com.example.store.data.model.category.CategoryItem
+import com.example.store.data.model.coupons.CouponItem
 import com.example.store.data.model.customer.body.Customer
 import com.example.store.data.model.customer.result.CustomerResult
 import com.example.store.data.model.order.body.Order
@@ -200,6 +201,16 @@ class RemoteDataSource(
         query["product"] = productID
 
         return service.getReviews(query)
+    }
+
+    override suspend fun getCoupons(code: String): List<CouponItem> {
+        val query = hashMapOf(
+            "consumer_key" to Keys.consumerKey,
+            "consumer_secret" to Keys.consumerSecret
+        )
+        query["search"] = code
+
+        return service.getCoupon(query)
     }
 
 }
