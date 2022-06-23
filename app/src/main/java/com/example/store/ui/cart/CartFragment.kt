@@ -1,11 +1,12 @@
 package com.example.store.ui.cart
 
-import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
@@ -13,12 +14,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.store.R
-import com.example.store.data.Result
 import com.example.store.data.model.order.body.LineItem
+import com.example.store.databinding.FinalOrderDialogBinding
 import com.example.store.databinding.FragmentCartBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -45,58 +46,101 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         binding = FragmentCartBinding.bind(view)
 
         initValues()
-        getOrder()
         getProducts()
+
+        finalOrder()
+
+        setTotalPrice()
+
+        updateCart()
+    }
+
+    private fun updateCart() {
+
+    }
+
+    private fun setTotalPrice() {
+        viewModel.totalPriceLiveData.observe(viewLifecycleOwner){
+            binding.totalPriceTv.text = getString(R.string.price_format, it.toString())
+
+            if (orderSharedPreferences?.getString("id", "0") != "0"){
+                if (it == 0){
+                    activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility =
+                        View.INVISIBLE
+                    activity?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility =
+                        View.VISIBLE
+                } else {
+                    activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility =
+                        View.VISIBLE
+                    activity?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility =
+                        View.INVISIBLE
+                }
+            } else if(orderSharedPreferences?.getString("id", "0") == "0"){
+                binding.emptyCartLayout.visibility = View.VISIBLE
+                binding.finalLayout.visibility = View.GONE
+                binding.emptyCardView.visibility = View.GONE
+            }
+
+        }
+    }
+
+    private fun finalOrder() {
+
+        val bindingDialog = FinalOrderDialogBinding.inflate(layoutInflater)
+
+        val finalOrderDialogFragment =
+            Dialog(requireContext(), androidx.transition.R.style.Base_ThemeOverlay_AppCompat)
+        finalOrderDialogFragment.setContentView(bindingDialog.root)
+        finalOrderDialogFragment.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
+
+        viewModel.totalPriceLiveData.observe(viewLifecycleOwner){
+            bindingDialog.totalPriceTv.text = getString(R.string.price_format, it.toString())
+        }
+
+        binding.finalLayout.setOnClickListener {
+            finalOrderDialogFragment.show()
+        }
+
+        bindingDialog.dismissBtn.setOnClickListener {
+            finalOrderDialogFragment.dismiss()
+        }
+
+        bindingDialog.submitBtn.setOnClickListener {
+            editor?.apply {
+                putString("id", "0")
+                apply()
+            }
+
+            binding.emptyCartLayout.visibility = View.VISIBLE
+        }
+
     }
 
     private fun getProducts() {
-        Log.d("ORDER", items.size.toString())
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                Log.d("ORDER", "lineItems2 ${lineItems.size}")
-                for (item in lineItems) {
-                    viewModel.getProduct(item.productId.toString()).collect {
+                viewModel.getAllProductInCart(orderId).collect {
+                    cartAdaptor.setData(it)
+                    Log.d("ORDER", it.toString())
 
-                        when (it) {
-                            is Result.Success -> {
-                                val newItem = CartItem(
-                                    id = item.id,
-                                    quantity = item.quantity,
-                                    productItem = it.data
-                                )
-                                items.add(
-                                    newItem
-                                )
-                                if (items.isEmpty()) {
-                                    binding.emptyCartLayout.visibility = View.VISIBLE
-                                }
-                                cartAdaptor.oldList = items
-                                cartAdaptor.notifyDataSetChanged()
-
-                                Log.d("ORDER", items.toString())
-                                Log.d("ORDER", "1. ${it.data}")
-
-                                activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility =
-                                    View.VISIBLE
-                                activity?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility =
-                                    View.INVISIBLE
-
-                            }
-                            is Result.Loading -> {
-                                activity?.findViewById<FragmentContainerView>(R.id.fragment)?.visibility =
-                                    View.INVISIBLE
-                                activity?.findViewById<ProgressBar>(R.id.progress_bar)?.visibility =
-                                    View.VISIBLE
-                            }
-                            is Result.Error -> {
-                                Log.d("ORDER", "fault")
-                            }
-                        }
+                    if (it.isNotEmpty()) {
+                        binding.emptyCartLayout.visibility = View.GONE
+                        binding.finalLayout.visibility = View.VISIBLE
+                        binding.emptyCardView.visibility = View.VISIBLE
+                    } else{
+                        binding.emptyCartLayout.visibility = View.VISIBLE
+                        binding.finalLayout.visibility = View.GONE
+                        binding.emptyCardView.visibility = View.GONE
                     }
                 }
             }
         }
+
+        binding.cartRc.layoutManager = LinearLayoutManager(requireContext())
+        binding.cartRc.adapter = cartAdaptor
     }
 
 
@@ -107,24 +151,6 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         orderId = orderSharedPreferences?.getString("id", "") ?: ""
 
         cartAdaptor = CartAdaptor()
-        binding.cartRc.adapter = cartAdaptor
-
     }
 
-    private fun getOrder() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getOrder(orderId).collect {
-                    when (it) {
-                        is Result.Success -> {
-                            lineItems.clear()
-                            lineItems.addAll(it.data.line_items as MutableList<LineItem>)
-                            Log.d("ORDER", "lineItems ${lineItems.size}")
-                        }
-                    }
-                }
-            }
-
-        }
-    }
 }

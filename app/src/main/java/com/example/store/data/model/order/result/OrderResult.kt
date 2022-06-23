@@ -1,8 +1,8 @@
 package com.example.store.data.model.order.result
 
+import com.google.gson.annotations.SerializedName as SN
+
 data class OrderResult(
-    val cart_hash: String,
-    val cart_tax: String,
     val coupon_lines: List<Any>,
     val currency: String,
     val currency_symbol: String,
@@ -14,7 +14,8 @@ data class OrderResult(
     val discount_total: String,
     val fee_lines: List<Any>,
     val id: Int,
-    val line_items: List<ResultLineItem>,
+    @SN("line_items")
+    val lineItems: List<ResultLineItem>,
     val meta_data: List<Any>,
     val number: String,
     val order_key: String,

@@ -120,8 +120,6 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
 
             Log.d("REVIEW", reviewBody.toString())
 
-            //viewModel.createReview(reviewBody)
-
             viewLifecycleOwner.lifecycleScope.launch {
                 viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                     viewModel.createReview(reviewBody).collect {
@@ -191,7 +189,7 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
         orderSharedPreferences =
             activity?.getSharedPreferences("orderSharePref", Context.MODE_PRIVATE)
         editor = orderSharedPreferences?.edit()
-        orderId = orderSharedPreferences?.getString("id", "") ?: ""
+        orderId = orderSharedPreferences?.getString("id", "0") ?: "0"
 
         reviewAdaptor = ReviewAdaptor()
 
@@ -208,7 +206,7 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
             if (userId == "") {
                 snackBarForGoToAccount(it)
             } else {
-                if (orderId == "") {
+                if (orderId == "0") {
                     createCart()
                 } else if (!setOfProductInCart.contains(args.item.id.toString())) {
                     addNewItemToCart()
@@ -246,7 +244,7 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
                 when (it) {
                     is Result.Success -> {
 
-                        orderItems = it.data.line_items.map { it1 ->
+                        orderItems = it.data.lineItems.map { it1 ->
                             LineItem(
                                 id = it1.id,
                                 productId = it1.productId,
@@ -254,7 +252,7 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
                             )
                         } as MutableList<LineItem>
 
-                        setOfProductInCart = it.data.line_items.map { it2 ->
+                        setOfProductInCart = it.data.lineItems.map { it2 ->
                             it2.productId.toString()
                         } as MutableList<String>
 
@@ -290,6 +288,10 @@ class DetailProductFragment : Fragment(R.layout.fragment_detail_product) {
                     when (it) {
                         is Result.Success -> {
                             binding.addToCartBtn.text = getString(R.string.see_cart)
+
+                            setOfProductInCart = it.data.lineItems.map { it2 ->
+                                it2.productId.toString()
+                            } as MutableList<String>
 
                             Toast.makeText(
                                 requireContext(),

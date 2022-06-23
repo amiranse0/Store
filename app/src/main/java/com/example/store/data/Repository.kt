@@ -10,6 +10,7 @@ import com.example.store.data.model.reviews.body.ReviewBody
 import com.example.store.data.model.reviews.result.ReviewItem
 import com.example.store.data.remote.DataSource
 import com.example.store.di.AppModule
+import com.example.store.ui.cart.CartItem
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -169,6 +170,16 @@ class Repository @Inject constructor(@AppModule.RemoteProductDataSource private 
             emit(Result.Success(result))
         } catch (e: Exception) {
             emit(Result.Error(e))
+        }
+    }
+
+    suspend fun getItemsInCart(id:String): List<Pair<Int, Int>>{
+        return try {
+            remoteDataSource.getOrder(id).lineItems.map {
+                Pair(it.productId, it.quantity)
+            }
+        } catch (e:Exception){
+            listOf()
         }
     }
 

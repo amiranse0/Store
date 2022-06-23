@@ -50,5 +50,9 @@
     <string name="rating">نمره</string>
     <string name="review_added">نظر شما ثبت شد.</string>
     <string name="it_is_problem">مشکلی پیش آمده.</string>
+    <string name="final_order">نهایی کردن سفارش</string>
+    <string name="enter_coupon">کد تخفیف خود را وارد کنید.</string>
+    <string name="submit_coupon">اعمال کد تخفیف</string>
+    <string name="pay">پرداخت</string>
 
 </resources>

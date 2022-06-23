@@ -10,18 +10,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.store.R
 import com.example.store.databinding.CartCardViewBinding
+import com.example.store.ui.product.ProductAdapter
 
 
 class CartAdaptor: RecyclerView.Adapter<CartAdaptor.MyViewHolder>() {
 
     var oldList: List<CartItem> = emptyList()
+    //private lateinit var clickOnItem: ProductAdapter.ClickOnItem
 
     inner class MyViewHolder(private val binding: CartCardViewBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener{
 
         init {
-            binding.increaseDecreaseLayoutIncluded.decreaseBtnCart.setOnClickListener(this)
-            binding.increaseDecreaseLayoutIncluded.increaseBtnCart.setOnClickListener(this)
+            binding.decreaseBtnCart.setOnClickListener(this)
+            binding.increaseBtnCart.setOnClickListener(this)
         }
 
         override fun onClick(p0: View?) {
@@ -29,9 +31,11 @@ class CartAdaptor: RecyclerView.Adapter<CartAdaptor.MyViewHolder>() {
         }
 
         fun bind(position: Int){
-            binding.increaseDecreaseLayoutIncluded.number = oldList[position].quantity
-            val price = oldList[position].productItem.price.toInt() * oldList[position].quantity
-            binding.priceCartView.text = "$price"
+            binding.number = oldList[position].quantity
+
+            val price:Int = oldList[position].productItem.price.toInt() * oldList[position].quantity
+            Log.d("PRICE", price.toString())
+            binding.price = price
             binding.titleCartView.text = oldList[position].productItem.name
 
             if (oldList[position].productItem.images.isNotEmpty()){
